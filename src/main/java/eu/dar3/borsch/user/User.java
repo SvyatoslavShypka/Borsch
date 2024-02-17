@@ -42,7 +42,7 @@ public class User {
     private List<Recipe> notes;
     @ManyToOne
     @JoinColumn(name = "family_id")
-    private Friend friend;
+    private FriendGroup friendGroup;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Roles role;
