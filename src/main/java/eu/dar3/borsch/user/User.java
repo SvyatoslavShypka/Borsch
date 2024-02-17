@@ -40,9 +40,9 @@ public class User {
     @UpdateTimestamp
     private Instant updatedDate;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipeOwner")
-    private List<Recipe> notes;
+    private List<Recipe> recipes;
     @ManyToOne
-    @JoinColumn(name = "family_id")
+    @JoinColumn(name = "friendgroup_id")
     private FriendGroup friendGroup;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)

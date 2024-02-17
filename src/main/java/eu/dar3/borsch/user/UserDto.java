@@ -29,5 +29,5 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private FriendGroupDto friendGroupDto;
     private UserRoles role;
-    private boolean fullWidth;
+    private boolean isWidePage;
 }

@@ -25,7 +25,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
         target.setFriendGroupDto(friendGroupMapper.mapEntityToDto(source.getFriendGroup()));
-        target.setFullWidth(source.isWidePage());
+        target.setWidePage(source.isWidePage());
         return target;
     }
 
@@ -43,7 +43,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
         target.setFriendGroup(friendGroupMapper.mapDtoToEntity(source.getFriendGroupDto()));
-        target.setWidePage(source.isFullWidth());
+        target.setWidePage(source.isWidePage());
         return target;
     }
 
