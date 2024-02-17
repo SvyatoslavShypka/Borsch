@@ -9,5 +9,4 @@ public class BorschApplication {
     public static void main(String[] args) {
         SpringApplication.run(BorschApplication.class, args);
     }
-
 }
