@@ -1,5 +1,6 @@
 package eu.dar3.borsch.user;
 
+import eu.dar3.borsch.friendgroup.FriendGroup;
 import eu.dar3.borsch.recipe.Recipe;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -45,7 +46,7 @@ public class User {
     private FriendGroup friendGroup;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Roles role;
+    private UserRoles role;
     @Column(name = "wide_page")
     private boolean isWidePage;
 

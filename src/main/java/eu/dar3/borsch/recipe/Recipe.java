@@ -1,6 +1,7 @@
 package eu.dar3.borsch.recipe;
 
 import eu.dar3.borsch.tag.Tag;
+import eu.dar3.borsch.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
