@@ -3,11 +3,19 @@ package eu.dar3.borsch.user;
 import eu.dar3.borsch.friendgroup.FriendGroupDto;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.Instant;
 import java.util.UUID;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     private UUID id;
     private String email;
@@ -19,7 +27,7 @@ public class UserDto {
     private Instant updatedDate;
     private Instant createdDate;
     @Enumerated(EnumType.STRING)
-    private FriendGroupDto family;
+    private FriendGroupDto friendGroupDto;
     private UserRoles role;
     private boolean fullWidth;
 }
