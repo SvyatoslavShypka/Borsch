@@ -1,5 +1,6 @@
 package eu.dar3.borsch.user;
 
+import eu.dar3.borsch.friendgroup.FriendGroupDto;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
@@ -18,7 +19,7 @@ public class UserDto {
     private Instant updatedDate;
     private Instant createdDate;
     @Enumerated(EnumType.STRING)
-    private FamilyResponseDto family;
+    private FriendGroupDto family;
     private UserRoles role;
     private boolean fullWidth;
 }
