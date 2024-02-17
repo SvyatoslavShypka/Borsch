@@ -1,5 +1,6 @@
 package eu.dar3.borsch.recipe;
 
+import eu.dar3.borsch.tag.Tag;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -12,7 +13,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToMany;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

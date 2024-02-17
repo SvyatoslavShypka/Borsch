@@ -1,8 +1,21 @@
 package eu.dar3.borsch.tag;
 
 import eu.dar3.borsch.recipe.Recipe;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -40,6 +53,7 @@ public class Tag {
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
     @ManyToMany
+    @ToString.Exclude
     private List<Recipe> recipeLists;
 
     @Override
