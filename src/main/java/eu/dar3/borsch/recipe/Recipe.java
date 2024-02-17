@@ -36,13 +36,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "recipe", schema = "recipes")
 public class Recipe {
+
+    private static final int RECIPE_TITLE_LENGTH = 80;
+    private static final int RECIPE_NOTE_LENGTH = 8000;
+
     @Id
     @Column(name = "recipe_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "title", length = 80, nullable = false)
+    @Column(name = "title", length = RECIPE_TITLE_LENGTH, nullable = false)
     private String title;
-    @Column(name = "note", length = 8000, nullable = false)
+    @Column(name = "note", length = RECIPE_NOTE_LENGTH, nullable = false)
     private String note;
     @ManyToOne
     @JoinColumn(name = "note_owner", nullable = false)
