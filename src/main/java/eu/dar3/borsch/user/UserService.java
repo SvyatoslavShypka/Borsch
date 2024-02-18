@@ -68,7 +68,7 @@ public class UserService {
         updateUser(userDto);
     }
 
-    public void deleteUserFamily(UUID userId) {
+    public void deleteUserFriendGroup(UUID userId) {
         User userById = findUserById(userId);
         userById.setFriendGroup(null);
         userRepository.save(userById);
