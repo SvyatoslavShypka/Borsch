@@ -19,5 +19,4 @@ public interface RecipeRepository extends PagingAndSortingRepository<Recipe, UUI
             "OR UPPER(t.title) like UPPER(CONCAT('%',:searchText,'%'))) ORDER BY n.title")
     Page<Recipe> findRecipeList(@Param("recipeOwner") User recipeOwner, @Param("friendgroup") FriendGroup friendGroup,
                                 @Param("searchText") String searchText, Pageable pageable);
-
 }
