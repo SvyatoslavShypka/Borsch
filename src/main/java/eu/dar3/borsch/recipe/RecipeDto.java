@@ -22,5 +22,4 @@ public class RecipeDto {
     private Instant createdDate;
     private Instant updatedDate;
     private List<Tag> tagList;
-
 }
