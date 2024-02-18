@@ -6,6 +6,7 @@
 <head>
     <title>Recipe view</title>
 </head>
+<body>
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">
         <div class="row ml-auto mr-auto">
@@ -65,20 +66,20 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="margin-left: auto; margin-right: auto;">
-                                        <img th:src="'/qr/note?id='+${note.id}" alt="Italian Trulli">
+                                        <img th:src="'/qr/recipe?id='+${recipe.id}" alt="Italian Trulli">
                                         <input type="text" style="visibility: hidden; border:none;" id="copyMessage"
                                                name="CopyMessage" class="form-control"
-                                               value="Посилання на рецепт скопійоване">
+                                               value="Link was copied">
                                         <div class="input-group mb-3">
-                                            <input type="text" readonly id="directNoteLink" name="directNoteLink"
-                                                   class="form-control" title="Посилання на рецепт"
+                                            <input type="text" readonly id="directRecipeLink" name="directRecipeLink"
+                                                   class="form-control" title="Recipe link"
                                                    th:value="${sharedLink}">
                                             <div class="input-group-append">
                                                 <div id="copyToClipboardTooltip" data-bs-toggle="tooltip"
                                                      class="input-group-text"
                                                      style="cursor: pointer;"
                                                      onclick="copyLink()"
-                                                     title="Скопіювати посилання до буферуу обміну">
+                                                     title="Copy to the buffer">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
                                                         <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2H5z"/>
                                                     </svg>
@@ -161,7 +162,7 @@
                                                 </div>
                                                 <div class="btn rounded-circle"
                                                      style="cursor: pointer; margin-left: auto; margin-right: auto;"
-                                                     th:attr="onclick=|window.location.href='mailto:?subject=${note.title}&body=${sharedLink}';|">
+                                                     th:attr="onclick=|window.location.href='mailto:?subject=${recipe.title}&body=${sharedLink}';|">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          fill="currentColor" class="send-mail-to" viewBox="0 0 16 16">
                                                         <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
@@ -174,7 +175,7 @@
                                     </div>
                                     <!--Social networks-->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn  btn-primary" data-dismiss="modal">Закрити
+                                        <button type="button" class="btn  btn-primary" data-dismiss="modal">Close
                                         </button>
                                     </div>
                                 </div>
@@ -182,7 +183,7 @@
                         </div>
                         <script>
                             function copyLink() {
-                                var copyText = document.getElementById("directNoteLink");
+                                var copyText = document.getElementById("directRecipeLink");
                                 copyText.select();
                                 document.execCommand("copy");
                                 var copyMessage = document.getElementById("copyMessage");
