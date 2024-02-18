@@ -27,6 +27,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+import static eu.dar3.borsch.utils.Constants.RECIPE_NOTE_LENGTH;
+import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_LENGTH;
+
 @Entity
 @Getter
 @Setter
@@ -36,9 +39,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "recipe", schema = "recipes")
 public class Recipe {
-
-    private static final int RECIPE_TITLE_LENGTH = 80;
-    private static final int RECIPE_NOTE_LENGTH = 8000;
 
     @Id
     @Column(name = "recipe_id")

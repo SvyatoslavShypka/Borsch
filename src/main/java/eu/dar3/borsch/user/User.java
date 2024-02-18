@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "users", schema = "security")
+@Table(name = "users", schema = "access")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -61,7 +61,6 @@ public class User {
         User user = (User) o;
         return userId.equals(user.userId);
     }
-
     @Override
     public int hashCode() {
         return userId.hashCode();

@@ -24,6 +24,9 @@ public final class Constants {
     public static final int QR_WIDTH = 320;
     public static final int QR_HEIGHT = 320;
 
+    public static final int RECIPE_TITLE_LENGTH = 80;
+    public static final int RECIPE_NOTE_LENGTH = 8000;
+
 
     static {
         GENDERS.put(GENDER_UNKNOWN, "Не відома");
