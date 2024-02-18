@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-  <title>Помилка</title>
+  <title>Error</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -17,7 +17,7 @@
                             <span class="display-3 text-danger">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             </span>
-          <h2 class="display-3 text-black">Помилка</h2>
+          <h2 class="display-3 text-black">Error</h2>
 
           <div th:if="${errorsMessages!=null}">
             <div th:each="message: ${errorsMessages.getErrors()}">
@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <p><a href="javascript:history.back()" class="btn btn-md height-auto px-4 py-3 btn-primary">Назад</a></p>
+          <p><a href="javascript:history.back()" class="btn btn-md height-auto px-4 py-3 btn-primary">Back</a></p>
         </div>
       </div>
 

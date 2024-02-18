@@ -21,7 +21,7 @@ public class AppController {
 
     @GetMapping("/contacts")
     public ModelAndView getContactsPage() {
-        ModelAndView result = new ModelAndView("pages/contacts");
+        ModelAndView result = new ModelAndView("info");
         result.addObject("options", userOptionsService.getOptions());
         return result;
     }
