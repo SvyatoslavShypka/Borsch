@@ -1,6 +1,7 @@
 package eu.dar3.borsch.authentification;
 
 import eu.dar3.borsch.errors.ErrorMessages;
+import eu.dar3.borsch.errors.InfoMessages;
 import eu.dar3.borsch.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,11 +38,11 @@ public class AuthController {
                                @RequestParam(value = "nickname") String nickname) {
         try {
             userService.findUserByName(username);
-            errorsMessages.addError("Користувач вже зареєстрований. Ви можете увійти.");
+            errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
             return "user/login";
         } catch (NoSuchElementException e) {
             userService.createNewUser(username, password, nickname);
-            infoMessages.addMessage("Ви успішно зареєструвалися. Можете увійти.");
+            infoMessages.addMessage("Успішна реєстрація. Можете залогуватися");
             return "user/login";
         }
     }
