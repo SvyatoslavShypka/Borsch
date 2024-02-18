@@ -49,7 +49,7 @@ public class Recipe {
     @Column(name = "note", length = RECIPE_NOTE_LENGTH, nullable = false)
     private String note;
     @ManyToOne
-    @JoinColumn(name = "note_owner", nullable = false)
+    @JoinColumn(name = "recipe_owner", nullable = false)
     private User recipeOwner;
     @Enumerated(EnumType.STRING)
     @Column(name = "recipe_access_type", nullable = false)
