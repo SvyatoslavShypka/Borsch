@@ -1,7 +1,7 @@
 package eu.dar3.borsch.recipe;
 
 import eu.dar3.borsch.errors.ErrorMessages;
-import eu.dar3.borsch.errors.NoteValidationException;
+import eu.dar3.borsch.errors.RecipeValidationException;
 import org.springframework.stereotype.Component;
 
 import static eu.dar3.borsch.utils.Constants.*;
@@ -16,7 +16,7 @@ public class RecipeValidator {
         checkTitle(recipeDto.getTitle());
 
         if (!errorMessages.getErrors().isEmpty()) {
-            throw new NoteValidationException(errorMessages);
+            throw new RecipeValidationException(errorMessages);
         }
     }
 
