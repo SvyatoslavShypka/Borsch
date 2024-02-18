@@ -25,7 +25,7 @@ public class FriendGroupService {
     public FriendGroup getFriendGroupByCode(String code) {
         Optional<FriendGroup> optional = friendGroupRepository.findByCode(code);
         if (optional.isEmpty()) {
-            throw new IllegalArgumentException("Family not found");
+            throw new IllegalArgumentException("FriendGroup not found");
         }
         return optional.get();
     }
@@ -33,7 +33,7 @@ public class FriendGroupService {
     public FriendGroup getFriendGroupById(UUID id) {
         Optional<FriendGroup> optional = friendGroupRepository.findById(id);
         if (optional.isEmpty()) {
-            throw new IllegalArgumentException("Family not found");
+            throw new IllegalArgumentException("FriendGroup not found");
         }
         return optional.get();
     }
@@ -57,9 +57,9 @@ public class FriendGroupService {
     }
 
     public void updateFriendGroup(UUID id, String title) {
-        FriendGroup familyById = getFriendGroupById(id);
-        familyById.setTitle(title);
-        friendGroupRepository.save(familyById);
+        FriendGroup friendGroupById = getFriendGroupById(id);
+        friendGroupById.setTitle(title);
+        friendGroupRepository.save(friendGroupById);
     }
 
     private String getNewFriendGroupCode() {
