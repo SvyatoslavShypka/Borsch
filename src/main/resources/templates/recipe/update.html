@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Edit recipe</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete recipe?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                    <button type="button" class="btn btn-success m-1"
+                            th:attr="onclick=|window.location.href='/recipe/delete?id=${recipe.id}';|">Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper content">
+        <div class="row ml-auto mr-auto">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h2>Edit recipe</h2>
+                </div>
+                <div class="card card-default mb-2">
+                    <form action="/note/edit" method="post" id="createForm">
+                        <div class="card-body p-0 m-3">
+                            <div class="bs-stepper-content">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control form-control-lg" id="title" name="title"
+                                           th:value="${recipe.title}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="summernote">Note</label>
+                                    <textarea rows="10" class="form-control form-control-lg" id="summernote"
+                                              name="content" th:text="${recipe.content}">
+                                    </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-inline p-2" th:each="tag: ${recipe.tagList}">
+                                        <div style="text-align: center;"
+                                             class="badge badge-pill badge-info d-inline p-2" th:text="${tag.title}">
+                                        </div>
+                                        <div type="button" class="delete-tag-button d-inline"
+                                             th:attr="onclick=|window.location.href='/recipe/tag/delete?recipeId=${recipe.id}&tagId=${tag.id}';|">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 viewBox="0 -2 18 18" fill="currentColor" class="bi bi-x-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" th:value="${recipe.id}">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary m-1" onclick="window.location.href = '/';">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-danger m-1" data-toggle="modal"
+                                        data-target="#modal-delete">Delete
+                                </button>
+                                <button type="submit" class="btn btn-success m-1">Save</button>
+                            </div>
+
+                            <div class="btn-group float-right mt-2" role="group">
+                                <label class="checkbox-ios">
+                                    <label class="form-check-label" for="publicRecipe">Public</label>
+                                    <input type="checkbox" id="publicRecipe" name="publicRecipe"
+                                           th:checked="${recipe.recipeAccessType.toString=='PUBLIC'}">
+                                    <span class="checkbox-ios-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card-body p-0 m-3">
+                        <div class="bs-stepper-content">
+                            <form action="/recipe/tag/add" method="post" id="addTag">
+                                <input type="hidden" name="id" th:value="${recipe.id}">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Default"
+                                           aria-describedby="inputGroup-sizing-default" id="tagTitle" name="tagTitle"
+                                           placeholder="Give tag name">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-success">Add tag</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

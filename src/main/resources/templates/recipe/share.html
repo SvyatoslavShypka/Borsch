@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Recipe view</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper content">
+        <div class="row ml-auto mr-auto">
+            <div class="col-md-12">
+                <div class="card card-default mb-2">
+                    <div class="card-body p-0 m-3">
+                        <div class="bs-stepper-content">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control form-control-lg" id="title" name="title" th:value="${recipe.title}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="summernoteView">Вміст</label>
+                                <textarea rows="10" class="form-control form-control-lg" id="summernoteView" name="content" th:text="${recipe.content}" disabled>
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote('disable');
+    });
+</script>
+</body>
+</html>
