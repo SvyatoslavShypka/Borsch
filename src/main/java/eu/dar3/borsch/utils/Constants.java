@@ -9,6 +9,8 @@ public final class Constants {
     }
 
     public static final int FRIENDGROUP_CODE_LENGTH = 10;
+    public static final int RECIPE_TITLE_MIN_LENGTH = 3;
+    public static final int RECIPE_TITLE_MAX_LENGTH = 100;
 
     public static final String REDIRECT_URL_404 = "redirect:error/404";
     public static final String URL_ACCOUNT = "/account";

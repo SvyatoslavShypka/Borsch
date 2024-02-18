@@ -37,7 +37,7 @@ public class UserValidator {
                     userService.findUserByName(email);
                     errorMessages.addError("Користувач з e-mail " + email + " вже зареєстрований");
                 } catch (NoSuchElementException ex) {
-                    //nop
+                    //No action
                 }
             }
         }
