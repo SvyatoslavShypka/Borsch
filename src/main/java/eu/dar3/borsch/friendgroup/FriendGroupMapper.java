@@ -1,11 +1,13 @@
 package eu.dar3.borsch.friendgroup;
 
 import eu.dar3.borsch.mapper.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static java.util.Objects.isNull;
 
+@Component
 public class FriendGroupMapper implements Mapper<FriendGroup, FriendGroupDto> {
 
     @Override

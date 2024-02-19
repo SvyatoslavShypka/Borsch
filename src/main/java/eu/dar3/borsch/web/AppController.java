@@ -19,9 +19,9 @@ public class AppController {
         return "redirect:recipe/list";
     }
 
-    @GetMapping("/contacts")
+    @GetMapping("/info")
     public ModelAndView getContactsPage() {
-        ModelAndView result = new ModelAndView("info");
+        ModelAndView result = new ModelAndView("pages/info");
         result.addObject("options", userOptionsService.getOptions());
         return result;
     }

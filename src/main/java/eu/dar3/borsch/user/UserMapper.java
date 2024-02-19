@@ -46,5 +46,4 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setWidePage(source.isWidePage());
         return target;
     }
-
 }

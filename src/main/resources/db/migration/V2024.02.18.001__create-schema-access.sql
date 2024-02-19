@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS access.users(
                              created_date    timestamp,
                              updated_date    timestamp,
                              friendgroup_id  UUID           default null,
-                             full_width_page boolean        default false,
+                             wide_page       boolean        default false,
                              constraint fk_users_gender foreign key(gender_id) references access.gender(gender_id)
 );
 CREATE UNIQUE INDEX IF NOT EXISTS ix_users_user_id   on access.users (user_id);

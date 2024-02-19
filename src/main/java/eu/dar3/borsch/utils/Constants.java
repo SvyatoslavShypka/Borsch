@@ -19,7 +19,7 @@ public final class Constants {
     public static final int GENDER_UNKNOWN = 0;
     public static final int GENDER_MALE = 1;
     public static final int GENDER_FEMALE = 2;
-    public static final int GENDER_OTHER = 3;
+    public static final int GENDER_OTHER = 9;
 
     public static final int QR_WIDTH = 320;
     public static final int QR_HEIGHT = 320;

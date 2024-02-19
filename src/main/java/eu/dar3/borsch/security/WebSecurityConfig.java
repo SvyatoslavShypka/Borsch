@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                             requests
                                     .requestMatchers(
                                             "/about",
-                                            "/contacts",
+                                            "/info",
                                             "/login",
                                             "/img/**",
                                             "/css/**",

@@ -42,32 +42,33 @@ public class RecipeService {
                 .map(this::convertToObjectDto);
     }
 
-    private RecipeDto convertToObjectDto(Recipe note) {
-        return recipeMapper.mapEntityToDto(note);
+    private RecipeDto convertToObjectDto(Recipe recipe) {
+        return recipeMapper.mapEntityToDto(recipe);
     }
 
-    public RecipeDto add(RecipeDto noteDto) {
-        noteDto.setRecipeOwner(userService.getCurrentUser());
-        Recipe note = recipeMapper.mapDtoToEntity(noteDto);
-        recipeValidator.validate(noteDto);
-        Recipe savedNote = recipeRepository.save(note);
-        return recipeMapper.mapEntityToDto(savedNote);
+    public RecipeDto add(RecipeDto recipeDto) {
+        recipeDto.setRecipeOwner(userService.getCurrentUser());
+        Recipe recipe = recipeMapper.mapDtoToEntity(recipeDto);
+        recipeValidator.validate(recipeDto);
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        return recipeMapper.mapEntityToDto(savedRecipe);
     }
 
     public void deleteById(UUID id) {
         recipeRepository.deleteById(id);
     }
 
-    public void update(RecipeDto noteDto) {
-        RecipeDto dto = getById(noteDto.getId());
-        BeanUtils.copyProperties(noteDto, dto, Util.getNullPropertyNames(noteDto));
-        recipeValidator.validate(noteDto);
+    public void update(RecipeDto recipeDto) {
+        RecipeDto dto = getById(recipeDto.getId());
+        BeanUtils.copyProperties(recipeDto,
+                dto, Util.getNullPropertyNames(recipeDto));
+        recipeValidator.validate(recipeDto);
         recipeRepository.save(recipeMapper.mapDtoToEntity(dto));
     }
 
     public RecipeDto getById(UUID id) throws EntityNotFoundException {
-        Recipe note = recipeRepository.getReferenceById(id);
-        return recipeMapper.mapEntityToDto(note);
+        Recipe recipe = recipeRepository.getReferenceById(id);
+        return recipeMapper.mapEntityToDto(recipe);
     }
 
     public void copyLink(String url) {
@@ -77,31 +78,31 @@ public class RecipeService {
         clipboard.setContents(stringSelection, null);
     }
 
-    public RecipeDto addTag(UUID noteId, String tagTitle) {
+    public RecipeDto addTag(UUID recipeId, String tagTitle) {
         TagDto tagDto = tagService.addIfNotExists(tagTitle);
-        RecipeDto noteDto = getById(noteId);
-        java.util.List<Tag> tagList = noteDto.getTagList();
+        RecipeDto recipeDto = getById(recipeId);
+        List<Tag> tagList = recipeDto.getTagList();
         String tagDtoTitle = tagDto.getTitle();
         if (tagList.stream().filter(tag -> tag.getTitle().equalsIgnoreCase(tagDtoTitle))
                 .count() == TAG_COUNT_ZERO && !tagDtoTitle.isBlank()) {
             tagList.add(tagMapper.mapDtoToEntity(tagDto));
-            update(noteDto);
+            update(recipeDto);
         }
-        return noteDto;
+        return recipeDto;
     }
 
-    public RecipeDto deleteTag(UUID noteId, UUID tagID) {
-        RecipeDto noteDto = getById(noteId);
-        java.util.List<TagDto> tagList = tagMapper.mapEntityToDto(noteDto.getTagList());
+    public RecipeDto deleteTag(UUID recipeId, UUID tagID) {
+        RecipeDto recipeDto = getById(recipeId);
+        List<TagDto> tagList = tagMapper.mapEntityToDto(recipeDto.getTagList());
         List<TagDto> newTagList = tagList.stream().filter(tag -> !tagID.equals(tag.getId()))
                 .collect(Collectors.toList());
-        noteDto.setTagList(tagMapper.mapDtoToEntity(newTagList));
-        update(noteDto);
-        return noteDto;
+        recipeDto.setTagList(tagMapper.mapDtoToEntity(newTagList));
+        update(recipeDto);
+        return recipeDto;
     }
 
-    public String getSharedLink(UUID noteId, UriComponentsBuilder uriComponentsBuilder) {
+    public String getSharedLink(UUID recipeId, UriComponentsBuilder uriComponentsBuilder) {
         return uriComponentsBuilder.replacePath(null).replaceQuery(null).build().toString()
-                + "/note/share/" + noteId;
+                + "/recipe/share/" + recipeId;
     }
 }

@@ -26,7 +26,7 @@ public class FriendGroupController {
     private final UserOptionsService userOptionsService;
 
     @GetMapping("/edit")
-    public ModelAndView editUserFamilyShowPage() {
+    public ModelAndView editUserFriendGroupShowPage() {
         User user = userService.getCurrentUser();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("friendgroup/edit");
@@ -36,8 +36,8 @@ public class FriendGroupController {
     }
 
     @PostMapping("/edit")
-    public RedirectView editUserFamily(@RequestParam(value = "id") UUID id,
-                                       @RequestParam(value = "title") String title) {
+    public RedirectView editUserFriendGroup(@RequestParam(value = "id") UUID id,
+                                            @RequestParam(value = "title") String title) {
         friendGroupService.updateFriendGroup(id, title);
         RedirectView redirect = new RedirectView();
         redirect.setUrl(URL_ACCOUNT);
@@ -45,7 +45,7 @@ public class FriendGroupController {
     }
 
     @GetMapping("/leave")
-    public RedirectView leaveFamily() {
+    public RedirectView leaveFriendGroup() {
         friendGroupService.leaveFriendGroup();
         RedirectView redirect = new RedirectView();
         redirect.setUrl(URL_ACCOUNT);
@@ -53,7 +53,7 @@ public class FriendGroupController {
     }
 
     @PostMapping("/add")
-    public RedirectView addFamily(@RequestParam(value = "code") String code) {
+    public RedirectView addFriendGroup(@RequestParam(value = "code") String code) {
         RedirectView redirect = new RedirectView();
         try {
             FriendGroup familyByCode = friendGroupService.getFriendGroupByCode(code);
@@ -66,7 +66,7 @@ public class FriendGroupController {
     }
 
     @GetMapping("/create")
-    public ModelAndView createFamilyShowPage() {
+    public ModelAndView createFriendGroupShowPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("friendgroup/create");
         modelAndView.addObject("options", userOptionsService.getOptions());
@@ -74,7 +74,7 @@ public class FriendGroupController {
     }
 
     @PostMapping("/create")
-    public RedirectView createFamily(@RequestParam(value = "title") String title) {
+    public RedirectView createFriendGroup(@RequestParam(value = "title") String title) {
         FriendGroupDto friendGroupDto = friendGroupService.createFriendGroup(title);
         FriendGroup friendGroupByCode = friendGroupService.getFriendGroupByCode(friendGroupDto.getCode());
         friendGroupService.addFriendGroup(friendGroupByCode);

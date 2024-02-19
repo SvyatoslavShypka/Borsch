@@ -1,11 +1,13 @@
 package eu.dar3.borsch.recipe;
 
 import eu.dar3.borsch.mapper.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static java.util.Objects.isNull;
 
+@Component
 public class RecipeMapper implements Mapper<Recipe, RecipeDto> {
     @Override
     public RecipeDto mapEntityToDto(Recipe source) throws RuntimeException {

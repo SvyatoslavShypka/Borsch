@@ -10,12 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.RequiredArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,21 +19,18 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tag", schema = "recipes")
 public class Tag {
-    private static final int TITLE_LENGTH = 600;
+    private static final int TAG_TITLE_MAX_LENGTH = 600;
 
     @Id
     @Column(name = "tag_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "title", length = TITLE_LENGTH, nullable = false, unique = true)
+    @Column(name = "title", length = TAG_TITLE_MAX_LENGTH, nullable = false, unique = true)
     private String title;
     @Column(name = "created_date")
     @CreationTimestamp
@@ -53,7 +45,6 @@ public class Tag {
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
     @ManyToMany
-    @ToString.Exclude
     private List<Recipe> recipeLists;
 
     @Override

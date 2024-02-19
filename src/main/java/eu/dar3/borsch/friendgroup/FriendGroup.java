@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "friendgroups", schema = "security")
+@Table(name = "friendgroups", schema = "access")
 public class FriendGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

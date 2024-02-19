@@ -14,12 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToMany;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.RequiredArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -31,10 +26,11 @@ import static eu.dar3.borsch.utils.Constants.RECIPE_NOTE_LENGTH;
 import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_LENGTH;
 
 @Entity
-@Getter
+@Data
+/*@Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
+@ToString*/
+//@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "recipe", schema = "recipes")

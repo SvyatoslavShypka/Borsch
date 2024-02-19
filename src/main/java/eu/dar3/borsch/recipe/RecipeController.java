@@ -30,8 +30,8 @@ import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
 public class RecipeController {
 
     private static final int PAGE_COUNT_ZERO = 0;
-    public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
-    public static final int DEFAULT_PAGE_SIZE = 10;
+    private static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
+    private static final int DEFAULT_PAGE_SIZE = 10;
 
     private final RecipeService recipeService;
     private final UserService userService;
@@ -39,11 +39,11 @@ public class RecipeController {
 
     @Value("${recipe.page.size}")
     @PostMapping("/create")
-    public RedirectView createNote(@RequestParam(value = "title") String title,
-                                   @RequestParam(value = "note") String note,
-                                   @RequestParam(value = "publicNote", required = false) String publicNote) {
+    public RedirectView createRecipe(@RequestParam(value = "title") String title,
+                                     @RequestParam(value = "note") String note,
+                                     @RequestParam(value = "publicRecipe", required = false) String publicRecipe) {
         RecipeAccessType accessType = RecipeAccessType.PRIVATE;
-        if (publicNote != null) {
+        if (publicRecipe != null) {
             accessType = RecipeAccessType.PUBLIC;
         }
         RecipeDto recipeDto = new RecipeDto();
@@ -58,7 +58,7 @@ public class RecipeController {
     }
 
     @GetMapping("/create")
-    public ModelAndView createNoteViewPage() {
+    public ModelAndView createRecipeViewPage() {
         ModelAndView result = new ModelAndView("recipe/create");
         result.addObject("options", userOptionsService.getOptions());
         return result;
@@ -193,8 +193,8 @@ public class RecipeController {
     }
 
     @GetMapping("/tag/delete")
-    public String deleteTag(Model model, @RequestParam UUID noteId, @RequestParam UUID tagId) {
-        RecipeDto recipeDto = recipeService.deleteTag(noteId, tagId);
+    public String deleteTag(Model model, @RequestParam UUID recipeId, @RequestParam UUID tagId) {
+        RecipeDto recipeDto = recipeService.deleteTag(recipeId, tagId);
         model.addAttribute("recipe", recipeDto);
         model.addAttribute("options", userOptionsService.getOptions());
         return (RECIPE_UPDATE_TEMPLATE);
