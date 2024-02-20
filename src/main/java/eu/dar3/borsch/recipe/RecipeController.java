@@ -37,6 +37,7 @@ public class RecipeController {
     private final UserService userService;
     private final UserOptionsService userOptionsService;
 
+/*
     @Value("${recipe.page.size}")
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
@@ -63,16 +64,18 @@ public class RecipeController {
         result.addObject("options", userOptionsService.getOptions());
         return result;
     }
+*/
 
     @GetMapping("/list")
     public ModelAndView getRecipes(
             @RequestParam(required = false, name = "page") Optional<Integer> page,
             @RequestParam(required = false, name = "size") Optional<Integer> size,
             @RequestParam(required = false, name = "searchText", defaultValue = "") String searchText) {
+        System.out.println("recipe/list................................");
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
         ModelAndView result = new ModelAndView("recipe/recipe");
-        Page<RecipeDto> recipePage = recipeService.findAllByRecipeOwnerFamily(
+        Page<RecipeDto> recipePage = recipeService.findAllByRecipeOwnerFriendgroup(
                 PageRequest.of(currentPage - 1, pageSize), searchText);
         int totalPages = recipePage.getTotalPages();
         result.addObject("recipePage", recipePage);
@@ -88,6 +91,7 @@ public class RecipeController {
         return result;
     }
 
+/*
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam UUID id) {
         try {
@@ -199,4 +203,5 @@ public class RecipeController {
         model.addAttribute("options", userOptionsService.getOptions());
         return (RECIPE_UPDATE_TEMPLATE);
     }
+*/
 }

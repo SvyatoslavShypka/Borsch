@@ -56,8 +56,8 @@ public class FriendgroupController {
     public RedirectView addFriendgroup(@RequestParam(value = "code") String code) {
         RedirectView redirect = new RedirectView();
         try {
-            Friendgroup familyByCode = friendgroupService.getFriendgroupByCode(code);
-            friendgroupService.addFriendgroup(familyByCode);
+            Friendgroup friendgroupByCode = friendgroupService.getFriendgroupByCode(code);
+            friendgroupService.addFriendgroup(friendgroupByCode);
             redirect.setUrl(URL_ACCOUNT);
         } catch (IllegalArgumentException e) {
             redirect.setUrl("/error/404");

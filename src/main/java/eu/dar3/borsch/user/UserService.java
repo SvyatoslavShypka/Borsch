@@ -18,11 +18,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private static final int GENDER_ZERO = 0;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserValidator userValidator;
+
+    private static final int GENDER_ZERO = 0;
 
     public List<User> getFriendgroupUsers(Friendgroup friendgroup) {
         return userRepository.findAllByFriendgroup(friendgroup);

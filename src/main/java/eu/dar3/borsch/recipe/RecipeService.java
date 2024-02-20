@@ -36,7 +36,7 @@ public class RecipeService {
     private final TagMapper tagMapper;
     private final RecipeValidator recipeValidator;
 
-    public Page<RecipeDto> findAllByRecipeOwnerFamily(Pageable pageable, String searchText) {
+    public Page<RecipeDto> findAllByRecipeOwnerFriendgroup(Pageable pageable, String searchText) {
         User currentUser = userService.getCurrentUser();
         return recipeRepository.findRecipeList(currentUser, currentUser.getFriendgroup(), searchText, pageable)
                 .map(this::convertToObjectDto);
