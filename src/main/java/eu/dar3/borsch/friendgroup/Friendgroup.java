@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "friendgroups", schema = "access")
-public class FriendGroup {
+public class Friendgroup {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -25,6 +25,6 @@ public class FriendGroup {
     @Column(name = "code")
     private String code;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendGroup")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendgroup")
     private Set<User> users;
 }

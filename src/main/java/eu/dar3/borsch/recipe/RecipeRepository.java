@@ -1,6 +1,6 @@
 package eu.dar3.borsch.recipe;
 
-import eu.dar3.borsch.friendgroup.FriendGroup;
+import eu.dar3.borsch.friendgroup.Friendgroup;
 import eu.dar3.borsch.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +16,9 @@ import java.util.UUID;
 public interface RecipeRepository extends PagingAndSortingRepository<Recipe, UUID>,
         JpaRepository<Recipe, UUID> {
     @Query("SELECT distinct n FROM Recipe n LEFT JOIN n.tagList t INNER JOIN n.recipeOwner u " +
-            "WHERE (u = :recipeOwner OR u.friendGroup = :friendGroup) " +
+            "WHERE (u = :recipeOwner OR u.friendgroup = :friendgroup) " +
             "AND (UPPER(n.title) like UPPER(CONCAT('%',:searchText,'%')) " +
             "OR UPPER(t.title) like UPPER(CONCAT('%',:searchText,'%'))) ORDER BY n.title")
-    Page<Recipe> findRecipeList(@Param("recipeOwner") User recipeOwner, @Param("friendGroup") FriendGroup friendGroup,
+    Page<Recipe> findRecipeList(@Param("recipeOwner") User recipeOwner, @Param("friendgroup") Friendgroup friendgroup,
                                 @Param("searchText") String searchText, Pageable pageable);
 }

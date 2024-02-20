@@ -30,13 +30,13 @@ public class UserController {
 
         User currentUser = userService.getCurrentUser();
         UserDto userDto = userMapper.mapEntityToDto(currentUser);
-        List<User> friendGroupUsers = userService.getFriendGroupUsers(currentUser.getFriendGroup());
-        List<UserDto> usersFriendGroupDtos = userMapper.mapEntityToDto(friendGroupUsers);
+        List<User> friendgroupUsers = userService.getFriendgroupUsers(currentUser.getFriendgroup());
+        List<UserDto> usersFriendgroupDtos = userMapper.mapEntityToDto(friendgroupUsers);
 
         result.addObject("user", userDto);
-        result.addObject("friendgroup", userDto.getFriendGroupDto());
+        result.addObject("friendgroup", userDto.getFriendgroupDto());
         result.addObject("gender", GENDERS);
-        result.addObject("usersFriendGroupDtos", usersFriendGroupDtos);
+        result.addObject("usersFriendgroupDtos", usersFriendgroupDtos);
         result.addObject("options", userOptionsService.getOptions());
         return result;
     }

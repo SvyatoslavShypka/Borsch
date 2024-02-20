@@ -19,45 +19,45 @@ import static eu.dar3.borsch.utils.Constants.URL_ACCOUNT;
 @RequestMapping("/friendgroup")
 @RequiredArgsConstructor
 @Controller
-public class FriendGroupController {
-    private final FriendGroupService friendGroupService;
+public class FriendgroupController {
+    private final FriendgroupService friendgroupService;
     private final UserService userService;
     //TODO check other variant
     private final UserOptionsService userOptionsService;
 
     @GetMapping("/edit")
-    public ModelAndView editUserFriendGroupShowPage() {
+    public ModelAndView editUserFriendgroupShowPage() {
         User user = userService.getCurrentUser();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("friendgroup/edit");
-        modelAndView.addObject("friendgroup", user.getFriendGroup());
+        modelAndView.addObject("friendgroup", user.getFriendgroup());
         modelAndView.addObject("options", userOptionsService.getOptions());
         return modelAndView;
     }
 
     @PostMapping("/edit")
-    public RedirectView editUserFriendGroup(@RequestParam(value = "id") UUID id,
+    public RedirectView editUserFriendgroup(@RequestParam(value = "id") UUID id,
                                             @RequestParam(value = "title") String title) {
-        friendGroupService.updateFriendGroup(id, title);
+        friendgroupService.updateFriendgroup(id, title);
         RedirectView redirect = new RedirectView();
         redirect.setUrl(URL_ACCOUNT);
         return redirect;
     }
 
     @GetMapping("/leave")
-    public RedirectView leaveFriendGroup() {
-        friendGroupService.leaveFriendGroup();
+    public RedirectView leaveFriendgroup() {
+        friendgroupService.leaveFriendgroup();
         RedirectView redirect = new RedirectView();
         redirect.setUrl(URL_ACCOUNT);
         return redirect;
     }
 
     @PostMapping("/add")
-    public RedirectView addFriendGroup(@RequestParam(value = "code") String code) {
+    public RedirectView addFriendgroup(@RequestParam(value = "code") String code) {
         RedirectView redirect = new RedirectView();
         try {
-            FriendGroup familyByCode = friendGroupService.getFriendGroupByCode(code);
-            friendGroupService.addFriendGroup(familyByCode);
+            Friendgroup familyByCode = friendgroupService.getFriendgroupByCode(code);
+            friendgroupService.addFriendgroup(familyByCode);
             redirect.setUrl(URL_ACCOUNT);
         } catch (IllegalArgumentException e) {
             redirect.setUrl("/error/404");
@@ -66,7 +66,7 @@ public class FriendGroupController {
     }
 
     @GetMapping("/create")
-    public ModelAndView createFriendGroupShowPage() {
+    public ModelAndView createFriendgroupShowPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("friendgroup/create");
         modelAndView.addObject("options", userOptionsService.getOptions());
@@ -74,10 +74,10 @@ public class FriendGroupController {
     }
 
     @PostMapping("/create")
-    public RedirectView createFriendGroup(@RequestParam(value = "title") String title) {
-        FriendGroupDto friendGroupDto = friendGroupService.createFriendGroup(title);
-        FriendGroup friendGroupByCode = friendGroupService.getFriendGroupByCode(friendGroupDto.getCode());
-        friendGroupService.addFriendGroup(friendGroupByCode);
+    public RedirectView createFriendgroup(@RequestParam(value = "title") String title) {
+        FriendgroupDto friendgroupDto = friendgroupService.createFriendgroup(title);
+        Friendgroup friendgroupByCode = friendgroupService.getFriendgroupByCode(friendgroupDto.getCode());
+        friendgroupService.addFriendgroup(friendgroupByCode);
         RedirectView redirect = new RedirectView();
         redirect.setUrl(URL_ACCOUNT);
         return redirect;

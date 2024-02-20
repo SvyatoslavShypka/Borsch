@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class FriendGroupDto {
+public class FriendgroupDto {
     private UUID id;
     private String title;
     private String code;

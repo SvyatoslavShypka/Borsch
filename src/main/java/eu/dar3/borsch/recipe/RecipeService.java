@@ -38,7 +38,7 @@ public class RecipeService {
 
     public Page<RecipeDto> findAllByRecipeOwnerFamily(Pageable pageable, String searchText) {
         User currentUser = userService.getCurrentUser();
-        return recipeRepository.findRecipeList(currentUser, currentUser.getFriendGroup(), searchText, pageable)
+        return recipeRepository.findRecipeList(currentUser, currentUser.getFriendgroup(), searchText, pageable)
                 .map(this::convertToObjectDto);
     }
 

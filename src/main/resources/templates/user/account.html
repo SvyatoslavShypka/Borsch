@@ -12,7 +12,7 @@
                 <form action="/friendgroup/leave" method="get">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Leave FriendGroup?</h4>
+                            <h4 class="modal-title">Leave Friendgroup?</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -30,7 +30,7 @@
                 <form action="/friendgroup/add" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Join to FriendGroup</h4>
+                            <h4 class="modal-title">Join to Friendgroup</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="code">Code</label>
                                 <input type="text" class="form-control form-control-lg" id="code" name="code"
-                                       placeholder="Enter FriendGroup code">
+                                       placeholder="Enter Friendgroup code">
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -118,10 +118,10 @@
                 <div class="mb-4" th:if="${friendgroup==null}">
                     <button type="button" class="btn btn-primary m-1" data-toggle="modal"
                             data-target="#modal-add">
-                        Join to FriendGroup
+                        Join to Friendgroup
                     </button>
                     <button type="button" class="btn btn-success m-1" onclick="window.location.href = '/family/create';">
-                        Create FriendGroup
+                        Create Friendgroup
                     </button>
                 </div>
                 <div th:if="${friendgroup!=null}">
@@ -129,13 +129,13 @@
                         <h5 class="card-header" th:text="${friendgroup.title} + ' (Code - ' + ${friendgroup.code}+')'"></h5>
                         <div class="card-body">
                             <p class="card-text">
-                            <ul th:each="userFriendGroup: ${usersFriendGroupDtos}" class="list-group">
-                                <li class="list-group-item" th:text="${userFriendGroup.nickname}" />
+                            <ul th:each="userFriendgroup: ${usersFriendgroupDtos}" class="list-group">
+                                <li class="list-group-item" th:text="${userFriendgroup.nickname}" />
                             </ul>
                             </p>
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#modal-leave">
-                                    Leave FriendGroup
+                                    Leave Friendgroup
                                 </button>
                                 <button type="button" class="btn btn-success m-1" onclick="window.location.href = '/friendgroup/edit';">Edit</button>
                             </div>

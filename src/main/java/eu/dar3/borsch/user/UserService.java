@@ -1,6 +1,6 @@
 package eu.dar3.borsch.user;
 
-import eu.dar3.borsch.friendgroup.FriendGroup;
+import eu.dar3.borsch.friendgroup.Friendgroup;
 import eu.dar3.borsch.recipe.Recipe;
 import eu.dar3.borsch.utils.Util;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserValidator userValidator;
 
-    public List<User> getFriendGroupUsers(FriendGroup friendGroup) {
-        return userRepository.findAllByFriendGroup(friendGroup);
+    public List<User> getFriendgroupUsers(Friendgroup friendgroup) {
+        return userRepository.findAllByFriendgroup(friendgroup);
     }
 
     public User findUserById(UUID id) {
@@ -68,9 +68,9 @@ public class UserService {
         updateUser(userDto);
     }
 
-    public void deleteUserFriendGroup(UUID userId) {
+    public void deleteUserFriendgroup(UUID userId) {
         User userById = findUserById(userId);
-        userById.setFriendGroup(null);
+        userById.setFriendgroup(null);
         userRepository.save(userById);
     }
 

@@ -158,9 +158,9 @@ public class RecipeController {
 
         try {
             User currentUser = userService.getCurrentUser();
-            if (currentUser.getFriendGroup() != null) {
-                List<User> friendGroupUsers = userService.getFriendGroupUsers(currentUser.getFriendGroup());
-                if (friendGroupUsers.contains(recipeDto.getRecipeOwner())) {
+            if (currentUser.getFriendgroup() != null) {
+                List<User> friendgroupUsers = userService.getFriendgroupUsers(currentUser.getFriendgroup());
+                if (friendgroupUsers.contains(recipeDto.getRecipeOwner())) {
                     return "recipe/share";
                 }
             }

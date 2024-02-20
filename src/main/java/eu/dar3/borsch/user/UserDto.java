@@ -1,6 +1,6 @@
 package eu.dar3.borsch.user;
 
-import eu.dar3.borsch.friendgroup.FriendGroupDto;
+import eu.dar3.borsch.friendgroup.FriendgroupDto;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class UserDto {
     private Instant updatedDate;
     private Instant createdDate;
     @Enumerated(EnumType.STRING)
-    private FriendGroupDto friendGroupDto;
+    private FriendgroupDto friendgroupDto;
     private UserRoles role;
     private boolean isWidePage;
 }

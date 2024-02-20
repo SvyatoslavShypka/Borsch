@@ -1,6 +1,6 @@
 package eu.dar3.borsch.user;
 
-import eu.dar3.borsch.friendgroup.FriendGroupMapper;
+import eu.dar3.borsch.friendgroup.FriendgroupMapper;
 import eu.dar3.borsch.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper implements Mapper<User, UserDto> {
 
-    private final FriendGroupMapper friendGroupMapper;
+    private final FriendgroupMapper friendgroupMapper;
 
     @Override
     public UserDto mapEntityToDto(User source) throws RuntimeException {
@@ -24,7 +24,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setCreatedDate(source.getCreatedDate());
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
-        target.setFriendGroupDto(friendGroupMapper.mapEntityToDto(source.getFriendGroup()));
+        target.setFriendgroupDto(friendgroupMapper.mapEntityToDto(source.getFriendgroup()));
         target.setWidePage(source.isWidePage());
         return target;
     }
@@ -42,7 +42,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setCreatedDate(source.getCreatedDate());
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
-        target.setFriendGroup(friendGroupMapper.mapDtoToEntity(source.getFriendGroupDto()));
+        target.setFriendgroup(friendgroupMapper.mapDtoToEntity(source.getFriendgroupDto()));
         target.setWidePage(source.isWidePage());
         return target;
     }

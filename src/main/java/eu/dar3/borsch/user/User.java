@@ -1,6 +1,6 @@
 package eu.dar3.borsch.user;
 
-import eu.dar3.borsch.friendgroup.FriendGroup;
+import eu.dar3.borsch.friendgroup.Friendgroup;
 import eu.dar3.borsch.recipe.Recipe;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -43,7 +43,7 @@ public class User {
     private List<Recipe> recipes;
     @ManyToOne
     @JoinColumn(name = "friendgroup_id")
-    private FriendGroup friendGroup;
+    private Friendgroup friendgroup;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRoles role;

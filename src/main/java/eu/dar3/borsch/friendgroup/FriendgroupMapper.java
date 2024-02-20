@@ -8,15 +8,15 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @Component
-public class FriendGroupMapper implements Mapper<FriendGroup, FriendGroupDto> {
+public class FriendgroupMapper implements Mapper<Friendgroup, FriendgroupDto> {
 
     @Override
-    public FriendGroupDto mapEntityToDto(FriendGroup source) throws RuntimeException {
+    public FriendgroupDto mapEntityToDto(Friendgroup source) throws RuntimeException {
         if (isNull(source)) {
             return null;
         }
 
-        return FriendGroupDto.builder()
+        return FriendgroupDto.builder()
                 .title(source.getTitle())
                 .id(source.getId())
                 .code(source.getCode())
@@ -24,11 +24,11 @@ public class FriendGroupMapper implements Mapper<FriendGroup, FriendGroupDto> {
     }
 
     @Override
-    public FriendGroup mapDtoToEntity(FriendGroupDto source) throws RuntimeException {
+    public Friendgroup mapDtoToEntity(FriendgroupDto source) throws RuntimeException {
         if (isNull(source)) {
             return null;
         }
-        return FriendGroup.builder()
+        return Friendgroup.builder()
                 .title(source.getTitle())
                 .id(source.getId())
                 .code(source.getCode())
@@ -36,12 +36,12 @@ public class FriendGroupMapper implements Mapper<FriendGroup, FriendGroupDto> {
     }
 
     @Override
-    public List<FriendGroupDto> mapEntityToDto(List<FriendGroup> source) throws RuntimeException {
+    public List<FriendgroupDto> mapEntityToDto(List<Friendgroup> source) throws RuntimeException {
         return Mapper.super.mapEntityToDto(source);
     }
 
     @Override
-    public List<FriendGroup> mapDtoToEntity(List<FriendGroupDto> source) throws RuntimeException {
+    public List<Friendgroup> mapDtoToEntity(List<FriendgroupDto> source) throws RuntimeException {
         return Mapper.super.mapDtoToEntity(source);
     }
 
