@@ -31,12 +31,10 @@
 
 </head>
 <body>
-
-<div th:attr="class=${options==null || !options.isWidePaage ? 'container mt-1' : 'container-fluid mt-1'}">
+<div th:attr="class=${options==null || !options.isWidePage ? 'container mt-1' : 'container-fluid mt-1'}">
     <th:block th:replace="fragments/header :: header"/>
     <th:block layout:fragment="content"/>
 </div>
-
 <script>
     $(document).ready(function() {
         $('#summernote').summernote(
