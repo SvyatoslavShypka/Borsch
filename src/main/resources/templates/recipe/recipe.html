@@ -74,7 +74,7 @@
                                            th:text=${pageNumber}
                                            th:class="page-link"></a></li>
                                 </div>
-                                <li class="page-item"><a th:href="@{/note/list(size=${recipePage.size}, page=${nextPage}, searchText=${searchText})}"
+                                <li class="page-item"><a th:href="@{/recipe/list(size=${recipePage.size}, page=${nextPage}, searchText=${searchText})}"
                                                          th:text="Next"
                                                          th:class="page-link"></a></li>
                             </ul>

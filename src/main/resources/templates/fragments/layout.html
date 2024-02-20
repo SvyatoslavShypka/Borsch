@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>My recipies</title>
 
-    <link rel="stylesheet" href="css/note.css">
+    <link rel="stylesheet" href="css/recipe.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -47,7 +47,7 @@
         );
         $(window).keyup(function(e){
             var target = $('.checkbox-ios input:focus');
-            if (e.keyCode == 3 && $(target).length){
+            if (e.keyCode == 9 && $(target).length){
                 $(target).parent().addClass('focused');
             }
         });

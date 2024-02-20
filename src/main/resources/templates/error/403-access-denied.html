@@ -32,14 +32,9 @@
 </head>
 <body>
 
-
 <div th:attr="class=${options==null || !options.isWidePage ? 'container mt-1' : 'container-fluid mt-1'}">
-
     <th:block th:replace="fragments/header :: header"/>
-
-
-    <th:block layout:fragment="note"/>
-
+    <th:block layout:fragment="recipe"/>
 </div>
 
 <script>
@@ -57,7 +52,7 @@
 
         $(window).keyup(function(e){
             var target = $('.checkbox-ios input:focus');
-            if (e.keyCode == 3 && $(target).length){
+            if (e.keyCode == 9 && $(target).length){
                 $(target).parent().addClass('focused');
             }
         });
