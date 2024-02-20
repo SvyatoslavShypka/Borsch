@@ -37,7 +37,6 @@ public class RecipeController {
     private final UserService userService;
     private final UserOptionsService userOptionsService;
 
-/*
     @Value("${recipe.page.size}")
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
@@ -52,7 +51,6 @@ public class RecipeController {
         recipeDto.setTitle(title);
         recipeDto.setRecipeAccessType(accessType);
         RecipeDto saveDto = recipeService.add(recipeDto);
-
         RedirectView redirect = new RedirectView();
         redirect.setUrl("/recipe/view?id=" + saveDto.getId());
         return redirect;
@@ -64,7 +62,6 @@ public class RecipeController {
         result.addObject("options", userOptionsService.getOptions());
         return result;
     }
-*/
 
     @GetMapping("/list")
     public ModelAndView getRecipes(
@@ -91,7 +88,6 @@ public class RecipeController {
         return result;
     }
 
-/*
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam UUID id) {
         try {
@@ -149,6 +145,7 @@ public class RecipeController {
         return redirect;
     }
 
+
     @GetMapping("/share/{id}")
     public String shareRecipe(@PathVariable(name = "id") UUID id, Model model) {
         RecipeDto recipeDto = null;
@@ -203,5 +200,4 @@ public class RecipeController {
         model.addAttribute("options", userOptionsService.getOptions());
         return (RECIPE_UPDATE_TEMPLATE);
     }
-*/
 }

@@ -47,6 +47,7 @@ public class RecipeService {
     }
 
     public RecipeDto add(RecipeDto recipeDto) {
+//        TODO userService kaput
         recipeDto.setRecipeOwner(userService.getCurrentUser());
         Recipe recipe = recipeMapper.mapDtoToEntity(recipeDto);
         recipeValidator.validate(recipeDto);
