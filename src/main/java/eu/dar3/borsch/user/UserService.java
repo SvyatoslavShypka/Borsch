@@ -92,6 +92,7 @@ public class UserService {
     }
 
     public User findUserByName(String userName) {
+        System.out.println("Username: " + userName);
         User user = userRepository.findByEmail(userName).orElseThrow(() ->
                 new NoSuchElementException("User with email: [" + userName + "] does not exist!"));
         List<Recipe> recipes = user.getRecipes();
