@@ -29,9 +29,11 @@
                   <td><a th:href="@{/recipe/view(id=${recipe.id})}"><div  th:text="${recipe.title}"></div></a></td>
                   <td th:text="${#temporals.format(recipe.createdDate, 'dd-MM-yyyy')}"></td>
                   <td th:text="${recipe.recipeOwner.nickname}"></td>
+<!--                  <td th:text="Empty"></td>-->
                   <td>
                     <!-- Tag Slider -->
                     <div th:id="'carouselExampleControls' + ${iStat.index}" class="carousel slide" data-ride="carousel">
+<!--                    <div th:id="'carouselExampleControls' + 1" class="carousel slide" data-ride="carousel">-->
                       <div class="carousel-inner">
                         <!-- Елемент -->
                         <div th:each="tag, tagStat: ${recipe.tagList}" th:class="(${tagStat.index}==0)? 'carousel-item active' : 'carousel-item'"  >

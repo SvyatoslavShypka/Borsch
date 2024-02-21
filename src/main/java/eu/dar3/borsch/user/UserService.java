@@ -76,7 +76,7 @@ public class UserService {
     }
 
     public void createNewUser(String username, String password, String nickname) {
-        UserDto userDTO = UserDto.builder()
+        UserDto userDto = UserDto.builder()
                 .email(username)
                 .password(password)
                 .nickname(nickname)
@@ -85,9 +85,9 @@ public class UserService {
                 .role(UserRoles.ROLE_USER)
                 .build();
         userValidator.setUserService(this);
-        userValidator.validate(userDTO, true);
-        userDTO.setPassword(passwordEncoder.encode(password));
-        User user = userMapper.mapDtoToEntity(userDTO);
+        userValidator.validate(userDto, true);
+        userDto.setPassword(passwordEncoder.encode(password));
+        User user = userMapper.mapDtoToEntity(userDto);
         userRepository.save(user);
     }
 

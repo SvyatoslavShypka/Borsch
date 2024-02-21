@@ -14,23 +14,21 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToMany;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import static eu.dar3.borsch.utils.Constants.RECIPE_NOTE_LENGTH;
 import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_LENGTH;
 
 @Entity
 @Data
-/*@Getter
-@Setter
-@ToString*/
-//@RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "recipe", schema = "recipes")
@@ -63,6 +61,5 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     @ManyToMany
-    @ToString.Exclude
     private List<Tag> tagList;
 }

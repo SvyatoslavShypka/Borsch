@@ -5,22 +5,27 @@ import eu.dar3.borsch.user.UserOptionsService;
 import eu.dar3.borsch.user.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.IntStream;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
 
@@ -30,14 +35,14 @@ import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
 public class RecipeController {
 
     private static final int PAGE_COUNT_ZERO = 0;
-    private static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
-    private static final int DEFAULT_PAGE_SIZE = 10;
 
     private final RecipeService recipeService;
     private final UserService userService;
     private final UserOptionsService userOptionsService;
-
+    public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
     @Value("${recipe.page.size}")
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
                                      @RequestParam(value = "note") String note,
