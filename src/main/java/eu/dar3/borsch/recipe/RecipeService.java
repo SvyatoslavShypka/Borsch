@@ -49,6 +49,7 @@ public class RecipeService {
     public RecipeDto add(RecipeDto recipeDto) {
 
 //        TODO userService kaput
+        System.out.println("Recipe service is used: " + recipeDto);
         recipeDto.setRecipeOwner(userService.getCurrentUser());
         Recipe recipe = recipeMapper.mapDtoToEntity(recipeDto);
         recipeValidator.validate(recipeDto);
