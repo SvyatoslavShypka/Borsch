@@ -27,7 +27,6 @@ public final class Constants {
     public static final int RECIPE_TITLE_LENGTH = 100;
     public static final int RECIPE_NOTE_LENGTH = 10000;
 
-
     static {
         GENDERS.put(GENDER_UNKNOWN, "Не відома");
         GENDERS.put(GENDER_MALE, "Чоловіча");
