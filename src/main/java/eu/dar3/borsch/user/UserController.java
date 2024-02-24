@@ -34,7 +34,7 @@ public class UserController {
         List<UserDto> usersFriendgroupDtos = userMapper.mapEntityToDto(friendgroupUsers);
 
         result.addObject("user", userDto);
-        result.addObject("friendgroup", userDto.getFriendgroupDto());
+        result.addObject("friendgroup", userDto.getFriendgroup());
         result.addObject("gender", GENDERS);
         result.addObject("usersFriendgroupDtos", usersFriendgroupDtos);
         result.addObject("options", userOptionsService.getOptions());

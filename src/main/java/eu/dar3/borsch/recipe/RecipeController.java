@@ -1,5 +1,7 @@
 package eu.dar3.borsch.recipe;
 
+import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
+
 import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserOptionsService;
 import eu.dar3.borsch.user.UserService;
@@ -27,8 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
-
 @RequestMapping("/recipe")
 @RequiredArgsConstructor
 @Controller
@@ -40,13 +40,13 @@ public class RecipeController {
     private final UserService userService;
     private final UserOptionsService userOptionsService;
     public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
-//    @Value("${recipe.page.size}")
+    @Value("${recipe.page.size}")
     public static final int DEFAULT_PAGE_SIZE = 10;
 
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
-                                     @RequestParam(value = "note") String note,
-                                     @RequestParam(value = "publicRecipe", required = false) String publicRecipe) {
+                                   @RequestParam(value = "note") String note,
+                                   @RequestParam(value = "publicRecipe", required = false) String publicRecipe) {
         RecipeAccessType accessType = RecipeAccessType.PRIVATE;
         if (publicRecipe != null) {
             accessType = RecipeAccessType.PUBLIC;
@@ -80,6 +80,7 @@ public class RecipeController {
         Page<RecipeDto> recipePage = recipeService.findAllByRecipeOwnerFriendgroup(
                 PageRequest.of(currentPage - 1, pageSize), searchText);
         int totalPages = recipePage.getTotalPages();
+        //TODO check recipePage
         result.addObject("recipePage", recipePage);
         result.addObject("previousPage", currentPage > 1 ? currentPage - 1 : 1);
         result.addObject("currentPage", currentPage);
@@ -170,11 +171,11 @@ public class RecipeController {
                     return "recipe/share";
                 }
             }
-            if (Objects.equals(recipeDto.getRecipeAccessType(), "private")) {
+            if (Objects.equals(recipeDto.getRecipeAccessType(), "PRIVATE")) {
                 return REDIRECT_URL_404;
             }
         } catch (Exception e) {
-            if (Objects.equals(recipeDto.getRecipeAccessType(), "private")) {
+            if (Objects.equals(recipeDto.getRecipeAccessType(), "PRIVATE")) {
                 return REDIRECT_URL_404;
             }
         }

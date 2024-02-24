@@ -1,27 +1,29 @@
 package eu.dar3.borsch.recipe;
 
-import eu.dar3.borsch.tag.Tag;
-import eu.dar3.borsch.tag.TagDto;
-import eu.dar3.borsch.tag.TagMapper;
-import eu.dar3.borsch.tag.TagService;
-import eu.dar3.borsch.user.User;
-import eu.dar3.borsch.user.UserService;
-import eu.dar3.borsch.utils.Util;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.beans.BeanUtils;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
+import java.awt.Toolkit;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
+
+import eu.dar3.borsch.user.UserService;
+import eu.dar3.borsch.tag.TagService;
+import eu.dar3.borsch.tag.TagMapper;
+import eu.dar3.borsch.utils.Util;
+import eu.dar3.borsch.tag.TagDto;
+import eu.dar3.borsch.user.User;
+import eu.dar3.borsch.tag.Tag;
 
 @Data
 @Service
@@ -47,9 +49,6 @@ public class RecipeService {
     }
 
     public RecipeDto add(RecipeDto recipeDto) {
-
-//        TODO userService kaput
-        System.out.println("Recipe service is used: " + recipeDto);
         recipeDto.setRecipeOwner(userService.getCurrentUser());
         Recipe recipe = recipeMapper.mapDtoToEntity(recipeDto);
         recipeValidator.validate(recipeDto);

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS recipes.recipe (
                               title                varchar(100) not null,
                               note                 text         not null,
                               recipe_owner         uuid         not null,
-                              recipe_access_type   varchar(7)   not null,
+                              recipe_access_type   varchar(7)   not null default 'PRIVATE',
                               created_date         timestamp,
                               updated_date         timestamp,
                               constraint fk_recipe_users foreign key(recipe_owner) references access.users(user_id)
@@ -40,6 +40,6 @@ CREATE TABLE IF NOT EXISTS recipes.recipe_tag (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS ix_recipe_tag_recipe_tag_id        on recipes.recipe_tag(recipe_tag_id);
-CREATE INDEX IF NOT EXISTS ix_recipe_tag_recipe_id            on recipes.recipe_tag(recipe_id);
-CREATE INDEX IF NOT EXISTS ix_recipe_tag_tag_id             on recipes.recipe_tag(tag_id);
-CREATE INDEX IF NOT EXISTS ix_recipe_tag_recipe_id_u          on recipes.recipe_tag(recipe_id, tag_id);
+CREATE INDEX IF NOT EXISTS ix_recipe_tag_recipe_id                   on recipes.recipe_tag(recipe_id);
+CREATE INDEX IF NOT EXISTS ix_recipe_tag_tag_id                      on recipes.recipe_tag(tag_id);
+CREATE INDEX IF NOT EXISTS ix_recipe_tag_recipe_id_u                 on recipes.recipe_tag(recipe_id, tag_id);

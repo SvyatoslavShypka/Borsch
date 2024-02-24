@@ -1,5 +1,4 @@
 package eu.dar3.borsch.user;
-
 import eu.dar3.borsch.friendgroup.FriendgroupMapper;
 import eu.dar3.borsch.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setCreatedDate(source.getCreatedDate());
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
-        target.setFriendgroupDto(friendgroupMapper.mapEntityToDto(source.getFriendgroup()));
+        target.setFriendgroup(friendgroupMapper.mapEntityToDto(source.getFriendgroup()));
         target.setFullWidth(source.isFullWidth());
         return target;
     }
@@ -42,7 +41,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         target.setCreatedDate(source.getCreatedDate());
         target.setUpdatedDate(source.getUpdatedDate());
         target.setRole(source.getRole());
-        target.setFriendgroup(friendgroupMapper.mapDtoToEntity(source.getFriendgroupDto()));
+        target.setFriendgroup(friendgroupMapper.mapDtoToEntity(source.getFriendgroup()));
         target.setFullWidth(source.isFullWidth());
         return target;
     }

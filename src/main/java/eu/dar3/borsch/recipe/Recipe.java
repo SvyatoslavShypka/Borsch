@@ -25,7 +25,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import static eu.dar3.borsch.utils.Constants.RECIPE_NOTE_LENGTH;
-import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_LENGTH;
+import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_MAX_LENGTH;
 
 @Entity
 @Data
@@ -38,7 +38,7 @@ public class Recipe {
     @Column(name = "recipe_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "title", length = RECIPE_TITLE_LENGTH, nullable = false)
+    @Column(name = "title", length = RECIPE_TITLE_MAX_LENGTH, nullable = false)
     private String title;
     @Column(name = "note", length = RECIPE_NOTE_LENGTH, nullable = false)
     private String note;

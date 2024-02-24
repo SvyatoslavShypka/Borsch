@@ -10,17 +10,15 @@ CREATE UNIQUE INDEX IF NOT EXISTS ix_gender_gender_id on access.gender (gender_i
 
 CREATE TABLE IF NOT EXISTS access.users(
                              user_id         UUID           primary key,
-                             username        varchar(100)   not null,
+                             username        varchar(50)   not null,
                              password        varchar(500)   not null,
                              role            varchar(32)    not NULL,
                              enabled         boolean        not null,
-                             nickname        varchar(50)    not null,
+                             nickname        varchar(100)    not null,
                              birthday        date,
                              gender_id       integer        not null default 0,
                              created_date    timestamp,
                              updated_date    timestamp,
-                             friendgroup_id  UUID           default null,
-                             full_width_page boolean        default false,
                              constraint fk_users_gender foreign key(gender_id) references access.gender(gender_id)
 );
 CREATE UNIQUE INDEX IF NOT EXISTS ix_users_user_id   on access.users (user_id);

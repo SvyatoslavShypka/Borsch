@@ -1,11 +1,10 @@
 package eu.dar3.borsch.friendgroup;
 
-import eu.dar3.borsch.mapper.Mapper;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-
 import static java.util.Objects.isNull;
+
+import eu.dar3.borsch.mapper.Mapper;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class FriendgroupMapper implements Mapper<Friendgroup, FriendgroupDto> {
@@ -17,10 +16,10 @@ public class FriendgroupMapper implements Mapper<Friendgroup, FriendgroupDto> {
         }
 
         return FriendgroupDto.builder()
-                .title(source.getTitle())
-                .id(source.getId())
-                .code(source.getCode())
-                .build();
+            .title(source.getTitle())
+            .id(source.getId())
+            .code(source.getCode())
+            .build();
     }
 
     @Override
@@ -29,10 +28,10 @@ public class FriendgroupMapper implements Mapper<Friendgroup, FriendgroupDto> {
             return null;
         }
         return Friendgroup.builder()
-                .title(source.getTitle())
-                .id(source.getId())
-                .code(source.getCode())
-                .build();
+            .title(source.getTitle())
+            .id(source.getId())
+            .code(source.getCode())
+            .build();
     }
 
     @Override
@@ -44,5 +43,4 @@ public class FriendgroupMapper implements Mapper<Friendgroup, FriendgroupDto> {
     public List<Friendgroup> mapDtoToEntity(List<FriendgroupDto> source) throws RuntimeException {
         return Mapper.super.mapDtoToEntity(source);
     }
-
 }

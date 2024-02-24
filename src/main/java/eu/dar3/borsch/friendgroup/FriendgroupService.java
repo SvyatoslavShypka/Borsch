@@ -4,12 +4,11 @@ import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserMapper;
 import eu.dar3.borsch.user.UserService;
 import eu.dar3.borsch.utils.Util;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.UUID;
 
 import static eu.dar3.borsch.utils.Constants.FRIENDGROUP_CODE_LENGTH;
 

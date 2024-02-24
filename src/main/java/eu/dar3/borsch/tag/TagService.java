@@ -1,8 +1,8 @@
 package eu.dar3.borsch.tag;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 import java.util.UUID;

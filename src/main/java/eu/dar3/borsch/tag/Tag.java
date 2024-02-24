@@ -1,22 +1,25 @@
 package eu.dar3.borsch.tag;
 
-import eu.dar3.borsch.recipe.Recipe;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+
+import eu.dar3.borsch.recipe.Recipe;
 
 @Entity
 @Data
@@ -24,7 +27,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "tag", schema = "recipes")
 public class Tag {
-    private static final int TAG_TITLE_MAX_LENGTH = 600;
+    private static final int TAG_TITLE_MAX_LENGTH = 500;
 
     @Id
     @Column(name = "tag_id")

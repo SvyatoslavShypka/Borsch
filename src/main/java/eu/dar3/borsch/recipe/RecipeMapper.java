@@ -1,11 +1,10 @@
 package eu.dar3.borsch.recipe;
 
-import eu.dar3.borsch.mapper.Mapper;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-
 import static java.util.Objects.isNull;
+
+import eu.dar3.borsch.mapper.Mapper;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class RecipeMapper implements Mapper<Recipe, RecipeDto> {

@@ -27,7 +27,7 @@ public class UserDto {
     private Instant updatedDate;
     private Instant createdDate;
     @Enumerated(EnumType.STRING)
-    private FriendgroupDto friendgroupDto;
+    private FriendgroupDto friendgroup;
     private UserRoles role;
     private boolean fullWidth;
 }

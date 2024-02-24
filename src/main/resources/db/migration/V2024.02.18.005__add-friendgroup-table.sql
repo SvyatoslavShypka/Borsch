@@ -6,4 +6,7 @@ CREATE TABLE IF NOT EXISTS access.friendgroups (
 );
 
 ALTER TABLE access.users
+    ADD friendgroup_id UUID NULL;
+
+ALTER TABLE access.users
        ADD FOREIGN KEY (friendgroup_id) REFERENCES access.friendgroups(id);

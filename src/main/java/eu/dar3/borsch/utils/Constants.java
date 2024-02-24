@@ -24,7 +24,6 @@ public final class Constants {
     public static final int QR_WIDTH = 320;
     public static final int QR_HEIGHT = 320;
 
-    public static final int RECIPE_TITLE_LENGTH = 100;
     public static final int RECIPE_NOTE_LENGTH = 10000;
 
     static {

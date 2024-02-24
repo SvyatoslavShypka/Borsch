@@ -1,5 +1,6 @@
 package eu.dar3.borsch.security;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,6 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -31,44 +30,44 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().disable().csrf().disable()
-                .authorizeHttpRequests(requests -> {
-                            requests
-                                    .requestMatchers(
-                                            "/about",
-                                            "/info",
-                                            "/login",
-                                            "/img/**",
-                                            "/css/**",
-                                            "/recipe/share/**",
-                                            "/error/**",
-                                            "/register/**"
-                                    )
-                                    .permitAll();
-                            requests
-                                    .requestMatchers("/").permitAll()
-                                    .anyRequest()
-                                    .authenticated();
-                        }
-                )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                .formLogin(a -> a.loginPage("/login"))
-                .formLogin(a -> a.defaultSuccessUrl("/", true).permitAll())
-                .logout(LogoutConfigurer::permitAll);
+            .authorizeHttpRequests(requests -> {
+                    requests
+                        .requestMatchers(
+                            "/about",
+                            "/info",
+                            "/login",
+                            "/img/**",
+                            "/css/**",
+                            "/recipe/share/**",
+                            "/error/**",
+                            "/register/**"
+                        )
+                        .permitAll();
+                    requests
+                        .requestMatchers("/").permitAll()
+                        .anyRequest()
+                        .authenticated();
+                }
+            )
+            .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+            .formLogin(a -> a.loginPage("/login"))
+            .formLogin(a -> a.defaultSuccessUrl("/", true).permitAll())
+            .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(passwordEncoder())
-                .dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select username, password, enabled from access.users where username=?")
-                .authoritiesByUsernameQuery("select username, role from access.users where username=?");
+            .dataSource(dataSource)
+            .usersByUsernameQuery(
+                "select username, password, enabled from access.users where username=?")
+            .authoritiesByUsernameQuery("select username, role from access.users where username=?");
     }
 }

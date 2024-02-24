@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static java.util.Objects.isNull;
-
 @Component
 public class TagMapper implements Mapper<Tag, TagDto> {
     @Override
