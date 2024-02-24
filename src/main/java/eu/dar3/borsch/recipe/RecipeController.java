@@ -40,7 +40,7 @@ public class RecipeController {
     private final UserService userService;
     private final UserOptionsService userOptionsService;
     public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
-    @Value("${recipe.page.size}")
+//    @Value("${recipe.page.size}")
     public static final int DEFAULT_PAGE_SIZE = 10;
 
     @PostMapping("/create")

@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @RestController
 public class CustomErrorController implements ErrorController {
+
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
+
         if (response.getStatus() == HttpStatus.NOT_FOUND.value()) {
             modelAndView.setViewName("error/404-not-found");
         } else if (response.getStatus() == HttpStatus.FORBIDDEN.value()) {
@@ -21,6 +24,7 @@ public class CustomErrorController implements ErrorController {
         } else {
             modelAndView.setViewName("error/default");
         }
+
         return modelAndView;
     }
 }

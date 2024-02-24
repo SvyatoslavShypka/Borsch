@@ -33,7 +33,7 @@
 <body>
 
 
-<div th:attr="class=${options==null || !options.isWidePage ? 'container mt-1' : 'container-fluid mt-1'}">
+<div th:attr="class=${options==null || !options.fullWidth ? 'container mt-1' : 'container-fluid mt-1'}">
 
   <th:block th:replace="fragments/header :: header"/>
 

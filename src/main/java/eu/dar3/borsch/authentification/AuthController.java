@@ -37,8 +37,6 @@ public class AuthController {
                                @RequestParam(value = "password") String password,
                                @RequestParam(value = "nickname") String nickname) {
         try {
-            //        TODO: test
-            System.out.println("AuthController userName: " + username);
             userService.findUserByName(username);
             errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
             return "user/login";

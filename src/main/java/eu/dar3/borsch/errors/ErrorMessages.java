@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class ErrorMessages {
+
     private List<String> errors = new ArrayList<>();
 
     public void addError(String message) {

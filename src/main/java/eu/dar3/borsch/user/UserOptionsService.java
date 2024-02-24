@@ -15,7 +15,7 @@ public class UserOptionsService {
         UserOptions options = new UserOptions();
         try {
             User currentUser = userService.getCurrentUser();
-            options.setWidePage(currentUser.isWidePage());
+            options.setFullWidth(currentUser.isFullWidth());
         } catch (NoSuchElementException e) {
             //No action
         }

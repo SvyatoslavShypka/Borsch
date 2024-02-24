@@ -14,5 +14,4 @@ public class RecipeValidationException extends RuntimeException {
     public ErrorMessages getErrorMessages() {
         return errorMessages;
     }
-
 }

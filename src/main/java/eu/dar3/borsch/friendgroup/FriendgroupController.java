@@ -20,9 +20,9 @@ import static eu.dar3.borsch.utils.Constants.URL_ACCOUNT;
 @RequiredArgsConstructor
 @Controller
 public class FriendgroupController {
+
     private final FriendgroupService friendgroupService;
     private final UserService userService;
-    //TODO check other variant
     private final UserOptionsService userOptionsService;
 
     @GetMapping("/edit")

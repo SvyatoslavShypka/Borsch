@@ -13,5 +13,4 @@ public class InfoMessages {
     public void addMessage(String message) {
         messages.add(message);
     }
-
 }

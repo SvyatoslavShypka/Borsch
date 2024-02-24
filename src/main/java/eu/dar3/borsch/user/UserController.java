@@ -48,10 +48,10 @@ public class UserController {
                                       @RequestParam(value = "nickname") String nickname,
                                       @RequestParam(value = "birthDate") String birthDate,
                                       @RequestParam(value = "gender") int gender,
-                                      @RequestParam(value = "isWidePage", required = false) String isWidePage) {
+                                      @RequestParam(value = "fullWidth", required = false) String fullWidth) {
         RedirectView redirect = new RedirectView();
 
-        userService.updateUser(email, password, nickname, birthDate, gender, isWidePage);
+        userService.updateUser(email, password, nickname, birthDate, gender, fullWidth);
 
         redirect.setUrl("/account");
         if (!Objects.equals(oldEmail, email)) {

@@ -11,9 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class UserService {
                            String password,
                            String nickname,
                            String birthDate,
-                           int gender, String isWidePage) {
+                           int gender, String fullWidth) {
         User currentUser = getCurrentUser();
         UserDto userDto = userMapper.mapEntityToDto(currentUser);
         userDto.setEmail(email);
@@ -59,7 +57,7 @@ public class UserService {
         userDto.setNickname(nickname);
         userDto.setGenderId(gender);
 
-        userDto.setWidePage(isWidePage != null);
+        userDto.setFullWidth(fullWidth != null);
 
         if (!password.isBlank()) {
             if (!passwordEncoder.matches(password, currentUser.getPassword())) {
@@ -93,9 +91,13 @@ public class UserService {
 
     public User findUserByName(String userName) {
         System.out.println("Username: " + userName);
-        User user = userRepository.findByEmail(userName).orElseThrow(() ->
-                new NoSuchElementException("User with email: [" + userName + "] does not exist!"));
+        List<User> all = userRepository.findAll();
+        Optional<User> user_tmp = userRepository.findByEmail(userName);
+        User user = userRepository.findByEmail(userName).orElseThrow(() -> new NoSuchElementException("User with email: [" + userName + "] does not exist!"));
         List<Recipe> recipes = user.getRecipes();
+        if (recipes == null) {
+            recipes = new ArrayList<>();
+        }
         user.setRecipes(recipes);
         return user;
     }
