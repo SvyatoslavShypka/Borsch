@@ -111,12 +111,31 @@ input[type="password"]:invalid {
     border-color: rgba(0, 0, 0, .1);
 }
 .checkbox-ios input[type=checkbox]:disabled + .checkbox-ios-switch:before {
-    background: #eee;
+    background: #FEF3F3;
 }
 
 /* Focus */
 .checkbox-ios.focused .checkbox-ios-switch:before {
     box-shadow: inset 0px 0px 4px #ff5623;
+}
+
+.card-deck {
+    width: 300px;
+    height: 300px;
+}
+.card-img-top {
+    /*width: 20%;*/
+    height: 200px;
+    object-fit: scale-down;
+}
+
+
+
+.navbar-nav {
+    align-items: center;
+}
+.col-md-12 {
+    color: #1ba6a6;
 }
 
 .github      {color: #191919;}
