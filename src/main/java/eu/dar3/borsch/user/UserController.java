@@ -2,10 +2,7 @@ package eu.dar3.borsch.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -59,4 +56,15 @@ public class UserController {
         }
         return redirect;
     }
+//TODO POST take email= & code=
+    @GetMapping("/account/confirmation/{id}")
+    public RedirectView confirmAccount(@PathVariable String id) {
+
+        RedirectView redirect = new RedirectView();
+
+        redirect.setUrl("/account");
+        redirect.setUrl("/logout");
+        return redirect;
+    }
+
 }

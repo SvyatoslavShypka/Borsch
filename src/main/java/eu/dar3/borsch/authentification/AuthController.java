@@ -81,7 +81,8 @@ public class AuthController {
         System.out.println("linkGeneration...");
         StringBuilder link = new StringBuilder(properties.getProperty("server.url"));
         link.append(":").append(properties.getProperty("server.port"));
-        link.append("/user/confirmation/").append(userId);
-        return userId.toString() + "::" + passwordEncoder.encode(userId.toString());
+        link.append("/account/confirmation?email=").append(userService.findUserById(userId).getEmail());
+        link.append("&code=").append(passwordEncoder.encode(userId.toString()));
+        return link.toString();
     }
 }
