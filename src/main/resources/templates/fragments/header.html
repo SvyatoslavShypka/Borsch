@@ -28,7 +28,7 @@
                         <li class="nav-item mt-1">
                             <form action="#" th:action="@{/recipe/list?&query=blah}" class="form-inline my-2 my-lg-0"
                                   method="get">
-                                <input th:value ="${searchText}" class="form-control mr-sm-2 ml-4" id="searchText" name="searchText" type="search"
+                                <input th:value ="${searchText}" class="form-control mr-sm-2" id="searchText" name="searchText" type="search"
                                        placeholder="пошук" aria-label="Search">
                                 <button class="btn btn-success" style="background-color:deepskyblue"
                                         type="submit">Пошук
@@ -38,7 +38,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item mt-1">
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-success ml-sm-4"
                                     onclick="window.location.href = '/recipe/create';">Новий рецепт
                             </button>
                         </li>
