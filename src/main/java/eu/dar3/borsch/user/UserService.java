@@ -78,6 +78,7 @@ public class UserService {
                 .email(username)
                 .password(password)
                 .nickname(nickname)
+//                TODO make default false and after confirmation - true
                 .isEnable(true)
                 .genderId(GENDER_ZERO)
                 .role(UserRoles.ROLE_USER)
