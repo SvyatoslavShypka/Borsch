@@ -4,17 +4,23 @@ import eu.dar3.borsch.errors.ErrorMessages;
 import eu.dar3.borsch.errors.InfoMessages;
 import eu.dar3.borsch.mail.EmailService;
 import eu.dar3.borsch.user.User;
+import eu.dar3.borsch.user.UserDto;
 import eu.dar3.borsch.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.UUID;
@@ -27,8 +33,10 @@ public class AuthController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final ApplicationEventPublisher eventPublisher;
+
     private Properties properties;
-//    private final Logger logger;
+
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -85,4 +93,5 @@ public class AuthController {
         link.append("&code=").append(passwordEncoder.encode(userId.toString()));
         return link.toString();
     }
+
 }
