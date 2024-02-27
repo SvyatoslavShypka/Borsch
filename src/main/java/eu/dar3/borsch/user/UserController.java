@@ -48,7 +48,6 @@ public class UserController {
                                       @RequestParam(value = "fullWidth", required = false) String fullWidth) {
 
         RedirectView redirect = new RedirectView();
-
         userService.updateUser(email, password, nickname, birthDate, gender, fullWidth);
 
         redirect.setUrl("/account");
