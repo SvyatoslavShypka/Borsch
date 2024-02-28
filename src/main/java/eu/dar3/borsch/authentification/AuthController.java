@@ -55,15 +55,12 @@ public class AuthController {
                                @RequestParam(value = "password") String password,
                                @RequestParam(value = "nickname") String nickname) {
         try {
-//            userService.findUserByName(username);
             User user = userService.findUserByName(username);
-            System.out.println("user.isEnable() = " + user.isEnable());
             if (user.isEnable()) {
                 errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
             } else {
                 sendConfirmation(user, errorsMessages, infoMessages);
                 }
-
             return "user/login";
         } catch (NoSuchElementException e) {
             userService.createNewUser(username, password, nickname);
@@ -71,7 +68,7 @@ public class AuthController {
             user.setEnable(false);
             sendConfirmation(user, errorsMessages, infoMessages);
 //TODO change message
-            infoMessages.addMessage("Успішна реєстрація. Можете залогуватися");
+//            infoMessages.addMessage("Успішна реєстрація. Можете залогуватися");
             return "user/login";
         }
     }
