@@ -6,6 +6,7 @@
 <head>
   <title>Створення нотатки</title>
 </head>
+<body>
 
   <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">
@@ -15,7 +16,6 @@
           <div class="text-center">
             <h2>Створення рецепту</h2>
           </div>
-
           <div class="card card-default mb-2">
 
             <form action="/recipe/create" method="post" id="createForm">

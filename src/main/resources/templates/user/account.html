@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Profile</title>
+    <title>Профіль</title>
 </head>
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">
@@ -53,7 +53,7 @@
         <div class="row ml-auto mr-auto">
             <div class="col-md-12 mb-4">
                 <div class="text-center">
-                    <h3>Profile</h3>
+                    <h3>Профіль</h3>
                 </div>
                 <form action="/account" method="post">
                     <input type="hidden" name="oldEmail" th:value="${user.email}">

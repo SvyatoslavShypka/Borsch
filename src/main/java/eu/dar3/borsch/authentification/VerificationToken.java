@@ -16,10 +16,11 @@ import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity
-@Getter
-@Setter
+//@Entity
+//@Getter
+//@Setter
 public class VerificationToken {
+/*
     @Override
     public String toString() {
         return "VerificationToken{" +
@@ -50,6 +51,7 @@ public class VerificationToken {
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);
         return (new Date(cal.getTime().getTime())).toInstant();
     }
+*/
 
     // standard constructors, getters and setters
 }
