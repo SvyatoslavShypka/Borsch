@@ -47,6 +47,24 @@ public class AuthController {
         return "user/register";
     }
 
+    @PostMapping("/sendEmailConfirmation")
+    public String sendEmailConfirmation(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
+                                        @ModelAttribute("infoMessages") InfoMessages infoMessages,
+                                        @RequestParam(value = "username") String username) {
+
+        infoMessages.addMessage("На Вашу поштову скриньку: " + username +
+                " було відправлено код для підтвердження. Просимо перевірити скриньку і ввести цей код");
+        String code = UUID.randomUUID().toString();
+        emailService.sendEmail(username, "Borsch message","You have just registered to Borsch application. " +
+                        "Please use this code to finish your registration: " + code +
+                        "\nIn case you have not registered to Borsch application please ignore this e-mail");
+
+        return "user/register";
+    }
+
+
+
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
                                @ModelAttribute("infoMessages") InfoMessages infoMessages,
