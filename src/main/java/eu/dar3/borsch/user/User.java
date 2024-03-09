@@ -64,7 +64,7 @@ public class User {
         private int code;
         @Column(name = "code_date")
         @UpdateTimestamp
-        private Instant code_date;
+        private Instant codeDate;
 
         @Override
         public boolean equals(Object o) {

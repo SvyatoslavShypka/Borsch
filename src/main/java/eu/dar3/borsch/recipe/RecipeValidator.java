@@ -4,7 +4,8 @@ import eu.dar3.borsch.errors.ErrorMessages;
 import eu.dar3.borsch.errors.RecipeValidationException;
 import org.springframework.stereotype.Component;
 
-import static eu.dar3.borsch.utils.Constants.*;
+import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_MAX_LENGTH;
+import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_MIN_LENGTH;
 
 @Component
 public class RecipeValidator {
@@ -23,8 +24,7 @@ public class RecipeValidator {
     private void checkTitle(String title) {
         if (title == null || title.isEmpty()) {
             errorMessages.addError("Заголовок не може бути пустим.");
-        }
-        else {
+        } else {
             if (title.length() > RECIPE_TITLE_MAX_LENGTH || title.length() < RECIPE_TITLE_MIN_LENGTH) {
                 errorMessages.addError("Довжина заголовка повинна бути від " + RECIPE_TITLE_MIN_LENGTH
                         + " до " + RECIPE_TITLE_MAX_LENGTH + " символів");

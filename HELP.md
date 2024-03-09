@@ -2,12 +2,9 @@
 
 ### Register new user or use test@test.com with password test
 
-Real prototype is deployed here:
+The prototype is deployed here:
 
 [Borsch](http://dar3.eu:8888)
-
-
-
 
 For further reference, please consider the following sections:
 

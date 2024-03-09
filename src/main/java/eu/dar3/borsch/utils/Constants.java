@@ -13,6 +13,7 @@ public final class Constants {
     public static final int RECIPE_TITLE_MAX_LENGTH = 100;
     public static final int CODE_START = 1000;
     public static final int CODE_FINISH = 10000;
+    public static final int CODE_LIFE_CYCLE = 24;
 
     public static final String REDIRECT_URL_404 = "redirect:error/404";
     public static final String URL_ACCOUNT = "/account";

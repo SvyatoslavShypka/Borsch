@@ -4,34 +4,28 @@ import eu.dar3.borsch.errors.ErrorMessages;
 import eu.dar3.borsch.errors.InfoMessages;
 import eu.dar3.borsch.mail.EmailService;
 import eu.dar3.borsch.user.User;
-import eu.dar3.borsch.user.UserDto;
 import eu.dar3.borsch.user.UserRepository;
 import eu.dar3.borsch.user.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.MappingMatch;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Properties;
+import java.util.NoSuchElementException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.Random;
 
+import static eu.dar3.borsch.utils.Constants.CODE_LIFE_CYCLE;
 import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
 import static eu.dar3.borsch.utils.Constants.CODE_START;
 
-//@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class AuthController {
@@ -80,7 +74,7 @@ public class AuthController {
     public String registerUser(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
                                @ModelAttribute("infoMessages") InfoMessages infoMessages,
                                @RequestParam(value = "username") String username,
-                               @RequestParam(value = "code") int code){
+                               @RequestParam(value = "code") int code) {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
@@ -88,9 +82,9 @@ public class AuthController {
             } else {
                 if (code == user.getCode()) {
                     Calendar cal1 = Calendar.getInstance(); // creates calendar
-                    cal1.setTime(Date.from(user.getCode_date()));               // sets calendar time/date
+                    cal1.setTime(Date.from(user.getCodeDate()));               // sets calendar time/date
                     cal1.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    cal1.add(Calendar.HOUR_OF_DAY, 24);      // adds one hour
+                    cal1.add(Calendar.HOUR_OF_DAY, CODE_LIFE_CYCLE);      // adds one hour
                     Calendar cal2 = Calendar.getInstance(); // creates calendar
                     cal2.setTimeZone(TimeZone.getTimeZone("UTC"));
                     if (cal1.getTime().toInstant().compareTo(cal2.toInstant()) < 0) {
@@ -115,16 +109,17 @@ public class AuthController {
 
     private void sendConfirmation(String username, String nickname,
                                   ErrorMessages errorsMessages, InfoMessages infoMessages) {
-        infoMessages.addMessage("На Вашу поштову скриньку: " + username +
-                " було відправлено код для підтвердження Вашого e-mail");
+        infoMessages.addMessage("На Вашу поштову скриньку: " + username
+                + " було відправлено код для підтвердження Вашого e-mail");
         User user = userService.findUserByName(username);
         int codeInt = codeGeneration();
         user.setCode(codeInt);
         userRepository.save(user);
         String code = String.valueOf(codeInt);
         emailService.sendEmail(username, "Borsch e-mail confirmation",
-                "Hello " + nickname + "! You have just registered to Borsch page. \n" +
-                        "Please use this code for confirmation the registration on Borsch page: \n" + code
+                "Hello " + nickname + "! You have just registered to Borsch page. \n"
+                        + "Please use this code for confirmation the registration on Borsch page: \n"
+                        + code
                         + "\nIn case you have not registered to Borsch application please ignore this e-mail");
     }
 
