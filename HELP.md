@@ -1,6 +1,13 @@
 # Getting Started
 
-### Reference Documentation
+### Register new user or use test@test.com with password test
+
+Real prototype is deployed here:
+
+[Borsch](http://dar3.eu:8888)
+
+
+
 
 For further reference, please consider the following sections:
 
@@ -48,4 +55,3 @@ In this file, the following services have been defined:
 * postgres: [`postgres:latest`](https://hub.docker.com/_/postgres)
 
 Please review the tags of the used images and set them to the same as you're running in production.
-

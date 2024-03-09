@@ -79,7 +79,7 @@ public class UserService {
                 .password(password)
                 .nickname(nickname)
 //                TODO make default false and after confirmation - true
-                .isEnable(true)
+                .isEnable(false)
                 .genderId(GENDER_ZERO)
                 .role(UserRoles.ROLE_USER)
                 .build();

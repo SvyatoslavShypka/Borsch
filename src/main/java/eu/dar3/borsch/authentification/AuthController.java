@@ -23,9 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.NoSuchElementException;
-import java.util.Properties;
-import java.util.UUID;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
+import static eu.dar3.borsch.utils.Constants.CODE_START;
 
 //@Slf4j
 @RequiredArgsConstructor
@@ -67,8 +71,6 @@ public class AuthController {
             return "user/register-finish";
         } catch (NoSuchElementException e) {
             userService.createNewUser(username, password, nickname);
-            User user = userService.findUserByName(username);
-            user.setEnable(true);
             sendConfirmation(username, nickname, errorsMessages, infoMessages);
             return "user/register-finish";
         }
@@ -82,10 +84,23 @@ public class AuthController {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
-                errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
+                infoMessages.addMessage("Ви вже зареєстровані і можете залогуватися");
             } else {
                 if (code == user.getCode()) {
+                    Calendar cal1 = Calendar.getInstance(); // creates calendar
+                    cal1.setTime(Date.from(user.getCode_date()));               // sets calendar time/date
+                    cal1.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    cal1.add(Calendar.HOUR_OF_DAY, 24);      // adds one hour
+                    Calendar cal2 = Calendar.getInstance(); // creates calendar
+                    cal2.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    if (cal1.getTime().toInstant().compareTo(cal2.toInstant()) < 0) {
+                        errorsMessages.addError("Код вже неактуальний.");
+                        sendConfirmation(user.getEmail(), user.getNickname(), errorsMessages, infoMessages);
+                        return "user/register-finish";
+                    }
                     user.setEnable(true);
+                    userRepository.save(user);
+                    infoMessages.addMessage("Реєстрацію підтверджено. Ви можете залогуватися");
                 } else {
                     errorsMessages.addError("Невірний або неактуальний код");
                     return "user/register-finish";
@@ -108,15 +123,15 @@ public class AuthController {
         userRepository.save(user);
         String code = String.valueOf(codeInt);
         emailService.sendEmail(username, "Borsch e-mail confirmation",
-                "Hello " + nickname + "! You have just registered to Borsch application. \n" +
+                "Hello " + nickname + "! You have just registered to Borsch page. \n" +
                         "Please use this code for confirmation the registration on Borsch page: \n" + code
                         + "\nIn case you have not registered to Borsch application please ignore this e-mail");
     }
 
     private int codeGeneration() {
 //        logger.info("linkGenerator");
-        System.out.println("linkGeneration...");
-        return 1234;
+        Random rand = new Random();
+        return rand.nextInt(CODE_FINISH - CODE_START) + CODE_START;
     }
 
 }
