@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                             "/about",
                             "/info",
                             "/login",
+                            "/sendEmailConfirmation",
                             "/img/**",
                             "/css/**",
                             "/recipe/share/**",

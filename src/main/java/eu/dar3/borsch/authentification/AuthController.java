@@ -5,8 +5,10 @@ import eu.dar3.borsch.errors.InfoMessages;
 import eu.dar3.borsch.mail.EmailService;
 import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserDto;
+import eu.dar3.borsch.user.UserRepository;
 import eu.dar3.borsch.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.MappingMatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -36,6 +38,7 @@ public class AuthController {
     private final ApplicationEventPublisher eventPublisher;
 
     private Properties properties;
+    private final UserRepository userRepository;
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -50,8 +53,9 @@ public class AuthController {
     @PostMapping("/sendEmailConfirmation")
     public String sendEmailConfirmation(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
                                         @ModelAttribute("infoMessages") InfoMessages infoMessages,
+                                        @RequestParam(value = "nickname") String nickname,
                                         @RequestParam(value = "username") String username,
-                                        @RequestParam(value = "nickname") String nickname) {
+                                        @RequestParam(value = "password") String password) {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
@@ -62,56 +66,57 @@ public class AuthController {
             }
             return "user/register-finish";
         } catch (NoSuchElementException e) {
+            userService.createNewUser(username, password, nickname);
+            User user = userService.findUserByName(username);
+            user.setEnable(true);
             sendConfirmation(username, nickname, errorsMessages, infoMessages);
             return "user/register-finish";
         }
-
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
                                @ModelAttribute("infoMessages") InfoMessages infoMessages,
                                @RequestParam(value = "username") String username,
-                               @RequestParam(value = "password") String password,
-                               @RequestParam(value = "nickname") String nickname) {
+                               @RequestParam(value = "code") int code){
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
                 errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
             } else {
-                sendConfirmation(username, nickname, errorsMessages, infoMessages);
+                if (code == user.getCode()) {
+                    user.setEnable(true);
+                } else {
+                    errorsMessages.addError("Невірний або неактуальний код");
+                    return "user/register-finish";
                 }
+            }
             return "user/login";
         } catch (NoSuchElementException e) {
-            userService.createNewUser(username, password, nickname);
-            User user = userService.findUserByName(username);
-            user.setEnable(false);
-            sendConfirmation(username, nickname, errorsMessages, infoMessages);
-//TODO change message
-//            infoMessages.addMessage("Успішна реєстрація. Можете залогуватися");
-            return "user/login";
+            errorsMessages.addError("Ви не є зареєстровані - прошу зареєструватися");
+            return "user/register";
         }
     }
 
     private void sendConfirmation(String username, String nickname,
                                   ErrorMessages errorsMessages, InfoMessages infoMessages) {
         infoMessages.addMessage("На Вашу поштову скриньку: " + username +
-                " було відправлено прохання підтвердити Ваш e-mail");
-        String link = UUID.randomUUID().toString();
+                " було відправлено код для підтвердження Вашого e-mail");
+        User user = userService.findUserByName(username);
+        int codeInt = codeGeneration();
+        user.setCode(codeInt);
+        userRepository.save(user);
+        String code = String.valueOf(codeInt);
         emailService.sendEmail(username, "Borsch e-mail confirmation",
                 "Hello " + nickname + "! You have just registered to Borsch application. \n" +
-                        "Please use this code for confirmation the registration on Borsch page: \n" + link
+                        "Please use this code for confirmation the registration on Borsch page: \n" + code
                         + "\nIn case you have not registered to Borsch application please ignore this e-mail");
     }
 
-    private String linkGeneration(UUID userId) {
+    private int codeGeneration() {
 //        logger.info("linkGenerator");
         System.out.println("linkGeneration...");
-        StringBuilder link = new StringBuilder(properties.getProperty("server.url"));
-        link.append(":").append(properties.getProperty("server.port"));
-        link.append("/account/confirmation?email=").append(userService.findUserById(userId).getEmail());
-        link.append("&code=").append(passwordEncoder.encode(userId.toString()));
-        return link.toString();
+        return 1234;
     }
 
 }

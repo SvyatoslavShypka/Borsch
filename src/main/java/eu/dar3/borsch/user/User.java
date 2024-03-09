@@ -60,6 +60,11 @@ public class User {
         private UserRoles role;
         @Column(name = "full_width_page")
         private boolean fullWidth;
+        @Column(name = "code")
+        private int code;
+        @Column(name = "code_date")
+        @UpdateTimestamp
+        private Instant code_date;
 
         @Override
         public boolean equals(Object o) {
