@@ -50,20 +50,23 @@ public class AuthController {
     @PostMapping("/sendEmailConfirmation")
     public String sendEmailConfirmation(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
                                         @ModelAttribute("infoMessages") InfoMessages infoMessages,
-                                        @RequestParam(value = "username") String username) {
+                                        @RequestParam(value = "username") String username,
+                                        @RequestParam(value = "nickname") String nickname) {
+        try {
+            User user = userService.findUserByName(username);
+            if (user.isEnable()) {
+                errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
+                return "user/login";
+            } else {
+                sendConfirmation(username, nickname, errorsMessages, infoMessages);
+            }
+            return "user/register-finish";
+        } catch (NoSuchElementException e) {
+            sendConfirmation(username, nickname, errorsMessages, infoMessages);
+            return "user/register-finish";
+        }
 
-        infoMessages.addMessage("На Вашу поштову скриньку: " + username +
-                " було відправлено код для підтвердження. Просимо перевірити скриньку і ввести цей код");
-        String code = UUID.randomUUID().toString();
-        emailService.sendEmail(username, "Borsch message","You have just registered to Borsch application. " +
-                        "Please use this code to finish your registration: " + code +
-                        "\nIn case you have not registered to Borsch application please ignore this e-mail");
-
-        return "user/register";
     }
-
-
-
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("errorsMessages") ErrorMessages errorsMessages,
@@ -76,26 +79,29 @@ public class AuthController {
             if (user.isEnable()) {
                 errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
             } else {
-                sendConfirmation(user, errorsMessages, infoMessages);
+                sendConfirmation(username, nickname, errorsMessages, infoMessages);
                 }
             return "user/login";
         } catch (NoSuchElementException e) {
             userService.createNewUser(username, password, nickname);
             User user = userService.findUserByName(username);
             user.setEnable(false);
-            sendConfirmation(user, errorsMessages, infoMessages);
+            sendConfirmation(username, nickname, errorsMessages, infoMessages);
 //TODO change message
 //            infoMessages.addMessage("Успішна реєстрація. Можете залогуватися");
             return "user/login";
         }
     }
 
-    private void sendConfirmation(User user, ErrorMessages errorsMessages, InfoMessages infoMessages) {
-        infoMessages.addMessage("На Вашу поштову скриньку: " + user.getEmail() +
+    private void sendConfirmation(String username, String nickname,
+                                  ErrorMessages errorsMessages, InfoMessages infoMessages) {
+        infoMessages.addMessage("На Вашу поштову скриньку: " + username +
                 " було відправлено прохання підтвердити Ваш e-mail");
-        String link = linkGeneration(user.getUserId());
-        emailService.sendEmail(user.getEmail(), "Email_subject",
-                "Hello " + user.getNickname() + "! Please confirm your e-mail by clicking link below: \n" + link);
+        String link = UUID.randomUUID().toString();
+        emailService.sendEmail(username, "Borsch e-mail confirmation",
+                "Hello " + nickname + "! You have just registered to Borsch application. \n" +
+                        "Please use this code for confirmation the registration on Borsch page: \n" + link
+                        + "\nIn case you have not registered to Borsch application please ignore this e-mail");
     }
 
     private String linkGeneration(UUID userId) {
