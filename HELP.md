@@ -1,6 +1,6 @@
 # Getting Started
 
-### Register new user or use test@test.com with password test
+### Register a new user or use "test@test.com" with a password "test"
 
 For further reference, please consider the following sections:
 
