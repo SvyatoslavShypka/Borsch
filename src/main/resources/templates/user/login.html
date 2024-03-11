@@ -4,7 +4,11 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Борщ</title>
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>-->
+<!--    <title th:utext="${page.login.title}">Default</title>-->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<!--    <title>Борщ</title>-->
+    <title th:utext="${pp}">Борщ</title>
 </head>
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">

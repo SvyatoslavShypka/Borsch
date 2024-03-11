@@ -1,7 +1,34 @@
 package eu.dar3.borsch;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 public class Main {
-    public static void main(String[] args) {
+
+//    private final MessageSource messages;
+
+    public static void main(String[] args) throws IOException {
+        /*Properties properties = new Properties();
+        properties.load(Main.class.getClassLoader().getResourceAsStream("application.properties"));
+        Locale locale = new Locale(properties.getProperty("app.language"));
+        ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
+
+        System.out.println("exampleBundle.getString(\"currency\") = " + exampleBundle.getString("currency"));*/
+
+/*
+        assertEquals(exampleBundle.getString("currency"), "polish zloty");
+        assertEquals(exampleBundle.getObject("toUsdRate"), new BigDecimal("3.401"));
+        assertArrayEquals(exampleBundle.getStringArray("cities"), new String[]{"Warsaw", "Cracow"});
+*/
 
 /*
         Calendar cal1 = Calendar.getInstance(); // creates calendar

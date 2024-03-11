@@ -7,25 +7,25 @@ import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserRepository;
 import eu.dar3.borsch.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Properties;
-import java.util.NoSuchElementException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.Random;
+import java.util.*;
 
 import static eu.dar3.borsch.utils.Constants.CODE_LIFE_CYCLE;
 import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
 import static eu.dar3.borsch.utils.Constants.CODE_START;
 
+@PropertySource(ignoreResourceNotFound = true, value = "classpath:messages_sk.properties")
 @RequiredArgsConstructor
 @Controller
 public class AuthController {
@@ -35,11 +35,23 @@ public class AuthController {
     private final EmailService emailService;
     private final ApplicationEventPublisher eventPublisher;
 
-    private Properties properties;
+    private final Properties properties;
     private final UserRepository userRepository;
 
+    private final MessageSource messages;
+
+    @Value("${page.login.title: some-default}")
+    private String title;
+
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(Model model) {
+        Locale locale = new Locale(properties.getProperty("app.language"));
+        ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
+        model.addAttribute("pp", title);
+ /*       System.out.println("messages.getMessage(\"page.login.title\", null, locale) = "
+                + messages.getMessage("page.login.title", null, locale));
+*/
+        System.out.println("exampleBundle.getString(\"currency\") = " + exampleBundle.getString("currency"));
         return "user/login";
     }
 

@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -15,12 +16,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.io.IOException;
+import java.util.Properties;
+
+import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
     @Autowired
     private DataSource dataSource;
+
+    @Bean
+    public Properties properties(){
+        Properties properties = new Properties();
+        try {
+            properties.load(WebSecurityConfig.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES_FILE_NAME));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return properties;
+    }
+
+    /*@Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 
+//@PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
 @RequestMapping("/recipe")
 @RequiredArgsConstructor
 @Controller
@@ -40,9 +42,9 @@ public class RecipeController {
     private final UserService userService;
     private final UserOptionsService userOptionsService;
     public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
-    @Value("${recipe.page.size}")
     public static final int DEFAULT_PAGE_SIZE = 10;
 
+//    @Value("${recipe.page.size}")
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
                                    @RequestParam(value = "note") String note,
