@@ -17,7 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
 
@@ -29,10 +32,18 @@ public class WebSecurityConfig {
     private DataSource dataSource;
 
     @Bean
+    ResourceBundle resourceBundle(){
+//            Locale locale = new Locale(properties.getProperty("app.language"));
+        return ResourceBundle.getBundle("messages", new Locale("en"));
+    }
+
+    @Bean
     public Properties properties(){
         Properties properties = new Properties();
         try {
             properties.load(WebSecurityConfig.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES_FILE_NAME));
+//            ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
+//            System.out.println("exampleBundle.getString(\"page.login.label.information\") = " + exampleBundle.getString("page.login.label.information"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

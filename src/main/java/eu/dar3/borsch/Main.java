@@ -5,6 +5,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class Main {
 //    private final MessageSource messages;
 
     public static void main(String[] args) throws IOException {
+
         /*Properties properties = new Properties();
         properties.load(Main.class.getClassLoader().getResourceAsStream("application.properties"));
         Locale locale = new Locale(properties.getProperty("app.language"));

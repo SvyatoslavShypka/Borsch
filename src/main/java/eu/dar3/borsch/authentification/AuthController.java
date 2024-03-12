@@ -19,13 +19,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static eu.dar3.borsch.utils.Constants.CODE_LIFE_CYCLE;
 import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
 import static eu.dar3.borsch.utils.Constants.CODE_START;
 
-@PropertySource(ignoreResourceNotFound = true, value = "classpath:messages_sk.properties")
+@PropertySource(ignoreResourceNotFound = true, value = "classpath:messages_en.properties")
 @RequiredArgsConstructor
 @Controller
 public class AuthController {
@@ -45,6 +47,15 @@ public class AuthController {
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
+        String tmp = "Борщ";
+        System.out.println("tmp = " + tmp);
+        System.out.println("title = " + title);
+
+        ByteBuffer buffer = StandardCharsets.UTF_8.encode(title);
+        String utf8EncodedString = StandardCharsets.UTF_8.decode(buffer).toString();
+        title = utf8EncodedString;
+
+        System.out.println("title = " + title);
         Locale locale = new Locale(properties.getProperty("app.language"));
         ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
         model.addAttribute("pp", title);
@@ -100,7 +111,7 @@ public class AuthController {
                     Calendar cal2 = Calendar.getInstance(); // creates calendar
                     cal2.setTimeZone(TimeZone.getTimeZone("UTC"));
                     if (cal1.getTime().toInstant().compareTo(cal2.toInstant()) < 0) {
-                        errorsMessages.addError("Код вже неактуальний.");
+                        errorsMessages.addError(properties.getProperty("information.error.overdue_code"));
                         sendConfirmation(user.getEmail(), user.getNickname(), errorsMessages, infoMessages);
                         return "user/register-finish";
                     }
