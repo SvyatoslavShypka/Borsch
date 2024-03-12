@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title data-th-text="#{label.title}"></title>
+</head>
+<body>
+    <h1 data-th-text="#{label.title}"></h1>
+
+<table border="1">
+
+    <tr th:each="product: ${products}">
+        <td data-th-text="#{__${product.name}__}"></td>
+        <td data-th-text="${product.price}" />
+        <td data-th-text="${product.lastUpdated}" />
+    </tr>
+</table>
+</body>
+</html>

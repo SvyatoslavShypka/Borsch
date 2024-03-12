@@ -16,21 +16,16 @@ import java.util.ResourceBundle;
 @Component
 public class UserValidator {
 
-    private final Properties properties;
-
     private final ErrorMessages errorMessages = new ErrorMessages();
     @Setter
     private UserService userService;
 
     private final ResourceBundle resourceBundle;
 
-
     public void validate(UserDto userDto, boolean newUser) {
         errorMessages.clear();
         checkPassword(userDto.getPassword());
         checkEmail(userDto.getEmail(), newUser);
-
-
         if (!errorMessages.getErrors().isEmpty()) {
             throw new RecipeValidationException(errorMessages);
         }
@@ -38,12 +33,13 @@ public class UserValidator {
 
     private void checkEmail(String email, boolean newUser) {
         if (StringUtils.isBlank(email)) {
-            errorMessages.addError("Не введено e-mail!");
+            errorMessages.addError(resourceBundle.getString("page.login.email.input.empty"));
         } else {
             if (newUser) {
                 try {
                     userService.findUserByName(email);
-                    errorMessages.addError("Користувач з e-mail " + email + " вже зареєстрований");
+                    errorMessages.addError(resourceBundle.getString("information.error.yet_registered1")
+                            + email + resourceBundle.getString("information.error.yet_registered2"));
                 } catch (NoSuchElementException ex) {
                     //No action
                 }
@@ -51,16 +47,12 @@ public class UserValidator {
         }
     }
 
-
     private void checkPassword(String password) {
         if (StringUtils.isBlank(password)) {
-            errorMessages.addError("Не введено пароля!");
+            errorMessages.addError(resourceBundle.getString("page.login.password.input.empty"));
         }
-
         String passwordRegexPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,})";
         if (!Util.patternMatches(password, passwordRegexPattern)) {
-            //TODO to extend
-            System.out.println("resourceBundle.getString(\"page.login.password.input.validator\") = " + resourceBundle.getString("page.login.password.input.validator"));
             errorMessages.addError(resourceBundle.getString("page.login.password.input.validator"));
         }
     }

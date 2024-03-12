@@ -7,10 +7,7 @@ import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserRepository;
 import eu.dar3.borsch.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static eu.dar3.borsch.utils.Constants.CODE_LIFE_CYCLE;
 import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
 import static eu.dar3.borsch.utils.Constants.CODE_START;
 
-@PropertySource(ignoreResourceNotFound = true, value = "classpath:messages_en.properties")
 @RequiredArgsConstructor
 @Controller
 public class AuthController {
@@ -36,33 +30,12 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final ApplicationEventPublisher eventPublisher;
-
-    private final Properties properties;
     private final UserRepository userRepository;
-
-    private final MessageSource messages;
-
-    @Value("${page.login.title: some-default}")
-    private String title;
+    private final ResourceBundle resourceBundle;
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        String tmp = "Борщ";
-        System.out.println("tmp = " + tmp);
-        System.out.println("title = " + title);
-
-        ByteBuffer buffer = StandardCharsets.UTF_8.encode(title);
-        String utf8EncodedString = StandardCharsets.UTF_8.decode(buffer).toString();
-        title = utf8EncodedString;
-
-        System.out.println("title = " + title);
-        Locale locale = new Locale(properties.getProperty("app.language"));
-        ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
-        model.addAttribute("pp", title);
- /*       System.out.println("messages.getMessage(\"page.login.title\", null, locale) = "
-                + messages.getMessage("page.login.title", null, locale));
-*/
-        System.out.println("exampleBundle.getString(\"currency\") = " + exampleBundle.getString("currency"));
+//        model.addAttribute("pp", resourceBundle.getString("page.login.title"));
         return "user/login";
     }
 
@@ -80,7 +53,7 @@ public class AuthController {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
-                errorsMessages.addError("Ви вже зареєстровані і можете залогуватися");
+                errorsMessages.addError(resourceBundle.getString("information.message.yet_registered"));
                 return "user/login";
             } else {
                 sendConfirmation(username, nickname, errorsMessages, infoMessages);
@@ -101,7 +74,7 @@ public class AuthController {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
-                infoMessages.addMessage("Ви вже зареєстровані і можете залогуватися");
+                infoMessages.addMessage(resourceBundle.getString("information.message.yet_registered"));
             } else {
                 if (code == user.getCode()) {
                     Calendar cal1 = Calendar.getInstance(); // creates calendar
@@ -111,45 +84,43 @@ public class AuthController {
                     Calendar cal2 = Calendar.getInstance(); // creates calendar
                     cal2.setTimeZone(TimeZone.getTimeZone("UTC"));
                     if (cal1.getTime().toInstant().compareTo(cal2.toInstant()) < 0) {
-                        errorsMessages.addError(properties.getProperty("information.error.overdue_code"));
+                        errorsMessages.addError(resourceBundle.getString("information.error.overdue_code"));
                         sendConfirmation(user.getEmail(), user.getNickname(), errorsMessages, infoMessages);
                         return "user/register-finish";
                     }
                     user.setEnable(true);
                     userRepository.save(user);
-                    infoMessages.addMessage("Реєстрацію підтверджено. Ви можете залогуватися");
+                    infoMessages.addMessage(resourceBundle.getString("information.message.yet_registered"));
                 } else {
-                    errorsMessages.addError("Невірний або неактуальний код");
+                    errorsMessages.addError(resourceBundle.getString("information.error.invalid_code"));
                     return "user/register-finish";
                 }
             }
             return "user/login";
         } catch (NoSuchElementException e) {
-            errorsMessages.addError("Ви не є зареєстровані - прошу зареєструватися");
+            errorsMessages.addError(resourceBundle.getString("information.message.not_registered"));
             return "user/register";
         }
     }
 
     private void sendConfirmation(String username, String nickname,
                                   ErrorMessages errorsMessages, InfoMessages infoMessages) {
-        infoMessages.addMessage("На Вашу поштову скриньку: " + username
-                + " було відправлено код для підтвердження Вашого e-mail");
+        infoMessages.addMessage(resourceBundle.getString("page.register.confirmation.message1")
+                + username + resourceBundle.getString("page.register.confirmation.message2"));
         User user = userService.findUserByName(username);
         int codeInt = codeGeneration();
         user.setCode(codeInt);
         userRepository.save(user);
         String code = String.valueOf(codeInt);
-        emailService.sendEmail(username, "Borsch e-mail confirmation",
-                "Hello " + nickname + "! You have just registered to Borsch page. \n"
-                        + "Please use this code for confirmation the registration on Borsch page: \n"
+        emailService.sendEmail(username, resourceBundle.getString( "email.subject.message"),
+                resourceBundle.getString("email.text.message1") + nickname
+                        + resourceBundle.getString("email.text.message2")
                         + code
-                        + "\nIn case you have not registered to Borsch application please ignore this e-mail");
+                        + resourceBundle.getString("email.text.message3"));
     }
 
     private int codeGeneration() {
-//        logger.info("linkGenerator");
         Random rand = new Random();
         return rand.nextInt(CODE_FINISH - CODE_START) + CODE_START;
     }
-
 }

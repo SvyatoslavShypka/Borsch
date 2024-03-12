@@ -1,10 +1,10 @@
 package eu.dar3.borsch.security;
 
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -15,9 +15,14 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -26,15 +31,46 @@ import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     private DataSource dataSource;
 
     @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.UK);
+        slr.setLocaleAttributeName("session.current.locale");
+        slr.setTimeZoneAttributeName("session.current.timezone");
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor
+                = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("language");
+        return localeChangeInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean("messageSource")
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource =
+                new ResourceBundleMessageSource();
+        messageSource.setBasenames("language/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Bean
     ResourceBundle resourceBundle(){
 //            Locale locale = new Locale(properties.getProperty("app.language"));
-        return ResourceBundle.getBundle("messages", new Locale("en"));
+        return ResourceBundle.getBundle("mess", new Locale("uk"));
     }
 
     @Bean
@@ -42,18 +78,11 @@ public class WebSecurityConfig {
         Properties properties = new Properties();
         try {
             properties.load(WebSecurityConfig.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES_FILE_NAME));
-//            ResourceBundle exampleBundle = ResourceBundle.getBundle("messages", locale);
-//            System.out.println("exampleBundle.getString(\"page.login.label.information\") = " + exampleBundle.getString("page.login.label.information"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return properties;
     }
-
-    /*@Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -66,6 +95,7 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(requests -> {
                     requests
                         .requestMatchers(
+                            "/index",
                             "/about",
                             "/info",
                             "/login",
