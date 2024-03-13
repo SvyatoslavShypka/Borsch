@@ -39,7 +39,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.UK);
+//        slr.setDefaultLocale(Locale.UK);
         slr.setLocaleAttributeName("session.current.locale");
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
@@ -69,8 +69,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Bean
     ResourceBundle resourceBundle(){
-//            Locale locale = new Locale(properties.getProperty("app.language"));
-        return ResourceBundle.getBundle("mess", new Locale("uk"));
+//            Locale locale = new Locale(properties().getProperty("app.language"));
+            Locale locale = new Locale("pl");
+        return ResourceBundle.getBundle("messages", locale);
     }
 
     @Bean
