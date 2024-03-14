@@ -36,10 +36,11 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Autowired
     private DataSource dataSource;
 
+
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-//        slr.setDefaultLocale(Locale.UK);
+        slr.setDefaultLocale(Locale.UK);
         slr.setLocaleAttributeName("session.current.locale");
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
