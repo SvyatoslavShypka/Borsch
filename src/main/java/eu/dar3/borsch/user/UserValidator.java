@@ -20,19 +20,21 @@ public class UserValidator {
     @Setter
     private UserService userService;
 
-    private final ResourceBundle resourceBundle;
+//    private final ResourceBundle resourceBundle;
 
     public void validate(UserDto userDto, boolean newUser) {
+/*
         errorMessages.clear();
         checkPassword(userDto.getPassword());
         checkEmail(userDto.getEmail(), newUser);
         if (!errorMessages.getErrors().isEmpty()) {
             throw new RecipeValidationException(errorMessages);
         }
+*/
     }
 
     private void checkEmail(String email, boolean newUser) {
-        if (StringUtils.isBlank(email)) {
+ /*       if (StringUtils.isBlank(email)) {
             errorMessages.addError(resourceBundle.getString("page.login.email.input.empty"));
         } else {
             if (newUser) {
@@ -45,9 +47,10 @@ public class UserValidator {
                 }
             }
         }
-    }
+*/    }
 
     private void checkPassword(String password) {
+/*
         if (StringUtils.isBlank(password)) {
             errorMessages.addError(resourceBundle.getString("page.login.password.input.empty"));
         }
@@ -55,5 +58,6 @@ public class UserValidator {
         if (!Util.patternMatches(password, passwordRegexPattern)) {
             errorMessages.addError(resourceBundle.getString("page.login.password.input.validator"));
         }
+*/
     }
 }

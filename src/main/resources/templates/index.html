@@ -3,30 +3,37 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title data-th-text="#{label.title}"></title>
+    <style>
+        .flag-icon {
+            width: 48px; /* Adjust this width as per your flag image dimensions */
+            height: 48px; /* Adjust this height as per your flag image dimensions */
+            display: inline-block;
+            background-size: contain; /* Adjust background-size property as needed */
+            margin-right: 5px;
+        }
+
+        .flag-icon.en {
+            background-image: url('https://img.icons8.com/emoji/48/england-emoji.png');
+        }
+
+        .flag-icon.pl {
+            background-image: url('https://img.icons8.com/emoji/48/poland-emoji.png');
+        }
+
+        .flag-icon.uk {
+            background-image: url('https://img.icons8.com/emoji/48/ukraine-emoji.png');
+        }
+    </style>
 </head>
 <body>
-<select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
-    <option value="en" data-th-text="#{label.lang.en}"></option>
-    <option value="pl" data-th-text="#{label.lang.pl}"></option>
-    <option value="uk" data-th-text="#{label.lang.uk}"></option>
-</select>
-
-<h1 th:utext="HeaderTest">Header</h1>
-<a href="?language=en" th:utext="EN">Start</a> |
-<a href="?language=pl" th:utext="PL">Start</a> |
-<a href="?language=uk" th:utext="UK">Start</a>
-<br/><br/>
-
-<h2 data-th-text="#{label.title}"></h2>
-<p data-th-text="#{label.chooseLang}"></p>
 <div>
-        <span>
-            <a href="/index?language=en" data-th-text="#{label.lang.en}"></a>
-            <a href="/index?language=pl" data-th-text="#{label.lang.pl}"></a>
-            <a href="/index?language=uk" data-th-text="#{label.lang.uk}"></a>
-        </span>
-</div>
-<br/><br/>
+    <select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
+        <option value="en" data-th-text="#{label.lang.en}" class="flag-icon en"></option>
+        <option value="pl" data-th-text="#{label.lang.pl}" class="flag-icon pl"></option>
+        <option value="uk" data-th-text="#{label.lang.uk}" class="flag-icon uk"></option>
+    </select>
+    <label for="languageSelect" id ="labelFlag" class="flag-icon"></label>
+
 <table border="1">
     <tr>
         <th data-th-text="#{label.product.name}"></th>
@@ -41,12 +48,27 @@
 </table>
 
 <script>
-function changeLanguage(language) {
-    const baseUrl = window.location.href.split('?')[0];
-    const newQueryString = `?language=${language}`;
-    window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
-    window.location.reload();
-}
+    document.addEventListener("DOMContentLoaded", function() {
+        const languageSelect = document.getElementById("languageSelect");
+        alert(languageSelect);
+        const currentLanguage = window.location.search.match(/language=([^&]*)/);
+        alert(currentLanguage);
+        if (currentLanguage && currentLanguage[1]) {
+            languageSelect.value = currentLanguage[1];
+        setFlag(document.getElementById("labelFlag"), currentLanguage[1]); // Set the flag icon accordingly
+        }
+    });
+
+    function setFlag(element, language) {
+        element.className = "flag-icon " + language;
+    }
+
+    function changeLanguage(language) {
+        const baseUrl = window.location.href.split('?')[0];
+        const newQueryString = `?language=${language}`;
+        window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
+        window.location.reload();
+    }
 </script>
 </body>
 </html>

@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -40,7 +40,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.UK);
+        slr.setDefaultLocale(Locale.ENGLISH);
         slr.setLocaleAttributeName("session.current.locale");
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
@@ -68,12 +68,14 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
+/*
     @Bean
     ResourceBundle resourceBundle(){
 //            Locale locale = new Locale(properties().getProperty("app.language"));
             Locale locale = new Locale("pl");
         return ResourceBundle.getBundle("messages", locale);
     }
+*/
 
     @Bean
     public Properties properties(){
@@ -97,6 +99,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
             .authorizeHttpRequests(requests -> {
                     requests
                         .requestMatchers(
+                            "/static/**",
                             "/index",
                             "/about",
                             "/info",

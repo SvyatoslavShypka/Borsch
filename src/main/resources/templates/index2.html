@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title data-th-text="#{label.title}"></title>
+</head>
+<body>
+<select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
+    <option value="en" data-th-text="#{label.lang.en}"></option>
+    <option value="pl" data-th-text="#{label.lang.pl}"></option>
+    <option value="uk" data-th-text="#{label.lang.uk}"></option>
+</select>
+
+<h1 th:utext="HeaderTest">Header</h1>
+<a href="?language=en" th:utext="EN">Start</a> |
+<a href="?language=pl" th:utext="PL">Start</a> |
+<a href="?language=uk" th:utext="UK">Start</a>
+<br/><br/>
+
+<h2 data-th-text="#{label.title}"></h2>
+<p data-th-text="#{label.chooseLang}"></p>
+<div>
+        <span>
+            <a href="/index?language=en" data-th-text="#{label.lang.en}"></a>
+            <a href="/index?language=pl" data-th-text="#{label.lang.pl}"></a>
+            <a href="/index?language=uk" data-th-text="#{label.lang.uk}"></a>
+        </span>
+</div>
+<br/><br/>
+<table border="1">
+    <tr>
+        <th data-th-text="#{label.product.name}"></th>
+        <th data-th-text="#{label.product.price}"></th>
+        <th data-th-text="#{label.product.lastUpdated}"></th>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td data-th-text="#{__${product.name}__}"></td>
+        <td data-th-text="${product.price}" />
+        <td data-th-text="${product.lastUpdated}" />
+    </tr>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const languageSelect = document.getElementById("languageSelect");
+        const currentLanguage = window.location.search.match(/language=([^&]*)/);
+        if (currentLanguage && currentLanguage[1]) {
+            languageSelect.value = currentLanguage[1];
+        }
+    });
+
+    function changeLanguage(language) {
+        const baseUrl = window.location.href.split('?')[0];
+        const newQueryString = `?language=${language}`;
+        window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
+        window.location.reload();
+    }
+</script>
+</body>
+</html>

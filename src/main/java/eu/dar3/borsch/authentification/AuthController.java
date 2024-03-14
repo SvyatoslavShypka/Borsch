@@ -32,7 +32,8 @@ public class AuthController {
     private final EmailService emailService;
     private final ApplicationEventPublisher eventPublisher;
     private final UserRepository userRepository;
-    private final ResourceBundle resourceBundle;
+//    private final ResourceBundle resourceBundle;
+/*
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
@@ -124,4 +125,5 @@ public class AuthController {
         Random rand = new Random();
         return rand.nextInt(CODE_FINISH - CODE_START) + CODE_START;
     }
+*/
 }
