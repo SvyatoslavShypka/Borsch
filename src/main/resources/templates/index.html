@@ -1,120 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title data-th-text="#{label.title}"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selector</title>
     <style>
-        .flag-icon {
-            width: 30px;
-            height: 30px;
-            display: inline-block;
-            background-size: contain;
+        /* Style for flags */
+        .flag {
+            width: 20px;
+            height: auto;
             margin-right: 5px;
         }
-
-        .flag-icon.en {
-            background-image: url('https://img.icons8.com/emoji/48/england-emoji.png');
-        }
-
-        .flag-icon.pl {
-            background-image: url('https://img.icons8.com/emoji/48/poland-emoji.png');
-        }
-
-        .flag-icon.uk {
-            background-image: url('https://img.icons8.com/emoji/48/ukraine-emoji.png');
-        }
-        #languageSelect{
-            width:200px;
-        }
-        #main_dropdown_menu{
-            height: 50px;
-            background: grey;
-        }
-
-        #languageSelect{
-            height: 100%;
-        }
-
-        #view_type_sorting{
-            font-family:"FontAwesome";
-            font-size:14px;
-        }
-
-
-
-        #view_type_sorting::before{
-            vertical-align:middle;
-        }
-
     </style>
 </head>
 <body>
-<div class="custom_select" id="main_dropdown_menu">
-    <select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
-        <option value="en" data-th-text="#{label.lang.en}" class="flag-icon en"></option>
-        <option value="pl" data-th-text="#{label.lang.pl}" class="flag-icon pl"></option>
-        <option value="uk" data-th-text="#{label.lang.uk}" class="flag-icon uk"></option>
-    </select>
-    <label for="languageSelect" id ="labelFlag" class="flag-icon"></label>
-</div>
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<div class="sort_filter_container">
-    <div class="form-group">
-        <form name="view_type_sorting" class="form-group">
-            <select style="text-align-last: center;font-weight: 600;margin-right: 0;vertical-align: text-bottom;" id="view_type_sorting" aria-haspopup="true" aria-expanded="false" name="view_type_sorting">
-                <option id="list_asc_price" name="list_asc_price" value="list_asc_price"> Github &#xf09b; </option>
-                <option id="list_desc_price" name="list_desc_price" value="list_desc_price"> GitLab &#xf296; </option>
-                <option id="list_asc_alpha" name="list_asc_alpha" value="list_asc_alpha"> Whatsapp &#xf232;</option>
-                <option id="list_desc_alpha" name="list_desc_alpha" value="list_desc_alpha"> Google Plus &#xf0d5; </option>
-                <option id="list_default" name="list_default" value="list_default"> Facebook &#xf082; </option>
-            </select>
-        </form>
-    </div>
-</div>
-
-
-
-<table border="1">
-    <tr>
-        <th data-th-text="#{label.product.name}"></th>
-        <th data-th-text="#{label.product.price}"></th>
-        <th data-th-text="#{label.product.lastUpdated}"></th>
-    </tr>
-    <tr th:each="product: ${products}">
-        <td data-th-text="#{__${product.name}__}"></td>
-        <td data-th-text="${product.price}" />
-        <td data-th-text="${product.lastUpdated}" />
-    </tr>
-</table>
+<label for="languageSelect"></label><select id="languageSelect">
+    <option value="en"><img src="/img/flag-england.png" alt="England Flag" class="flag"> English</option>
+    <option value="pl"><img src="/img/flag-poland.png" alt="Poland Flag" class="flag"> Polish</option>
+    <option value="uk"><img src="/img/flag-ukraine.png" alt="Ukraine Flag" class="flag"> Ukrainian</option>
+    <!-- Add more options with different languages and flags -->
+</select>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const languageSelect = document.getElementById("languageSelect");
-        const currentLanguage = window.location.search.match(/language=([^&]*)/);
-
-        // Ustawienie domyślnego języka na angielski, jeśli nie ma zdefiniowanego żadnego języka w adresie URL
-        if (!currentLanguage || !currentLanguage[1]) {
-            languageSelect.value = "en";
-            setFlag(document.getElementById("labelFlag"), "en"); // Ustawienie flagi na angielską
-        } else {
-            languageSelect.value = currentLanguage[1];
-            setFlag(document.getElementById("labelFlag"), currentLanguage[1]); // Ustawienie flagi na odpowiadającą wartość z adresu URL
+    // Function to handle selection change
+    document.getElementById("languageSelect").addEventListener("change", function() {
+        var selectedValue = this.value;
+        switch (selectedValue) {
+            case "en":
+                alert("You selected English");
+                break;
+            case "pl":
+                alert("Wybrałeś Polski");
+                break;
+            case "uk":
+                alert("Вибрав Українську");
+                break;
+            // Add more cases for other languages
         }
     });
-
-    function setFlag(element, language) {
-        element.className = "flag-icon " + language;
-    }
-
-    function changeLanguage(language) {
-        const baseUrl = window.location.href.split('?')[0];
-        const newQueryString = `?language=${language}`;
-        window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
-        window.location.reload();
-    }
 </script>
+
 </body>
 </html>

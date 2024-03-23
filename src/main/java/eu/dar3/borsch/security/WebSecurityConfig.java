@@ -25,18 +25,17 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     private DataSource dataSource;
 
-
+/*
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -45,6 +44,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
     }
+*/
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
@@ -67,15 +67,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-
-/*
-    @Bean
-    ResourceBundle resourceBundle(){
-//            Locale locale = new Locale(properties().getProperty("app.language"));
-            Locale locale = new Locale("pl");
-        return ResourceBundle.getBundle("messages", locale);
-    }
-*/
 
     @Bean
     public Properties properties(){

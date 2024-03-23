@@ -32,11 +32,11 @@ public class AuthController {
     private final EmailService emailService;
     private final ApplicationEventPublisher eventPublisher;
     private final UserRepository userRepository;
-//    private final ResourceBundle resourceBundle;
-/*
+    private final MessageSource messageSource;
+    private final Locale locale = new Locale("pl");
 
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
+    public String getLoginPage() {
 //        model.addAttribute("pp", resourceBundle.getString("page.login.title"));
         return "user/login";
     }
@@ -55,7 +55,7 @@ public class AuthController {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
-                errorsMessages.addError(resourceBundle.getString("information.message.yet_registered"));
+                errorsMessages.addError(messageSource.getMessage("information.message.yet_registered", null, locale));
                 return "user/login";
             } else {
                 sendConfirmation(username, nickname, errorsMessages, infoMessages);
@@ -76,7 +76,7 @@ public class AuthController {
         try {
             User user = userService.findUserByName(username);
             if (user.isEnable()) {
-                infoMessages.addMessage(resourceBundle.getString("information.message.yet_registered"));
+                infoMessages.addMessage(messageSource.getMessage("information.message.yet_registered", null, locale));
             } else {
                 if (code == user.getCode()) {
                     Calendar cal1 = Calendar.getInstance(); // creates calendar
@@ -86,44 +86,43 @@ public class AuthController {
                     Calendar cal2 = Calendar.getInstance(); // creates calendar
                     cal2.setTimeZone(TimeZone.getTimeZone("UTC"));
                     if (cal1.getTime().toInstant().compareTo(cal2.toInstant()) < 0) {
-                        errorsMessages.addError(resourceBundle.getString("information.error.overdue_code"));
+                        errorsMessages.addError(messageSource.getMessage("information.error.overdue_code", null, locale));
                         sendConfirmation(user.getEmail(), user.getNickname(), errorsMessages, infoMessages);
                         return "user/register-finish";
                     }
                     user.setEnable(true);
                     userRepository.save(user);
-                    infoMessages.addMessage(resourceBundle.getString("information.message.yet_registered"));
+                    infoMessages.addMessage(messageSource.getMessage("information.message.yet_registered", null, locale));
                 } else {
-                    errorsMessages.addError(resourceBundle.getString("information.error.invalid_code"));
+                    errorsMessages.addError(messageSource.getMessage("information.error.invalid_code", null, locale));
                     return "user/register-finish";
                 }
             }
             return "user/login";
         } catch (NoSuchElementException e) {
-            errorsMessages.addError(resourceBundle.getString("information.message.not_registered"));
+            errorsMessages.addError(messageSource.getMessage("information.message.not_registered", null, locale));
             return "user/register";
         }
     }
 
     private void sendConfirmation(String username, String nickname,
                                   ErrorMessages errorsMessages, InfoMessages infoMessages) {
-        infoMessages.addMessage(resourceBundle.getString("page.register.confirmation.message1")
-                + username + resourceBundle.getString("page.register.confirmation.message2"));
+        infoMessages.addMessage(messageSource.getMessage("page.register.confirmation.message1", null, locale)
+                + username + messageSource.getMessage("page.register.confirmation.message2", null, locale));
         User user = userService.findUserByName(username);
         int codeInt = codeGeneration();
         user.setCode(codeInt);
         userRepository.save(user);
         String code = String.valueOf(codeInt);
-        emailService.sendEmail(username, resourceBundle.getString( "email.subject.message"),
-                resourceBundle.getString("email.text.message1") + nickname
-                        + resourceBundle.getString("email.text.message2")
+        emailService.sendEmail(username, messageSource.getMessage("email.subject.message", null, locale),
+                messageSource.getMessage("email.text.message1", null, locale) + nickname
+                        + messageSource.getMessage("email.text.message2", null, locale)
                         + code
-                        + resourceBundle.getString("email.text.message3"));
+                        + messageSource.getMessage("email.text.message3", null, locale));
     }
 
     private int codeGeneration() {
         Random rand = new Random();
         return rand.nextInt(CODE_FINISH - CODE_START) + CODE_START;
     }
-*/
 }
