@@ -4,8 +4,6 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>-->
-<!--    <title th:utext="${page.login.title}">Default</title>-->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <title data-th-text="#{page.login.title}">Borsch</title>
 </head>
@@ -43,14 +41,17 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <h3 data-th-text="#{page.login.label.welcome}">Welcome! Please log in.</h3>
+                        <h3 data-th-text="#{page.login.label.welcome}">
+                            Welcome! Please log in.
+                        </h3>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col text-center" style="max-width: 500px;">
                             <form th:action="@{/login}" method="post" class="form-signin mt-5" >
                                 <!-- Email input -->
                                 <div class="input-group mb-3">
-                                    <input type="email" class="form-control" id="username" name="username" th:placeholder="#{page.login.email.input.placeholder}"
+                                    <input type="email" class="form-control" id="username"
+                                       name="username" th:placeholder="#{page.login.email.input.placeholder}"
                                        autofocus required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -60,7 +61,9 @@
                                 </div>
                                 <!-- Password input -->
                                 <div class="input-group mb-3">
-                                    <input type="password" id="password" name="password" class="form-control" th:placeholder="#{page.login.password.input.placeholder}" required>
+                                    <input type="password" id="password" name="password"
+                                           class="form-control"
+                                           th:placeholder="#{page.login.password.input.placeholder}" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -68,12 +71,19 @@
                                     </div>
                                 </div>
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary btn-block mb-4" th:text="#{page.login.buton.login.lable}">Log in</button>
+                                <button type="submit" class="btn btn-primary btn-block mb-4"
+                                        th:text="#{page.login.buton.login.lable}">
+                                    Log in
+                                </button>
                                 <!-- Register buttons -->
                                 <div class="text-center">
                                     <p>
-                                        <span th:text="#{page.login.label.not_registered}">Not registered yet?</span>
-                                        <a th:text="#{page.login.link.register.lable}" href="/register">Register</a>
+                                        <span th:text="#{page.login.label.not_registered}">
+                                            Not registered yet?
+                                        </span>
+                                        <a th:text="#{page.login.link.register.lable}" href="/register">
+                                            Register
+                                        </a>
                                     </p>
                                 </div>
                             </form>

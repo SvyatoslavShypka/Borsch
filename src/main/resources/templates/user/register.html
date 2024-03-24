@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Кабінет</title>
+    <title>Registration</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -23,14 +23,15 @@
                 </div>
             </div>
             <div class="text-center">
-                <h3>Реєстрація</h3>
+                <h3 th:text="#{page.register.label.title}">Registration</h3>
             </div>
             <div class="row justify-content-center">
                 <div class="col text-center" style="max-width: 500px;">
                     <form th:action="@{/sendEmailConfirmation}" method="post" class="form-signin mt-5" >
                         <!-- Nickname input -->
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Псевдонім/Nickname" autofocus required >
+                            <input type="text" class="form-control" id="nickname" name="nickname"
+                                   th:placeholder="#{page.register.nickname.placeholder}" autofocus required >
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -39,7 +40,8 @@
                         </div>
                         <!-- Email input -->
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control" id="username" name="username" placeholder="Електронна пошта"
+                            <input type="email" class="form-control" id="username" name="username"
+                                   th:placeholder="#{page.login.email.input.placeholder}"
                                    required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -49,7 +51,8 @@
                         </div>
                         <!-- Password input -->
                         <div class="input-group mb-3">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Пароль">
+                            <input type="password" id="password" name="password" class="form-control"
+                                   th:placeholder="#{page.login.password.input.placeholder}">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -57,18 +60,10 @@
                             </div>
                         </div>
                         <!-- Submit button -->
-                        <button id = "submit" type="submit" class="btn btn-primary btn-block mb-4">Зареєструватися</button>
-
-<!--
-                &lt;!&ndash; Submit button &ndash;&gt;
-                        <ul class="navbar-nav">
-                            <li class="nav-item mt-1">
-                                <button id = "submit" type="submit" class="btn btn-success ml-sm-4">
-                                    Підтвердити E-mail
-                                </button>
-                            </li>
-                        </ul>
--->
+                        <button id = "submit" type="submit" class="btn btn-primary btn-block mb-4"
+                        th:text="#{page.login.link.register.lable}">
+                            Register
+                        </button>
                     </form>
                 </div>
             </div>

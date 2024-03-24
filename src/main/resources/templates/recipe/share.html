@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Перегляд рецепту</title>
+    <title>Recipe view</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -15,12 +15,18 @@
                     <div class="card-body p-0 m-3">
                         <div class="bs-stepper-content">
                             <div class="form-group">
-                                <label for="title">Title</label>
+                                <label for="title" th:text="#{page.recipe.column.title}">
+                                    Title
+                                </label>
                                 <input type="text" class="form-control form-control-lg" id="title" name="title" th:value="${recipe.title}" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="summernoteView">Content</label>
-                                <textarea rows="10" class="form-control form-control-lg" id="summernoteView" name="note" th:text="${recipe.note}" disabled>
+                                <label for="summernoteView" th:text="#{page.recipe.note}">
+                                    Note
+                                </label>
+                                <textarea rows="10" class="form-control form-control-lg"
+                                          id="summernoteView" name="note"
+                                          th:text="${recipe.note}" disabled>
                                 </textarea>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Кабінет</title>
+    <title>Register confirmation</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -23,14 +23,15 @@
                 </div>
             </div>
             <div class="text-center">
-                <h3>Реєстрація</h3>
+                <h3 th:text="#{page.register.label.title}">Registration</h3>
             </div>
             <div class="row justify-content-center">
                 <div class="col text-center" style="max-width: 500px;">
                     <form th:action="@{/register}" method="post" class="form-signin mt-5" >
                          <!-- Email input -->
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control" id="username" name="username" placeholder="Електронна пошта"
+                            <input type="email" class="form-control" id="username" name="username"
+                                   th:placeholder="#{page.login.email.input.placeholder}"
                                    required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -40,28 +41,27 @@
                         </div>
                         <!-- Confirmation Code input -->
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" id="code" name="code" placeholder="Code">
+                            <input type="number" class="form-control" id="code" name="code"
+                                   th:placeholder="#{page.friendgroup.code.lable}">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span style="font-weight: bold; ">Code</span>
+                                    <span style="font-weight: bold; "
+                                          th:text="#{page.friendgroup.code.lable}">
+                                        Code
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <!-- Submit button -->
-                        <button id = "submit" type="submit" class="btn btn-primary btn-block mb-4">Зареєструватися</button>
+                        <button id = "submit" type="submit" class="btn btn-primary btn-block mb-4"
+                                th:text="#{page.login.link.register.lable}">
+                            Register
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--<script>
-    function confirmEmail(username) {
-        // alert("This is an alert message box." + username);
-        window.alert(username.value);
-        // alert("This is an alert message box." + username);
-        document.getElementById("submit").disabled = false;
-    }
-</script>-->
 </body>
 </html>
