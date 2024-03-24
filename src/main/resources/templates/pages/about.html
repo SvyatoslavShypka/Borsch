@@ -3,45 +3,50 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>About</title>
+    <title th:text="#{page.about.title}">About</title>
 </head>
-<div layout:fragment="content" th:remove="tag">
-    <div class="content-wrapper content">
-        <div class="row ml-auto mr-auto">
-            <div class="col-md-12">
-                <div class="text-center">
-                    <h3>Вітаємо!</h3>
-                </div>
-                <p>
-                    Програма Борщ - створює атмосферу і зближує людей.
-                </p>
-                <div class="text-center">
-                    <h3>Ціль</h3>
-                </div>
-                <p>Зберігаймо традиції шляхом переказу рецептів.
-                </p>
-                <div class="text-center">
-                    <h3>Цінуємо</h3>
-                </div>
+<body>
+     <div layout:fragment="content" th:remove="tag">
+        <div class="content-wrapper content">
+            <div class="row ml-auto mr-auto">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h3 th:text="#{page.about.welcome.lable}">Welcome!</h3>
+                    </div>
+                    <p th:text="#{page.about.welcome.text}">
+                        The application Borsch is creating the atmosphere and connecting people.
+                    </p>
+                    <div class="text-center">
+                        <h3 th:text="#{page.about.goal.lable}">Goal</h3>
+                    </div>
+                    <p th:text="#{page.about.goal.text}">Let's save the traditions by sharing the recipes.
+                    </p>
+                    <div class="text-center">
+                        <h3 th:text="#{page.about.value.lable}">We value</h3>
+                    </div>
 
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge badge-secondary">Традиції</span> Кожен рецепт - це ми в продовженні роду.
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge badge-secondary">Легкість</span> Наш сайт є інтуїтивний та легкий в користуванні.
-                    </li>
-                </ul>
-                <div class="text-center">
-                    <h3>Долучайтесь</h3>
-                </div>
-                Кожен рецепт, розділений з близькими продовжує життя усім!
-                <div class="text-center mt-5">
-                    <H3>Заохочуємо користуватися сторінкою та ділитися найсмачнішим!</H3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span data-th-text="#{page.about.value.traditions.text1}" class="badge badge-secondary">Traditions.</span>
+                            <span  data-th-text="#{page.about.value.traditions.text2}">Each recipe is us in the continuation of the family.</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span data-th-text="#{page.about.value.lightness.text1}" class="badge badge-secondary">Lightness.</span>
+                            <span  data-th-text="#{page.about.value.lightness.text2}">Our site is intuitive and easy to use.</span>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <h3 th:text="#{page.about.joinin.lable}">Join in</h3>
+                    </div>
+                        <span th:text="#{page.about.joinin.text}">
+                        Each recipe shared with loved ones prolongs life for everyone!
+                        </span>
+                    <div class="text-center mt-5">
+                        <h3 th:text="#{page.about.encourage.lable}">We encourage you to use the page and share the tastiest!</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

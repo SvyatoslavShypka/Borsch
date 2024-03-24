@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Info</title>
+    <title th:text="#{page.info.title}">Info</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -11,7 +11,7 @@
         <div class="row ml-auto mr-auto justify-content: flex-start">
             <div class="col-md-12 mb-4">
                 <div class="text-left">
-                    <h3>Java Developer</h3>
+                    <h3 th:text="#{page.info.developer.lable}">Java Developer</h3>
                 </div>
                 <div class="card-deck">
                <div class="card">
@@ -28,13 +28,13 @@
                     </div>
                 </div>
                 <div class="text-left">
-                    <h3>Program version</h3>
+                    <h3 th:text="#{page.info.version.lable}">Program version</h3>
                 </div>
                 <div class="card-deck">
                <div class="card">
                     <div class="card-body">
                         <p class="card-text">
-                            <a>
+                            <a th:text="#{page.info.version.text}">
                                 Version 1.0.1
                             </a>
                         </p>
@@ -45,6 +45,5 @@
     </div>
     </div>
 </div>
-
 </body>
 </html>

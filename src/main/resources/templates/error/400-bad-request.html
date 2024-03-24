@@ -4,7 +4,7 @@
       layout:decorate="~{fragments/layout}">
 <!--<meta charset=utf-8>-->
 <head>
-  <title>Error</title>
+  <title th:text="#{page.errors.title}">Error</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -17,7 +17,7 @@
                             <span class="display-3 text-danger">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             </span>
-          <h2 class="display-3 text-black">Error</h2>
+          <h2 class="display-3 text-black" th:text="#{page.errors.text}">Error</h2>
 
           <div th:if="${errorsMessages!=null}">
             <div th:each="message: ${errorsMessages.getErrors()}">
@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <p><a href="javascript:history.back()" class="btn btn-md height-auto px-4 py-3 btn-primary">Back</a></p>
+          <p><a th:text="#{page.errors.back}" href="javascript:history.back()" class="btn btn-md height-auto px-4 py-3 btn-primary">Back</a></p>
         </div>
       </div>
 

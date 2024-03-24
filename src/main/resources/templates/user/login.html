@@ -7,77 +7,80 @@
 <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>-->
 <!--    <title th:utext="${page.login.title}">Default</title>-->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <title data-th-text="#{page.login.title}">Борщ</title>
+    <title data-th-text="#{page.login.title}">Borsch</title>
 </head>
+    <body>
+        <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+        <!--    <ul class="navbar-nav ml-auto">-->
 
-<!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
-<!--    <ul class="navbar-nav ml-auto">-->
+        <!--        <li class="nav-item dropdown active ml-5">-->
+        <!--            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
+        <!--               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
+        <!--               th:text="${#strings.toUpperCase(#locale)}">-->
+        <!--            </a>-->
+        <!--            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+        <!--                <a class="dropdown-item" th:href="@{?lang=en}" th:text="#{navigation.eng}"></a>-->
+        <!--                <a class="dropdown-item" th:href="@{?lang=ua}" th:text="#{navigation.ua}"></a>-->
+        <!--            </div>-->
+        <!--        </li>-->
 
-<!--        <li class="nav-item dropdown active ml-5">-->
-<!--            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"-->
-<!--               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
-<!--               th:text="${#strings.toUpperCase(#locale)}">-->
-<!--            </a>-->
-<!--            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
-<!--                <a class="dropdown-item" th:href="@{?lang=en}" th:text="#{navigation.eng}"></a>-->
-<!--                <a class="dropdown-item" th:href="@{?lang=ua}" th:text="#{navigation.ua}"></a>-->
-<!--            </div>-->
-<!--        </li>-->
+        <!--    </ul>-->
+        <!--</div>-->
 
-<!--    </ul>-->
-<!--</div>-->
-
-<div layout:fragment="content" th:remove="tag">
-    <div class="content-wrapper content">
-        <div class="container">
-            <div th:if="${errorsMessages!=null}">
-                <div th:each="message: ${errorsMessages.getErrors()}">
-                    <div class="alert alert-danger" role="alert" th:text="${message}">
-                    </div>
-                </div>
-            </div>
-            <div th:if="${infoMessages!=null}">
-                <div th:each="message: ${infoMessages.getMessages()}">
-                    <div class="alert alert-success" role="alert" th:text="${message}">
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <h3 data-th-text="#{page.login.label.welcome}">Запрошуємо залогуватися</h3>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col text-center" style="max-width: 500px;">
-                    <form th:action="@{/login}" method="post" class="form-signin mt-5" >
-                        <!-- Email input -->
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" id="username" name="username" placeholder="email"
-                                   autofocus required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span style="font-weight: bold;">@</span>
-                                </div>
+        <div layout:fragment="content" th:remove="tag">
+            <div class="content-wrapper content">
+                <div class="container">
+                    <div th:if="${errorsMessages!=null}">
+                        <div th:each="message: ${errorsMessages.getErrors()}">
+                            <div class="alert alert-danger" role="alert" th:text="${message}">
                             </div>
                         </div>
-                        <!-- Password input -->
-                        <div class="input-group mb-3">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required >
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
+                    </div>
+                    <div th:if="${infoMessages!=null}">
+                        <div th:each="message: ${infoMessages.getMessages()}">
+                            <div class="alert alert-success" role="alert" th:text="${message}">
                             </div>
                         </div>
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4">Залогуватися</button>
-                        <!-- Register buttons -->
-                        <div class="text-center">
-                            <p>Ще не зареєстровані? <a href="/register">Зареєструватися</a></p>
+                    </div>
+                    <div class="text-center">
+                        <h3 data-th-text="#{page.login.label.welcome}">Welcome! Please log in.</h3>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col text-center" style="max-width: 500px;">
+                            <form th:action="@{/login}" method="post" class="form-signin mt-5" >
+                                <!-- Email input -->
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control" id="username" name="username" th:placeholder="#{page.login.email.input.placeholder}"
+                                       autofocus required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span style="font-weight: bold;">@</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Password input -->
+                                <div class="input-group mb-3">
+                                    <input type="password" id="password" name="password" class="form-control" th:placeholder="#{page.login.password.input.placeholder}" required>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block mb-4" th:text="#{page.login.buton.login.lable}">Log in</button>
+                                <!-- Register buttons -->
+                                <div class="text-center">
+                                    <p>
+                                        <span th:text="#{page.login.label.not_registered}">Not registered yet?</span>
+                                        <a th:text="#{page.login.link.register.lable}" href="/register">Register</a>
+                                    </p>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

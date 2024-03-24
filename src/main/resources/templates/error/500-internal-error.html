@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Internal error</title>
+    <title th:text="#{page.errors.internal.title}">Internal error</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -16,9 +16,16 @@
                             <span class="display-3 text-danger">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             </span>
-                    <h2 class="display-3 text-black">Internal error</h2>
-                    <p class="lead mb-5">Sorry, but there is internal error!</p>
-                    <p><a th:href="@{/}" class="btn btn-md height-auto px-4 py-3 btn-primary">Home</a></p>
+                    <h2 class="display-3 text-black" th:text="#{page.errors.internal.title}">
+                        Internal error
+                    </h2>
+                    <p class="lead mb-5" th:text="#{page.errors.internal-sorry.title}">
+                        Sorry, but there is error!
+                    </p>
+                    <p><a th:href="@{/}" class="btn btn-md height-auto px-4 py-3 btn-primary"
+                          th:text="#{page.errors.home}">
+                        Home
+                    </a></p>
                 </div>
             </div>
 

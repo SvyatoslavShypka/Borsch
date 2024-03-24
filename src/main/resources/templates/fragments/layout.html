@@ -5,7 +5,7 @@
 <head lang="en" th:fragment="header">
   <base href="/">
 <!--  <meta charset="UTF-8">-->
-  <title>Борщ</title>
+  <title th:text="#{page.login.title}">Borsch</title>
 
   <link rel="stylesheet" href="css/recipe.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -31,41 +31,33 @@
 
 </head>
 <body>
-
-
-<div th:attr="class=${options==null || !options.fullWidth ? 'container mt-1' : 'container-fluid mt-1'}">
-
-  <th:block th:replace="fragments/header :: header"/>
-
-
-  <th:block layout:fragment="content"/>
-
-</div>
+  <div th:attr="class=${options==null || !options.fullWidth ? 'container mt-1' : 'container-fluid mt-1'}">
+    <th:block th:replace="fragments/header :: header"/>
+    <th:block layout:fragment="content"/>
+  </div>
 
 <script>
   $(document).ready(function() {
-    $('#summernote').summernote(
-    {
-      height: 300,
-      focus: true
+      $('#summernote').summernote(
+      {
+        height: 300,
+        focus: true
+      });
+
+    $('#summernoteView').summernote(
+        'disable'
+      );
+
+    $(window).keyup(function(e){
+        var target = $('.checkbox-ios input:focus');
+        if (e.keyCode == 9 && $(target).length){
+            $(target).parent().addClass('focused');
+        }
     });
 
-  $('#summernoteView').summernote(
-      'disable'
-    );
-
-
-  $(window).keyup(function(e){
-      var target = $('.checkbox-ios input:focus');
-      if (e.keyCode == 9 && $(target).length){
-          $(target).parent().addClass('focused');
-      }
-  });
-
-  $('.checkbox-ios input').focusout(function(){
-      $(this).parent().removeClass('focused');
-  });
-
+    $('.checkbox-ios input').focusout(function(){
+        $(this).parent().removeClass('focused');
+    });
   });
 </script>
 

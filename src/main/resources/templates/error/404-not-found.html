@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Page not found</title>
+    <title th:text="#{page.errors.page-not-found}">Page not found</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -15,10 +15,15 @@
                             <span class="display-3 text-danger">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             </span>
-                    <h2 class="display-3 text-black">Page not found</h2>
-                    <p class="lead mb-5">Sorry, but page not found!</p>
+                    <h2 class="display-3 text-black" th:text="#{page.errors.page-not-found}">
+                        Page not found
+                    </h2>
+                    <p class="lead mb-5" th:text="#{page.errors.page-not-found-sorry}">Sorry, but page not found!</p>
                     <p>
-                        <button type="submit" class="btn btn-md height-auto px-4 py-3 btn-primary" onclick="window.history.go(-1);">Back</button>
+                        <button type="submit" class="btn btn-md height-auto px-4 py-3 btn-primary"
+                                onclick="window.history.go(-1);"  th:text="#{page.errors.back}">
+                            Back
+                        </button>
                     </p>
                 </div>
             </div>
