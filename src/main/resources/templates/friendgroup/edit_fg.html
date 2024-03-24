@@ -6,12 +6,13 @@
 <head>
     <title>Friendgroup</title>
 </head>
+<body>
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">
         <div class="row ml-auto mr-auto">
             <div class="col-md-12">
                 <div class="text-center">
-                    <h3>Edit Friendgroup</h3>
+                    <h3 th:text="#{page.friendgroup.edit}">Edit Friendgroup</h3>
                 </div>
                 <div class="card card-default mb-2">
                     <form action="/friendgroup/edit" method="post" id="createForm">
@@ -27,8 +28,15 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary m-1" onclick="window.location.href = '/account';">Cancel</button>
-                                <button type="submit" class="btn btn-success m-1">Save</button>
+                                <button type="button" class="btn btn-primary m-1"
+                                        onclick="window.location.href = '/account';"
+                                        th:text="#{page.friendgroup.cancel}">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-success m-1"
+                                        th:text="#{page.profile.button.save}">
+                                    Save
+                                </button>
                             </div>
                         </div>
                     </form>

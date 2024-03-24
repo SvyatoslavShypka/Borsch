@@ -29,7 +29,7 @@ public class FriendgroupController {
     public ModelAndView editUserFriendgroupShowPage() {
         User user = userService.getCurrentUser();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("friendgroup/edit");
+        modelAndView.setViewName("friendgroup/edit_fg");
         modelAndView.addObject("friendgroup", user.getFriendgroup());
         modelAndView.addObject("options", userOptionsService.getOptions());
         return modelAndView;
