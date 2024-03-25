@@ -1,44 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Selector</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title data-th-text="#{label.title}"></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
-        /* Style for flags */
-        .flag {
-            width: 20px;
-            height: auto;
-            margin-right: 5px;
+        .flag-icon {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .form-select {
+            width: 250px; /* Dostosuj szerokość pola wyboru według własnych preferencji */
+        }
+        .select2-container--default .select2-selection--single {
+            height: auto; /* Rozszerzenie pola wyboru */
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 50px; /* Dopasowanie wysokości pola wyboru do wysokości flagi */
         }
     </style>
 </head>
 <body>
-
-<label for="languageSelect"></label><select id="languageSelect">
-    <option value="en"><img src="/img/flag-england.png" alt="England Flag" class="flag"> English</option>
-    <option value="pl"><img src="/img/flag-poland.png" alt="Poland Flag" class="flag"> Polish</option>
-    <option value="uk"><img src="/img/flag-ukraine.png" alt="Ukraine Flag" class="flag"> Ukrainian</option>
-    <!-- Add more options with different languages and flags -->
+<label for="languageSelect"></label>
+<select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
+    <option value="en" data-th-text="#{label.lang.en}">
+        <img src="/img/flags/flag-england.svg" alt="England Flag" class="flag-icon">
+        England
+    </option>
+    <option value="pl" data-th-text="#{label.lang.pl}">
+        <img src="/img/flags/flag-poland.svg" alt="Poland Flag" class="flag-icon">
+        Poland
+    </option>
+    <option value="uk" data-th-text="#{label.lang.uk}">
+        <img src="/img/flags/flag-ukraine.svg" alt="Ukraine Flag" class="flag-icon">
+        Ukraine
+    </option>
 </select>
 
+<table border="1">
+    <tr>
+        <th data-th-text="#{label.product.price}"></th>
+    </tr>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-    // Function to handle selection change
-    document.getElementById("languageSelect").addEventListener("change", function() {
-        var selectedValue = this.value;
-        switch (selectedValue) {
-            case "en":
-                alert("You selected English");
-                break;
-            case "pl":
-                alert("Wybrałeś Polski");
-                break;
-            case "uk":
-                alert("Вибрав Українську");
-                break;
-            // Add more cases for other languages
+    document.addEventListener("DOMContentLoaded", function() {
+        const languageSelect = document.getElementById("languageSelect");
+        const currentLanguage = window.location.search.match(/language=([^&]*)/);
+
+        // Ustawienie domyślnego języka na angielski, jeśli nie ma zdefiniowanego żadnego języka w adresie URL
+        if (!currentLanguage || !currentLanguage[1]) {
+            languageSelect.value = "en";
+        } else {
+            languageSelect.value = currentLanguage[1];
+        }
+
+        // Przypisanie ścieżek do obrazków flag do atrybutów data-image dla każdej opcji select2
+        const options = languageSelect.getElementsByTagName('option');
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const language = option.value;
+            const flagImagePath = `/img/flags/flag-${language}.png`; // Popraw ścieżkę do obrazków flag
+            option.setAttribute('data-image', flagImagePath);
         }
     });
+
+    function changeLanguage(language) {
+        const baseUrl = window.location.href.split('?')[0];
+        const newQueryString = `?language=${language}`;
+        window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
+        window.location.reload();
+    }
+
+    $(document).ready(function() {
+        $('#languageSelect').select2({
+            templateResult: formatLanguage,
+            templateSelection: formatLanguage
+        });
+    });
+
+    function formatLanguage(option) {
+        if (!option.id) {
+            return option.text;
+        }
+        var $option = $(
+            '<span><img src="' + $(option.element).data('image') + '" class="flag-icon" /> ' + option.text + '</span>'
+        );
+        return $option;
+    }
 </script>
 
 </body>

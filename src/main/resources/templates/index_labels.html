@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title data-th-text="#{label.title}"></title>
+    <style>
+        .flag-icon {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        #languageSelect{
+            width:200px;
+        }
+        #languageSelect{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<label for="languageSelect"></label>
+<select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
+<!--        <option value="en" data-th-text="#{label.lang.en}">-->
+        <option value="en">
+            <img src="/img/flags/flag-england.png" alt="England Flag" class="flag-icon">
+            England
+        </option>
+<!--        <option value="pl" data-th-text="#{label.lang.pl}">-->
+        <option value="pl">
+            <img src="/img/flags/flag-poland.png" alt="Poland Flag" class="flag-icon">
+            Poland
+        </option>
+<!--        <option value="uk" data-th-text="#{label.lang.uk}">-->
+        <option value="uk">
+            <img src="/img/flags/flag-ukraine.png" alt="Ukraine Flag" class="flag-icon">
+            Ukraine
+        </option>
+    </select>
+
+<table border="1">
+    <tr>
+        <th data-th-text="#{label.product.price}"></th>
+    </tr>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const languageSelect = document.getElementById("languageSelect");
+        const currentLanguage = window.location.search.match(/language=([^&]*)/);
+
+        // Ustawienie domyślnego języka na angielski, jeśli nie ma zdefiniowanego żadnego języka w adresie URL
+        if (!currentLanguage || !currentLanguage[1]) {
+            languageSelect.value = "en";
+        } else {
+            languageSelect.value = currentLanguage[1];
+        }
+    });
+
+    function changeLanguage(language) {
+        const baseUrl = window.location.href.split('?')[0];
+        const newQueryString = `?language=${language}`;
+        window.history.replaceState({}, '', `${baseUrl}${newQueryString}`);
+        window.location.reload();
+    }
+</script>
+</body>
+</html>

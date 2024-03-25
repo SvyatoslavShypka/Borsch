@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selector</title>
+    <style>
+        /* Style for flags */
+        .flag {
+            width: 20px;
+            height: auto;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<label for="languageSelect"></label><select id="languageSelect">
+    <option value="en"><img src="/img/flags/flag-england.png" alt="England Flag" class="flag"> English</option>
+    <option value="pl"><img src="/img/flags/flag-poland.png" alt="Poland Flag" class="flag"> Polish</option>
+    <option value="uk"><img src="/img/flags/flag-ukraine.png" alt="Ukraine Flag" class="flag"> Ukrainian</option>
+    <!-- Add more options with different languages and flags -->
+</select>
+
+<script>
+    // Function to handle selection change
+    document.getElementById("languageSelect").addEventListener("change", function() {
+        var selectedValue = this.value;
+        switch (selectedValue) {
+            case "en":
+                alert("You selected English");
+                break;
+            case "pl":
+                alert("Wybrałeś Polski");
+                break;
+            case "uk":
+                alert("Вибрав Українську");
+                break;
+            // Add more cases for other languages
+        }
+    });
+</script>
+
+</body>
+</html>

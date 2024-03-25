@@ -35,7 +35,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     @Autowired
     private DataSource dataSource;
 
-/*
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -44,7 +43,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
     }
-*/
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
@@ -90,6 +88,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
             .authorizeHttpRequests(requests -> {
                     requests
                         .requestMatchers(
+                            "/**",
                             "/static/**",
                             "/index",
                             "/about",
