@@ -9,12 +9,12 @@
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper content">
         <div class="row ml-auto mr-auto justify-content: flex-start">
-            <div class="col-md-12 mb-4">
+            <div class="col-md-6 mb-4"> <!-- Zmiana klasy col-md-12 na col-md-6 -->
                 <div class="text-left">
                     <h3 th:text="#{page.info.developer.lable}">Java Developer</h3>
                 </div>
                 <div class="card-deck">
-               <div class="card">
+                    <div class="card">
                         <img class="card-img-top"
                              src="/img/swiat.jpg"
                              alt="Swiatoslaw Szypka">
@@ -27,22 +27,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-left">
+            </div>
+            <div class="col-md-6 mb-4" align="right"> <!-- Dodanie nowej kolumny z klasą col-md-6 -->
+                <div class="text-right">
                     <h3 th:text="#{page.info.version.lable}">Program version</h3>
                 </div>
                 <div class="card-deck">
-               <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">
-                            <a th:text="#{page.info.version.text}">
-                                Version 1.0.1
-                            </a>
-                        </p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <a th:text="#{page.info.version.text}">
+                                    Version 1.0.1
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
 </body>

@@ -47,7 +47,6 @@
 <body>
 <div class="float-container">
     <div class="float-child">
-<!--        <div class="green">-->
         <label for="languageSelect"></label>
         <select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
             <option value="en" data-th-text="#{label.lang.en}">
@@ -63,12 +62,9 @@
                 Ukraine
             </option>
         </select>
-<!--        </div>-->
     </div>
     <div class="float-child2">
-<!--        <div class="blue">-->
                 <a th:text="#{label.product.price}"></a>
-<!--        </div>-->
     </div>
 </div>
 

@@ -31,9 +31,9 @@ public final class Constants {
     public static final int RECIPE_NOTE_LENGTH = 10000;
 
     static {
-        GENDERS.put(GENDER_UNKNOWN, "Не відома");
-        GENDERS.put(GENDER_MALE, "Чоловіча");
-        GENDERS.put(GENDER_FEMALE, "Жіноча");
-        GENDERS.put(GENDER_OTHER, "Інше");
+        GENDERS.put(GENDER_UNKNOWN, "UNKNOWN");
+        GENDERS.put(GENDER_MALE, "MALE");
+        GENDERS.put(GENDER_FEMALE, "FEMALE");
+        GENDERS.put(GENDER_OTHER, "OTHER");
     }
 }
