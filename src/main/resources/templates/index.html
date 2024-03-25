@@ -6,44 +6,71 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <style>
         .flag-icon {
-            width: 50px;
-            height: 50px;
+            width: 20px;
+            height: 20px;
             display: inline-block;
             vertical-align: middle;
         }
         .form-select {
-            width: 250px; /* Dostosuj szerokość pola wyboru według własnych preferencji */
+            width: 200px; /* Dostosuj szerokość pola wyboru według własnych preferencji */
         }
         .select2-container--default .select2-selection--single {
             height: auto; /* Rozszerzenie pola wyboru */
         }
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 50px; /* Dopasowanie wysokości pola wyboru do wysokości flagi */
+            line-height: 20px; /* Dopasowanie wysokości pola wyboru do wysokości flagi */
         }
+
+        .float-container {
+            /*border: 3px solid red;*/
+            /*padding: 20px;*/
+        }
+
+        .float-child {
+            height: 20px;
+            width: auto;
+            float: left;
+            /*padding: 10px;*/
+            /*border: 2px solid red;*/
+        }
+        .float-child2 {
+            height: 20px;
+            width: auto;
+            float: none;
+            vertical-align: middle;
+            /*padding: 10px;*/
+            /*border: 2px solid red;*/
+        }
+
     </style>
 </head>
 <body>
-<label for="languageSelect"></label>
-<select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
-    <option value="en" data-th-text="#{label.lang.en}">
-        <img src="/img/flags/flag-england.svg" alt="England Flag" class="flag-icon">
-        England
-    </option>
-    <option value="pl" data-th-text="#{label.lang.pl}">
-        <img src="/img/flags/flag-poland.svg" alt="Poland Flag" class="flag-icon">
-        Poland
-    </option>
-    <option value="uk" data-th-text="#{label.lang.uk}">
-        <img src="/img/flags/flag-ukraine.svg" alt="Ukraine Flag" class="flag-icon">
-        Ukraine
-    </option>
-</select>
-
-<table border="1">
-    <tr>
-        <th data-th-text="#{label.product.price}"></th>
-    </tr>
-</table>
+<div class="float-container">
+    <div class="float-child">
+<!--        <div class="green">-->
+        <label for="languageSelect"></label>
+        <select id="languageSelect" onchange="changeLanguage(this.value)" class="form-select" name="languageSelect">
+            <option value="en" data-th-text="#{label.lang.en}">
+                <img src="/img/flags/flag-en.png" alt="England Flag" class="flag-icon">
+                England
+            </option>
+            <option value="pl" data-th-text="#{label.lang.pl}">
+                <img src="/img/flags/flag-pl.png" alt="Poland Flag" class="flag-icon">
+                Poland
+            </option>
+            <option value="uk" data-th-text="#{label.lang.uk}">
+                <img src="/img/flags/flag-uk.png" alt="Ukraine Flag" class="flag-icon">
+                Ukraine
+            </option>
+        </select>
+<!--        </div>-->
+    </div>
+    <div class="float-child2">
+<!--        <div class="blue">-->
+                <a th:text="#{label.product.price}"></a>
+<!--        </div>-->
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
