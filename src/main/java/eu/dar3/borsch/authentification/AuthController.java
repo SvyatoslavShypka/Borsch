@@ -7,17 +7,19 @@ import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserRepository;
 import eu.dar3.borsch.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.Random;
 
 import static eu.dar3.borsch.utils.Constants.CODE_LIFE_CYCLE;
 import static eu.dar3.borsch.utils.Constants.CODE_FINISH;
@@ -28,9 +30,9 @@ import static eu.dar3.borsch.utils.Constants.CODE_START;
 public class AuthController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
-    private final ApplicationEventPublisher eventPublisher;
+//    private final ApplicationEventPublisher eventPublisher;
     private final UserRepository userRepository;
     private final MessageSource messageSource;
     private final Locale locale = new Locale("pl");

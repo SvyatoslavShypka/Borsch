@@ -67,7 +67,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public Properties properties(){
+    public Properties properties() {
         Properties properties = new Properties();
         try {
             properties.load(WebSecurityConfig.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES_FILE_NAME));

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
 @Component
