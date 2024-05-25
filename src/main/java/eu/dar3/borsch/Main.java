@@ -5,7 +5,6 @@ import java.io.IOException;
 public class Main {
 
 //    private final MessageSource messages;
-
     public static void main(String[] args) throws IOException {
 
         /*Properties properties = new Properties();
