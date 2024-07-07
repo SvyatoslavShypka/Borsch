@@ -26,6 +26,7 @@ public class AppController {
         return result;
     }
 
+
     @GetMapping("/about")
     public ModelAndView getAboutPage() {
         ModelAndView result = new ModelAndView("pages/about");
