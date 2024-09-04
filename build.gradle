@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'org.springframework.boot' version '3.0.9'
+//    id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.2'
 }
 
@@ -11,7 +12,7 @@ bootRun {
     args = ["-Dspring.profiles.active=production"]
 }
 
-group = 'com.ratatui'
+group = 'eu.dar3'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -25,7 +26,11 @@ configurations {
 }
 
 repositories {
+    jcenter()
     mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
 }
 
 dependencies {
