@@ -33,7 +33,6 @@ import static eu.dar3.borsch.utils.Constants.RECIPE_TITLE_MAX_LENGTH;
 @NoArgsConstructor
 @Table(name = "recipe", schema = "recipes")
 public class Recipe {
-
     @Id
     @Column(name = "recipe_id")
     @GeneratedValue(strategy = GenerationType.UUID)
