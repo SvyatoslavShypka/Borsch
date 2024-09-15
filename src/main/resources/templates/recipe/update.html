@@ -48,7 +48,6 @@
         });
     }
 
-
     $(function(){
         registerSummernote('.summernote', 'Leave a comment', 20, function(max) {
             $('#maxContentPost').text(max)
@@ -56,7 +55,6 @@
     });
 
 </script>
-var x = 'Test'
 
 <div class="container">
     <div class="row">
@@ -72,6 +70,19 @@ var x = 'Test'
     <title th:text="#{page.recipe.edit.title}">Edit recipe</title>
 </head>
 <body>
+<script>
+    function checkNoteLength() {
+        // Get the text content from the Summernote editor
+        var noteLength = $('.summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, "").length;
+
+        // Show an alert with the length of the content
+        // alert('Text length: ' + 100);
+        alert('Text length: ' + noteLength);
+
+        // Allow form submission
+        return true;
+    }
+</script>
 <div layout:fragment="content" th:remove="tag">
     <div class="modal fade" id="modal-delete">
         <div class="modal-dialog modal-lg">
@@ -107,7 +118,7 @@ var x = 'Test'
                     <h2 th:text="#{page.recipe.edit.title}">Edit recipe</h2>
                 </div>
                 <div class="card card-default mb-2">
-                    <form action="/recipe/edit" method="post" id="createForm">
+                    <form action="/recipe/edit" method="post" id="createForm"  onsubmit="return checkNoteLength()">
                         <div class="card-body p-0 m-3">
                             <div class="bs-stepper-content">
                                 <div class="form-group">
@@ -158,7 +169,7 @@ var x = 'Test'
                                 <button type="submit" class="btn btn-success m-1"
                                         th:text="#{page.profile.button.save}"
                                         th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)">
-<!--                                        th:onclick="window.alert('id: ' + /*[[${summernote.text}]]*/)">-->
+<!--                                        th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)"-->
                                     Save
                                 </button>
                             </div>
