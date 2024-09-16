@@ -1,6 +1,8 @@
 package eu.dar3.borsch.security;
 
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -31,6 +34,18 @@ import static eu.dar3.borsch.utils.Constants.DEFAULT_PROPERTIES_FILE_NAME;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
+
+    @Configuration
+    public static class MultipartConfig {
+
+        @Bean
+        public MultipartConfigElement multipartConfigElement() {
+            MultipartConfigFactory factory = new MultipartConfigFactory();
+            factory.setMaxFileSize(DataSize.ofBytes(50 * 1024 * 1024));
+            factory.setMaxRequestSize(DataSize.ofBytes(50 * 1024 * 1024));
+            return factory.createMultipartConfig();
+        }
+    }
 
     @Autowired
     private DataSource dataSource;

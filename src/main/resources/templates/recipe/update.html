@@ -11,65 +11,39 @@
 <!-- include summernote css/js -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<head>
+    <title th:text="#{page.recipe.edit.title}">Edit recipe</title>
 <script>
+    $(function() {
+        registerSummernote('.summernote', 'Leave a comment', 20, function(max) {
+            $('#maxContentPost').text(max);
+        });
+    });
+
     function registerSummernote(element, placeholder, max, callbackMax) {
         $(element).summernote({
             toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview', 'help']]
             ],
-            placeholder,
+            placeholder: placeholder,
             callbacks: {
-                onKeydown: function(e) {
-                    var t = e.currentTarget.innerText;
-                    if (t.length >= max) {
-                        //delete key
-                        if (e.keyCode != 8)
-                            e.preventDefault();
-                        // add other keys ...
-                    }
-                },
-                onKeyup: function(e) {
-                    var t = e.currentTarget.innerText;
-                    if (typeof callbackMax == 'function') {
-                        callbackMax(max - t.length);
-                    }
-                },
-                onPaste: function(e) {
-                    var t = e.currentTarget.innerText;
-                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-                    e.preventDefault();
-                    var all = t + bufferText;
-                    document.execCommand('insertText', false, all.trim().substring(0, 20));
-                    if (typeof callbackMax == 'function') {
-                        callbackMax(max - t.length);
+                onImageUpload: function(files) {
+                    for (var i = 0; i < files.length; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var image = $('<img>').attr('src', e.target.result);
+                            $(element).summernote('insertNode', image[0]);
+                        };
+                        reader.readAsDataURL(files[i]);
                     }
                 }
             }
         });
     }
 
-    $(function(){
-        registerSummernote('.summernote', 'Leave a comment', 20, function(max) {
-            $('#maxContentPost').text(max)
-        });
-    });
-
 </script>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="summernote"></div>
-        </div>
-        <div class="col-xs-12 text-right">
-            <span id="maxContentPost"></span>
-        </div>
-    </div>
-</div>
-<head>
-    <title th:text="#{page.recipe.edit.title}">Edit recipe</title>
-</head>
-<body>
 <script>
     function checkNoteLength() {
         // Get the text content from the Summernote editor
@@ -83,6 +57,19 @@
         return true;
     }
 </script>
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="summernote"></div>
+        </div>
+        <div class="col-xs-12 text-right">
+            <span id="maxContentPost"></span>
+        </div>
+    </div>
+</div>
+<body>
 <div layout:fragment="content" th:remove="tag">
     <div class="modal fade" id="modal-delete">
         <div class="modal-dialog modal-lg">
@@ -104,7 +91,7 @@
                     <button type="button" class="btn btn-success m-1"
                             th:attr="onclick=|window.location.href
                             ='/recipe/delete?id=${recipe.id}';|"
-                    th:text="#{page.recipe.edit.delete}">
+                            th:text="#{page.recipe.edit.delete}">
                         Delete
                     </button>
                 </div>
@@ -118,7 +105,8 @@
                     <h2 th:text="#{page.recipe.edit.title}">Edit recipe</h2>
                 </div>
                 <div class="card card-default mb-2">
-                    <form action="/recipe/edit" method="post" id="createForm"  onsubmit="return checkNoteLength()">
+<!--                    <form action="/recipe/edit" method="post" id="createForm"  onsubmit="return checkNoteLength()">-->
+                    <form action="/recipe/edit" method="post" id="createForm">
                         <div class="card-body p-0 m-3">
                             <div class="bs-stepper-content">
                                 <div class="form-group">
@@ -168,8 +156,8 @@
                                 </button>
                                 <button type="submit" class="btn btn-success m-1"
                                         th:text="#{page.profile.button.save}"
-                                        th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)">
-<!--                                        th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)"-->
+                                        th:onclick="window.alert('Id: ' + /*[[${recipe.id.toString()}]]*/)">
+<!--                                        th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)">-->
                                     Save
                                 </button>
                             </div>
@@ -177,7 +165,7 @@
                             <div class="btn-group float-right mt-2" role="group">
                                 <label class="checkbox-ios">
                                     <label class="form-check-label" for="publicRecipe"
-                                    th:text="#{page.recipe.public}">
+                                           th:text="#{page.recipe.public}">
                                         Public
                                     </label>
                                     <input type="checkbox" id="publicRecipe" name="publicRecipe"
@@ -197,7 +185,7 @@
                                            th:placeholder="#{page.recipe.edit.tag.placeholder}">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-success"
-                                        th:text="#{page.recipe.edit.add-tag}">
+                                                th:text="#{page.recipe.edit.add-tag}">
                                             Add tag
                                         </button>
                                     </div>
