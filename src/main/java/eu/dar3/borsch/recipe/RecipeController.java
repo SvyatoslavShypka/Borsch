@@ -2,19 +2,24 @@ package eu.dar3.borsch.recipe;
 
 import static eu.dar3.borsch.utils.Constants.REDIRECT_URL_404;
 
+import eu.dar3.borsch.file.FileService;
 import eu.dar3.borsch.user.User;
 import eu.dar3.borsch.user.UserOptionsService;
 import eu.dar3.borsch.user.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -24,6 +29,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -42,7 +49,26 @@ public class RecipeController {
     public static final String RECIPE_UPDATE_TEMPLATE = "recipe/update";
     public static final int DEFAULT_PAGE_SIZE = 10;
 
-//    @Value("${recipe.page.size}")
+    @Autowired
+    private FileService fileService;
+
+    @PostMapping("/uploadImage")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
+        try {
+            // Zapisz plik i uzyskaj URL
+            String fileUrl = fileService.saveFileAndGetUrl(file);
+
+            // Przekaż URL do widoku, aby wyświetlić zapisany obrazek
+            model.addAttribute("fileUrl", fileUrl);
+            return "recipeView"; // Widok, gdzie chcemy wyświetlić URL
+        } catch (IOException e) {
+            // Obsłuż błąd zapisu pliku
+            model.addAttribute("error", "Error saving file: " + e.getMessage());
+            return "errorPage"; // Widok błędu
+        }
+    }
+
+    //    @Value("${recipe.page.size}")
     @PostMapping("/create")
     public RedirectView createRecipe(@RequestParam(value = "title") String title,
                                    @RequestParam(value = "note") String note,
@@ -122,6 +148,54 @@ public class RecipeController {
     }
 
     @PostMapping("/edit")
+    public String editRecipe(
+            @RequestParam(value = "id") UUID id,
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "note") String note,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "publicRecipe", required = false) String publicRecipe,
+            Model model) {
+
+        // Step 1: Determine access type (public/private)
+        RecipeAccessType accessType = RecipeAccessType.PRIVATE;
+        if (publicRecipe != null) {
+            accessType = RecipeAccessType.PUBLIC;
+        }
+
+        // Step 2: Handle image file upload (if file is provided)
+        String fileUrl = null;
+        if (file != null && !file.isEmpty()) {
+            try {
+                fileUrl = fileService.saveFileAndGetUrl(file);
+            } catch (IOException e) {
+                // Handle file upload error, pass the error to the view
+                model.addAttribute("error", "Error saving file: " + e.getMessage());
+                return "errorPage"; // Redirect to an error page
+            }
+        }
+
+        // Step 3: Update recipe with provided information
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setId(id);
+        // If a file URL is available, add it to the recipeDto
+        String updatedNote = note;
+        if (fileUrl != null) {
+            updatedNote += "\n" + fileUrl;
+//            recipeDto.setImageUrl(fileUrl);
+        }
+        recipeDto.setNote(updatedNote);
+        recipeDto.setTitle(title);
+        recipeDto.setRecipeAccessType(accessType);
+
+
+        // Step 4: Save the updated recipe
+        recipeService.update(recipeDto);
+
+        // Step 5: Redirect to the recipe view page
+        return "redirect:/recipe/view?id=" + id;
+    }
+/*
+    @PostMapping("/edit")
     public RedirectView editRecipe(
             @RequestParam(value = "id") UUID id,
             @RequestParam(value = "title") String title,
@@ -142,6 +216,7 @@ public class RecipeController {
         redirect.setUrl("/recipe/view?id=" + id);
         return redirect;
     }
+*/
 
     @GetMapping("/delete")
     public RedirectView delete(@RequestParam UUID id) {
@@ -150,7 +225,6 @@ public class RecipeController {
         recipeService.deleteById(id);
         return redirect;
     }
-
 
     @GetMapping("/share/{id}")
     public String shareRecipe(@PathVariable(name = "id") UUID id, Model model) {
