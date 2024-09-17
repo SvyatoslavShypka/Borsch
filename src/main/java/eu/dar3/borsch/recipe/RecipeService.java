@@ -105,7 +105,8 @@ public class RecipeService {
     }
 
     public String getSharedLink(UUID recipeId, UriComponentsBuilder uriComponentsBuilder) {
-        return uriComponentsBuilder.replacePath(null).replaceQuery(null).build().toString()
+        // TODO to check on production: Added scheme "https" to qr code
+        return uriComponentsBuilder.replacePath(null).replaceQuery(null).scheme("https").build().toString()
                 + "/recipe/share/" + recipeId;
     }
 }
