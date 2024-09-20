@@ -112,6 +112,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                             "/sendEmailConfirmation",
                             "/img/**",
                             "/css/**",
+                            // TODO check if needed for uploads
+                            "/uploads/**",
                             "/recipe/share/**",
                             "/error/**",
                             "/register/**"
