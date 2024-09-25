@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
@@ -19,7 +18,7 @@
     <script>
         $(document).ready(function () {
             // Initialize Summernote editor
-            registerSummernote('.summernote', 'Leave a comment', 10000, function (max) {
+            registerSummernote('.summernote', 'Leave a comment', 100, function (max) {
                 $('#maxContentPost').text(max);
             });
         });
@@ -66,8 +65,8 @@
         function checkNoteLength() {
             var noteLength = $('.summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, "").length;
 
-            if (noteLength > 10000) {
-                alert('Text length exceeds the allowed limit of 10000 characters!');
+            if (noteLength > 100) {
+                alert('Text length exceeds the allowed limit of 100 characters!');
                 return false;  // Prevent form submission
             }
 
@@ -125,9 +124,7 @@
                                 <!-- Recipe note (Summernote editor) -->
                                 <div class="form-group">
                                     <label for="summernote" th:text="#{page.recipe.note}">Note</label>
-                                    <textarea rows="10" class="summernote form-control form-control-lg"
-                                              id="summernote" name="note" th:text="${recipe.note}">
-                                    </textarea>
+                                    <textarea rows="10" class="summernote form-control form-control-lg" id="summernote" name="note" th:text="${recipe.note}"></textarea>
                                 </div>
 
                                 <!-- Recipe tags -->
