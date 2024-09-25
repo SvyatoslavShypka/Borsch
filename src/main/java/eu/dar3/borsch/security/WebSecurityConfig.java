@@ -90,7 +90,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
             throw new RuntimeException(e);
         }
         return properties;
-
     }
 
     @Bean
