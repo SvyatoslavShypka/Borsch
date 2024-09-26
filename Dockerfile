@@ -14,6 +14,7 @@ ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY --from=BUILD $APP_HOME .
-COPY build/libs/${JAR_FILE} app.jar
+#COPY build/libs/${JAR_FILE} app.jar
+COPY $APP_HOME/build/libs/${JAR_FILE} app.jar
 EXPOSE 7778
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
