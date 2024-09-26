@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  web:
+    restart: always
+    expose:
+      - 7778
+    ports:
+      - 7778:7778
+    image: borsch3:latest
+    build: .
+  postgres:
+    image: postgresql:latest
+    container_name: PostgreSQL
+    environment:
+      POSTGRES_DB: ""
+      POSTGRES_USER: ""
+      POSTGRES_PASSWORD: ""
+    ports:
+      - "5432"
