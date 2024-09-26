@@ -1,3 +1,5 @@
+
+RUN ./gradlew clean build
 FROM openjdk:latest
 LABEL cicd="borsch3"
 VOLUME /tmp
