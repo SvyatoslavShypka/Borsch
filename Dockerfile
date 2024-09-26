@@ -1,6 +1,6 @@
 
-RUN ./gradlew clean build
 FROM openjdk:latest
+RUN ./gradlew clean build
 LABEL cicd="borsch3"
 VOLUME /tmp
 ARG JAR_FILE
