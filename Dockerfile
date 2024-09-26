@@ -5,6 +5,7 @@ FROM gradle:8.0.2 AS BUILD
 WORKDIR /usr/app/
 COPY . .
 RUN gradle clean build
+COPY build ./build
 
 # Package stage
 FROM openjdk:latest
