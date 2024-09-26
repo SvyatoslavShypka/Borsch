@@ -11,7 +11,7 @@ FROM openjdk:latest
 #RUN ./gradlew clean build
 LABEL cicd="borsch3"
 VOLUME /tmp
-ARG JAR_FILE=/build/libs/Borsch-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 COPY build/libs/${JAR_FILE} app.jar
 EXPOSE 7778
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
