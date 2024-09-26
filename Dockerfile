@@ -1,9 +1,10 @@
 
 #Build stage
-FROM gradle:latest AS BUILD
+#FROM gradle:8.0.2-bin AS BUILD
+FROM gradle:8.0.2 AS BUILD
 WORKDIR /usr/app/
 COPY . .
-RUN gradle build
+RUN gradle clean build
 
 # Package stage
 FROM openjdk:latest
