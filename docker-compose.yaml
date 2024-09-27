@@ -25,4 +25,4 @@ services:
     build: .
 secrets: # top level secrets block
   my_file_secret:
-    file: secrets.txt
+    file: /secrets.txt
