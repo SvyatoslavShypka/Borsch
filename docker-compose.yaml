@@ -12,7 +12,7 @@ services:
   web:
     restart: always
     expose:
-      - 7778
+      - 2665
     ports:
       - 7778:7778
     image: borsch3:latest
