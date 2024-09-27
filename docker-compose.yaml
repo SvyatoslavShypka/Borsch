@@ -12,6 +12,8 @@ services:
 #      - "5432"
 #ENV spring.profiles.active=production
   web:
+    secrets: # secrets block only for 'web' service
+      - my_file_secret
     environment:
       - spring.profiles.active=production
     restart: always
@@ -21,3 +23,6 @@ services:
       - 7778:7778
     image: borsch3:latest
     build: .
+secrets: # top level secrets block
+  my_file_secret:
+    file: secrets.txt
