@@ -18,5 +18,5 @@ ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 #RUN ls
 COPY /build/libs/${JAR_FILE} app.jar
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
-EXPOSE 7778
+EXPOSE 2665
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
