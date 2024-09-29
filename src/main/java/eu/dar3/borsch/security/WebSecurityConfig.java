@@ -89,7 +89,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                     requests
                         .requestMatchers(
 //                            "/**",
-                            "/static/**",
+//                            "/static/**",
                             "/index",
                             "/about",
                             "/info",

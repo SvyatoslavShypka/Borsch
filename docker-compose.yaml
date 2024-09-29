@@ -13,7 +13,8 @@ services:
 #ENV spring.profiles.active=production
   web:
     secrets: # secrets block only for 'web' service
-      - my_file_secret
+      - NOTE_DB_USER
+      - NOTE_DB_PASSWORD
     environment:
       - spring.profiles.active=production
     restart: always
@@ -24,5 +25,7 @@ services:
     image: borsch3:latest
     build: .
 secrets: # top level secrets block
-  my_file_secret:
-    file: /secrets.txt
+  NOTE_DB_USER:
+    file: /NOTE_DB_USER.txt
+  NOTE_DB_PASSWORD:
+    file: /NOTE_DB_PASSWORD.txt
