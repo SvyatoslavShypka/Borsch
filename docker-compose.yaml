@@ -16,13 +16,14 @@ services:
       - 7778:7778
     image: borsch3:latest
 #    entrypoint: "/bin/sh -c 'eureka_password=`cat /run/secrets/password` && echo $eureka_password'"
-#    entrypoint: "/bin/sh -c 'NOTE_DB_PASSWORD=`cat /run/secrets/NOTE_DB_PASSWORD` && echo $NOTE_DB_PASSWORD'"
-    entrypoint: "/bin/sh -c 'cat /run/secrets/NOTE_DB_PASSWORD'"
+    entrypoint: "/bin/sh -c 'NOTE_DB_PASSWORD=`cat /run/secrets/NOTE_DB_PASSWORD` && NOTE_DB_USER=`cat /run/secrets/NOTE_DB_USER`'"
+#    entrypoint: "/bin/sh -c 'cat /run/secrets/NOTE_DB_PASSWORD'"
     secrets:
+      - NOTE_DB_USER
       - NOTE_DB_PASSWORD
     build: .
 secrets: # top level secrets block
-  NOTE_DB_PASSWORD:
-    file: /NOTE_DB_PASSWORD.txt
   NOTE_DB_USER:
     file: /NOTE_DB_USER.txt
+  NOTE_DB_PASSWORD:
+    file: /NOTE_DB_PASSWORD.txt
