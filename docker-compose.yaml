@@ -11,7 +11,7 @@ services:
       - 7778:7778
     image: borsch3:latest
 #    entrypoint: "/bin/sh -c 'eureka_password=`cat /run/secrets/password` && echo $eureka_password'"
-    entrypoint: "/bin/sh -c 'NOTE_DB_P=`cat /run/secrets/NOTE_DB_P` && NOTE_DB_U=`cat /run/secrets/NOTE_DB_U` && cat /run/secrets'"
+    entrypoint: "/bin/sh -c 'NOTE_DB_P=`cat /run/secrets/NOTE_DB_P` && NOTE_DB_U=`cat /run/secrets/NOTE_DB_U` && cat /run/secrets/NOTE_DB_P'"
 #    entrypoint: "/bin/sh -c 'cat /run/secrets/NOTE_DB_PASSWORD'"
     environment:
       - spring.profiles.active=production
