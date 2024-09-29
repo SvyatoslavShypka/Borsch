@@ -3,12 +3,12 @@ version: "3.9"
 services:
   web:
     secrets: # secrets block only for 'web' service
-      - NOTE_DB_U
-      - NOTE_DB_P
+      - NOTE_DB_USER
+      - NOTE_DB_PASSWORD
     environment:
       - spring.profiles.active=production
-      - NOTE_DB_USER=${NOTE_DB_U}
-      - NOTE_DB_PASSWORD=${NOTE_DB_P}
+#      - NOTE_DB_USER=${NOTE_DB_U}
+#      - NOTE_DB_PASSWORD=${NOTE_DB_P}
 #    restart: always
     expose:
       - 2665
@@ -17,7 +17,7 @@ services:
     image: borsch3:latest
     build: .
 secrets: # top level secrets block
-  NOTE_DB_U:
+  NOTE_DB_USER:
     file: /NOTE_DB_USER.txt
-  NOTE_DB_P:
+  NOTE_DB_PASSWORD:
     file: /NOTE_DB_PASSWORD.txt
