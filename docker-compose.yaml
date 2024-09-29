@@ -17,6 +17,8 @@ services:
       - NOTE_DB_PASSWORD
     environment:
       - spring.profiles.active=production
+      - NOTE_DB_USER=${NOTE_DB_USER}
+      - NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
     restart: always
     expose:
       - 2665
