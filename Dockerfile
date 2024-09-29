@@ -11,6 +11,7 @@
 FROM openjdk:latest
 LABEL cicd="borsch3"
 RUN --mount=type=secret,id=aws AWS_SHARED_CREDENTIALS_FILE=/run/secrets/aws
+#EXPORT AWS_SHARED_CREDENTIALS_FILE=${aws}
 #VOLUME /tmp
 ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 #ENV APP_HOME=/usr/app/
