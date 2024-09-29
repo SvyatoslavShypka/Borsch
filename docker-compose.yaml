@@ -17,7 +17,7 @@ services:
     image: borsch3:latest
 #    entrypoint: "/bin/sh -c 'eureka_password=`cat /run/secrets/password` && echo $eureka_password'"
 #    entrypoint: "/bin/sh -c 'NOTE_DB_PASSWORD=`cat /NOTE_DB_PASSWORD.TXT` && echo $NOTE_DB_PASSWORD'"
-    entrypoint: "/bin/sh -c 'ls'"
+    entrypoint: "/bin/sh -c 'ls /run'"
     secrets:
       - NOTE_DB_PASSWORD
     build: .
