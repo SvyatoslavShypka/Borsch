@@ -1,16 +1,6 @@
 version: "3.9"
 
 services:
-#  postgres:
-#    image: postgresql:latest
-#    container_name: PostgreSQL
-#    environment:
-#      POSTGRES_DB: ""
-#      POSTGRES_USER: ""
-#      POSTGRES_PASSWORD: ""
-#    ports:
-#      - "5432"
-#ENV spring.profiles.active=production
   web:
     secrets: # secrets block only for 'web' service
       - NOTE_DB_USER
