@@ -22,5 +22,5 @@ COPY /build/libs/${JAR_FILE} app.jar
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
 ENV NOTE_DB_PASSWORD=${AWS_SHARED_CREDENTIALS_FILE}
-RUN ECHO ${NOTE_DB_PASSWORD}
+#RUN ECHO ${NOTE_DB_PASSWORD}
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
