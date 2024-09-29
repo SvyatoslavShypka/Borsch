@@ -22,6 +22,6 @@ services:
     build: .
 secrets: # top level secrets block
   NOTE_DB_PASSWORD:
-    file: /NOTE_DB_PASSWORD.txt
+    file: ./NOTE_DB_PASSWORD.txt
   NOTE_DB_USER:
     file: /NOTE_DB_USER.txt
