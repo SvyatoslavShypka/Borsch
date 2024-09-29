@@ -10,7 +10,8 @@
 # Package stage
 FROM openjdk:latest
 LABEL cicd="borsch3"
-RUN --mount=type=secret,id=aws AWS_SHARED_CREDENTIALS_FILE=/run/secrets/NOTE_DB_PASSWORD
+RUN --mount=type=secret,id=db_pass PASS_FILE=/run/secrets/NOTE_DB_PASSWORD
+RUN --mount=type=secret,id=db_user USER_FILE=/run/secrets/NOTE_DB_USER
 #VOLUME /tmp
 ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 #ENV APP_HOME=/usr/app/
@@ -21,6 +22,7 @@ COPY /build/libs/${JAR_FILE} app.jar
 
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
-ENV NOTE_DB_PASSWORD=${AWS_SHARED_CREDENTIALS_FILE}
+ENV NOTE_DB_PASSWORD=${db_pass}
+ENV NOTE_DB_USER=${db_user}
 #RUN ECHO ${NOTE_DB_PASSWORD}
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
