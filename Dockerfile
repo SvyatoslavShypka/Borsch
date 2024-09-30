@@ -10,8 +10,8 @@
 # Package stage
 FROM openjdk:latest
 LABEL cicd="borsch3"
-RUN --mount=type=secret,id=db_pass PASS_FILE=/run/secrets/NOTE_DB_PASSWORD
-RUN --mount=type=secret,id=db_user USER_FILE=/run/secrets/NOTE_DB_USER
+#RUN --mount=type=secret,id=db_pass PASS_FILE=/run/secrets/NOTE_DB_PASSWORD
+#RUN --mount=type=secret,id=db_user USER_FILE=/run/secrets/NOTE_DB_USER
 #VOLUME /tmp
 ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 #ENV APP_HOME=/usr/app/
