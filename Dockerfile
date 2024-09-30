@@ -27,5 +27,5 @@ ENV NOTE_DB_PASSWORD=${NOTE_DB_P}
 ENV NOTE_DB_USER=${NOTE_DB_U}
 #RUN ECHO ${NOTE_DB_PASSWORD}
 #ENTRYPOINT ["/bin/sh", "-c", "export NOTE_DB_USER=`cat /run/secrets/NOTE_DB_U`"]
-ENTRYPOINT ["/bin/sh", "-c", "ECHO ${NOTE_DB_PASSWORD}"]
+RUN ["/bin/sh", "-c", "ECHO ${NOTE_DB_PASSWORD}"]
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
