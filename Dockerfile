@@ -22,7 +22,8 @@ COPY /build/libs/${JAR_FILE} app.jar
 
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
-ENV NOTE_DB_PASSWORD=${db_pass}
-ENV NOTE_DB_USER=${db_user}
+ENV spring.profiles.active=production
+#ENV NOTE_DB_PASSWORD=${db_pass}
+#ENV NOTE_DB_USER=${db_user}
 #RUN ECHO ${NOTE_DB_PASSWORD}
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
