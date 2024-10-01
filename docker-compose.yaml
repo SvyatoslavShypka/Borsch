@@ -2,9 +2,6 @@ version: "3.9"
 
 services:
   web:
-    secrets:
-      - NOTE_DB_U
-      - NOTE_DB_P
     expose:
       - 2665
     ports:
@@ -19,6 +16,9 @@ services:
       - spring.profiles.active=production
       - NOTE_DB_USER=$NOTE_DB_USE
 #      - NOTE_DB_PASSWORD=${NOTE_DB_PAS}
+    secrets:
+      - NOTE_DB_U
+      - NOTE_DB_P
 #    restart: always
     build: .
 secrets: # top level secrets block
