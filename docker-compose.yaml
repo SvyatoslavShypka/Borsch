@@ -16,7 +16,7 @@ services:
       - spring.profiles.active=production
       - NOTE_DB_USER=user3
 #      - NOTE_DB_USER=${db_user}
-#      - NOTE_DB_PASSWORD=${NOTE_DB_PAS}
+      - NOTE_DB_PASSWORD=${NOTE_DB_PASSSWORD}
     secrets:
       - NOTE_DB_U
       - NOTE_DB_P
