@@ -18,10 +18,10 @@ COPY --from=build /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
 
 # Komenda startowa
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app.jar"]
 #FROM openjdk:latest
 
 
 #COPY /build/libs/${JAR_FILE} app.jar
 #EXPOSE 2665
-#ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar ${0} ${@}"]
