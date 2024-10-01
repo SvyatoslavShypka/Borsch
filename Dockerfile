@@ -12,7 +12,7 @@ FROM openjdk:latest
 LABEL cicd="borsch3"
 #RUN --mount=type=secret,id=NOTE_DB_U,env=NOTE_DB_USER \
 #    --mount=type=secret,id=NOTE_DB_P,env=NOTE_DB_PASSWORD
-#RUN --mount=type=secret,id=NOTE_DB_U db_user=/run/secrets/NOTE_DB_U
+RUN --mount=type=secret,id=NOTE_DB_U db_user=/run/secrets/NOTE_DB_U
 #RUN echo ${db_user}
 #RUN --mount=type=secret,id=NOTE_DB_P db_pass=/run/secrets/NOTE_DB_P
 #RUN echo ${db_pass}
