@@ -32,7 +32,7 @@ EXPOSE 2665
 
 #ENV spring.profiles.active=production
 #ENV NOTE_DB_USER=${NOTE_DB_USE}
-ENV NOTE_DB_USER=test
+#ENV NOTE_DB_USER=test
 #ENV NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
 #CMD sh -c echo $NOTE_DB_PASSWORD
 #CMD env
