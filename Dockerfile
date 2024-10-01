@@ -5,7 +5,8 @@ COPY . .
 RUN gradle clean build --no-daemon
 
 # Faza 2: Package stage
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
+FROM openjdk:latest
 #Możesz użyć innej wersji JDK, np. OpenJDK 17
 LABEL cicd="borsch3"
 WORKDIR /app
