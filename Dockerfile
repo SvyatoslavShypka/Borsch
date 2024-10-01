@@ -30,9 +30,9 @@ EXPOSE 2665
 ENTRYPOINT ["/bin/sh -c 'NOTE_DB_US=`cat /run/secrets/NOTE_DB_U`'"]
 #ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_PA=`cat /run/secrets/NOTE_DB_P`'"]
 
-ENV spring.profiles.active=production
+#ENV spring.profiles.active=production
 #ENV NOTE_DB_USER=user3
-ENV NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
+#ENV NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
 #CMD sh -c echo $NOTE_DB_PASSWORD
 #CMD env
 #RUN echo NOTE_DB_PASSWORD
