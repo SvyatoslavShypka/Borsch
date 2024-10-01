@@ -1,6 +1,5 @@
 version: "3.9"
 
-
 services:
   web:
     expose:
@@ -8,27 +7,24 @@ services:
     ports:
       - 7778:7778
     image: borsch3:latest
-#    entrypoint: "/bin/sh -c 'eureka_password=`cat /run/secrets/password` && echo $eureka_password'"
-    entrypoint:
-      if [ -f /run/secrets/username ]; then
+    entrypoint: |
+      /bin/sh -c "
+      if [ -f /run/secrets/NOTE_DB_U ]; then
         export NOTE_DB_USER=$(cat /run/secrets/NOTE_DB_U)
       fi
-
-#    entrypoint: "/bin/sh -c --mount=type=secret,id=NOTE_DB_USE db_user=/run/secrets/NOTE_DB_U"
-#    entrypoint: "/bin/sh -c 'export NOTE_DB_US=`cat /run/secrets/NOTE_DB_U`'"
-#    entrypoint: "/bin/sh -c 'export NOTE_DB_PASSWORD=`cat /run/secrets/NOTE_DB_P`'"
-#    entrypoint: "/bin/sh -c 'set NOTE_DB_PASSWORD=`cat /run/secrets/NOTE_DB_P` && set NOTE_DB_USER=`cat /run/secrets/NOTE_DB_U`'"
-#    entrypoint: "/bin/sh -c 'cat /run/secrets/NOTE_DB_P'"
+      if [ -f /run/secrets/NOTE_DB_P ]; then
+        export NOTE_DB_PASSWORD=$(cat /run/secrets/NOTE_DB_P)
+      fi
+      exec your_application_command_here" # tutaj wstaw polecenie startowe dla aplikacji
     secrets:
       - NOTE_DB_U
       - NOTE_DB_P
     environment:
       - spring.profiles.active=production
-#      - NOTE_DB_USER=${NOTE_DB_USE}
-#      - NOTE_DB_USER=${db_user}
-      - NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
-#    restart: always
+      - NOTE_DB_USER # ta zmienna zostanie przypisana w entrypoint
+      - NOTE_DB_PASSWORD # ta zmienna zostanie przypisana w entrypoint
     build: .
+
 secrets: # top level secrets block
   NOTE_DB_U:
     file: /NOTE_DB_USER.txt
