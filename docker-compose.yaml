@@ -17,7 +17,7 @@ services:
 #    entrypoint: "/bin/sh -c 'cat /run/secrets/NOTE_DB_P'"
     environment:
       - NOTE_DB_USER=${NOTE_DB_USE}
-      - NOTE_DB_PASSWORD=${NOTE_DB_PAS}
+#      - NOTE_DB_PASSWORD=${NOTE_DB_PAS}
       - spring.profiles.active=production
 #    restart: always
     build: .
