@@ -24,8 +24,8 @@ COPY /build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
 ENV spring.profiles.active=production
 ENV NOTE_DB_USER=${db_user}
-ENV NOTE_DB_PASSWORD=${db_pass}
-CMD sh -c echo $NOTE_DB_PASSWORD
+#ENV NOTE_DB_PASSWORD=${db_pass}
+#CMD sh -c echo $NOTE_DB_PASSWORD
 #CMD env
 #RUN echo NOTE_DB_PASSWORD
 #RUN ECHO ${NOTE_DB_PASSWORD}
