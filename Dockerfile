@@ -27,14 +27,14 @@ COPY /build/libs/${JAR_FILE} app.jar
 
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
-ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_US=`cat /run/secrets/NOTE_DB_U`'"]
-ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_PA=`cat /run/secrets/NOTE_DB_P`'"]
+#ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_US=`cat /run/secrets/NOTE_DB_U`'"]
+#ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_PA=`cat /run/secrets/NOTE_DB_P`'"]
 
 #ENV spring.profiles.active=production
-ENV NOTE_DB_USER=${NOTE_DB_US}
+#ENV NOTE_DB_USER=${NOTE_DB_US}
 #ENV NOTE_DB_PASSWORD=${NOTE_DB_PA}
 #CMD sh -c echo $NOTE_DB_PASSWORD
-CMD env
+#CMD env
 #RUN echo NOTE_DB_PASSWORD
 #RUN ECHO ${NOTE_DB_PASSWORD}
 #ENTRYPOINT ["/bin/sh", "-c", "export NOTE_DB_USER=`cat /run/secrets/NOTE_DB_U`"]
