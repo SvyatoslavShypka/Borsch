@@ -11,7 +11,9 @@
 FROM openjdk:latest
 LABEL cicd="borsch3"
 RUN --mount=type=secret,id=db_user db_user_file=/run/secrets/NOTE_DB_U
+RUN cat /run/secrets/NOTE_DB_U
 RUN --mount=type=secret,id=db_pass db_pass_file=/run/secrets/NOTE_DB_P
+RUN cat /run/secrets/NOTE_DB_P
 #VOLUME /tmp
 ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
 #ENV APP_HOME=/usr/app/
