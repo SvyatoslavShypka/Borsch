@@ -15,7 +15,7 @@ LABEL cicd="borsch3"
 RUN --mount=type=secret,id=NOTE_DB_USE db_user=/run/secrets/NOTE_DB_U
 #RUN echo ${db_user}
 RUN --mount=type=secret,id=NOTE_DB_PAS db_pass=/run/secrets/NOTE_DB_P
-RUN echo ${db_pass} >> 1.txt
+#RUN echo ${db_pass} >> 1.txt
 #RUN cat /run/secrets/NOTE_DB_P
 #VOLUME /tmp
 ARG JAR_FILE=Borsch-0.0.1-SNAPSHOT.jar
@@ -31,7 +31,8 @@ EXPOSE 2665
 #ENTRYPOINT ["/bin/sh -c 'export NOTE_DB_PA=`cat /run/secrets/NOTE_DB_P`'"]
 
 #ENV spring.profiles.active=production
-#ENV NOTE_DB_USER=user3
+#ENV NOTE_DB_USER=${NOTE_DB_USE}
+ENV NOTE_DB_USER=test
 #ENV NOTE_DB_PASSWORD=${NOTE_DB_PASSWORD}
 #CMD sh -c echo $NOTE_DB_PASSWORD
 #CMD env
