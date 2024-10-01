@@ -17,7 +17,7 @@ services:
         if [ -f /run/secrets/NOTE_DB_P ]; then
           export NOTE_DB_PASSWORD=$$(cat /run/secrets/NOTE_DB_P);
         fi;
-        exec your_application_command_here; # zamień na komendę startową
+        exec java -jar /app.jar;
     secrets:
       - NOTE_DB_U
       - NOTE_DB_P
