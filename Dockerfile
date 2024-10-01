@@ -10,8 +10,8 @@
 # Package stage
 FROM openjdk:latest
 LABEL cicd="borsch3"
-RUN --mount=type=secret,id=NOTE_DB_U,env=NOTE_DB_USER \
-    --mount=type=secret,id=NOTE_DB_P,env=NOTE_DB_PASSWORD
+#RUN --mount=type=secret,id=NOTE_DB_U,env=NOTE_DB_USER \
+#    --mount=type=secret,id=NOTE_DB_P,env=NOTE_DB_PASSWORD
 #RUN --mount=type=secret,id=NOTE_DB_U db_user=/run/secrets/NOTE_DB_U
 #RUN echo ${db_user}
 #RUN --mount=type=secret,id=NOTE_DB_P db_pass=/run/secrets/NOTE_DB_P
@@ -27,7 +27,7 @@ COPY /build/libs/${JAR_FILE} app.jar
 
 #COPY /usr/app/build/libs/${JAR_FILE} app.jar
 EXPOSE 2665
-ENV spring.profiles.active=production
+#ENV spring.profiles.active=production
 #ENV NOTE_DB_USER=${db_user}
 #ENV NOTE_DB_PASSWORD=${db_pass}
 #CMD sh -c echo $NOTE_DB_PASSWORD
