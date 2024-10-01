@@ -14,7 +14,7 @@ LABEL cicd="borsch3"
 #    --mount=type=secret,id=NOTE_DB_P,env=NOTE_DB_PASSWORD
 RUN --mount=type=secret,id=NOTE_DB_USE db_user=/run/secrets/NOTE_DB_U
 #RUN echo ${db_user}
-#RUN --mount=type=secret,id=NOTE_DB_P db_pass=/run/secrets/NOTE_DB_P
+RUN --mount=type=secret,id=NOTE_DB_PAS db_pass=/run/secrets/NOTE_DB_P
 #RUN echo ${db_pass}
 #RUN cat /run/secrets/NOTE_DB_P
 #VOLUME /tmp
