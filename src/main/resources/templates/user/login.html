@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html  lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="text-center">
                         <h3 data-th-text="#{page.login.label.welcome}">
-                            Welcome! Please log in...
+                            Welcome! Please log in.
                         </h3>
                     </div>
                     <div class="row justify-content-center">
@@ -50,9 +50,10 @@
                             <form th:action="@{/login}" method="post" class="form-signin mt-5" >
                                 <!-- Email input -->
                                 <div class="input-group mb-3">
-                                    <input type="email" class="form-control" id="username"
-                                       name="username" th:placeholder="#{page.login.email.input.placeholder}"
-                                       autofocus required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
+                                    <label for="username">
+                                    </label><input type="email" class="form-control" id="username"
+                                                                         name="username" th:placeholder="#{page.login.email.input.placeholder}"
+                                                                         autofocus required pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span style="font-weight: bold;">@</span>
