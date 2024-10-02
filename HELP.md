@@ -48,3 +48,10 @@ In this file, the following services have been defined:
 * postgres: [`postgres:latest`](https://hub.docker.com/_/postgres)
 
 Please review the tags of the used images and set them to the same as you're running in production.
+
+### CI/CD
+Clone the project locally
+Use bash ruh.sh to start CI/CD
+Use bash ruh.sh [--force | -f] to force the script to pull the latest code
+Use bash ruh.sh [--cleanup | -cu] to force the script to pull the latest code
+Use bash ruh.sh [--full_cleanup | -fcu] the script prunes only images with the cicd label
