@@ -54,4 +54,4 @@ Clone the project locally
 Use bash ruh.sh to start CI/CD
 Use bash ruh.sh [--force | -f] to force the script to pull the latest code
 Use bash ruh.sh [--cleanup | -cu] to force the script to pull the latest code
-Use bash ruh.sh [--full_cleanup | -fcu] the script prunes only images with the cicd label
+Use bash ruh.sh [--full_cleanup | -fcu] the script prunes only images with the CI/CD label
