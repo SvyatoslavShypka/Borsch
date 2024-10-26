@@ -3,6 +3,71 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<script>
+    function registerSummernote(element, placeholder, max, callbackMax) {
+        $(element).summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']]
+            ],
+            placeholder,
+            callbacks: {
+                onKeydown: function(e) {
+                    var t = e.currentTarget.innerText;
+                    if (t.length >= max) {
+                        //delete key
+                        if (e.keyCode != 8)
+                            e.preventDefault();
+                        // add other keys ...
+                    }
+                },
+                onKeyup: function(e) {
+                    var t = e.currentTarget.innerText;
+                    if (typeof callbackMax == 'function') {
+                        callbackMax(max - t.length);
+                    }
+                },
+                onPaste: function(e) {
+                    var t = e.currentTarget.innerText;
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    var all = t + bufferText;
+                    document.execCommand('insertText', false, all.trim().substring(0, 20));
+                    if (typeof callbackMax == 'function') {
+                        callbackMax(max - t.length);
+                    }
+                }
+            }
+        });
+    }
+
+
+    $(function(){
+        registerSummernote('.summernote', 'Leave a comment', 20, function(max) {
+            $('#maxContentPost').text(max)
+        });
+    });
+
+</script>
+var x = 'Test'
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="summernote"></div>
+        </div>
+        <div class="col-xs-12 text-right">
+            <span id="maxContentPost"></span>
+        </div>
+    </div>
+</div>
 <head>
     <title th:text="#{page.recipe.edit.title}">Edit recipe</title>
 </head>
@@ -91,7 +156,9 @@
                                     Delete
                                 </button>
                                 <button type="submit" class="btn btn-success m-1"
-                                        th:text="#{page.profile.button.save}">
+                                        th:text="#{page.profile.button.save}"
+                                        th:onclick="window.alert('Q-ty: ' + /*[[${recipe.note.length}]]*/)">
+<!--                                        th:onclick="window.alert('id: ' + /*[[${summernote.text}]]*/)">-->
                                     Save
                                 </button>
                             </div>
@@ -134,3 +201,4 @@
 </div>
 </body>
 </html>
+
