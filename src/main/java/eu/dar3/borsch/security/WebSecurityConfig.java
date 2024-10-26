@@ -88,8 +88,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
             .authorizeHttpRequests(requests -> {
                     requests
                         .requestMatchers(
-                            "/**",
-                            "/static/**",
+//                            "/**",
+//                            "/static/**",
                             "/index",
                             "/about",
                             "/info",
