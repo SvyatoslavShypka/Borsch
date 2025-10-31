@@ -7,6 +7,10 @@
 /dataSources/
 /dataSources.local.xml
 
+# Pliki lokalnej bazy danych H2 (tymczasowe)
+h2_recipedb.mv.db
+h2_recipedb.trace.db
+
 ##############################
 ## Java
 ##############################
