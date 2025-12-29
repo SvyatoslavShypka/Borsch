@@ -29,6 +29,6 @@ services:
 
 secrets: # top level secrets block
   NOTE_DB_U:
-    file: /NOTE_DB_USER.txt
+    file: ./NOTE_DB_USER.txt
   NOTE_DB_P:
-    file: /NOTE_DB_PASSWORD.txt
+    file: ./NOTE_DB_PASSWORD.txt
